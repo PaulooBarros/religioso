@@ -379,13 +379,16 @@ select {
   user-select: none;
 }
 .nav-head {
+  flex: none;
   display: flex;
   align-items: flex-start;
   gap: 6px;
   padding-bottom: 18px;
 }
-.nav-brand {
+.nav-head .nav-brand {
   flex: 1;
+}
+.nav-brand {
   min-width: 0;
   padding: 0 10px;
   font-family: var(--font-serif), serif;
