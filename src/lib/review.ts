@@ -3,7 +3,10 @@ import { createClient } from "@/lib/supabase/server";
 import { dayKey, endOfDay, lastDays, NEW_PER_DAY, startOfDay, streak, type ReviewState } from "@/lib/srs";
 import { STUDY_ITEM_COLUMNS, type StudyItem } from "@/lib/study";
 
-export type ReviewMode = "dia" | "erros";
+export type ReviewMode = "dia" | "erros" | "tema";
+
+/** Focus of a "tema" session: a theme, optionally narrowed to one subtheme. */
+export type ReviewFocus = { themeId: string; subthemeId?: string | null };
 
 export type SessionItem = StudyItem & {
   review: (ReviewState & { last_grade: number | null }) | null;
@@ -17,7 +20,7 @@ type Row = StudyItem & {
 
 const first = <T,>(v: T | T[] | null): T | null => (Array.isArray(v) ? (v[0] ?? null) : v);
 
-async function approvedItems(profileId: string): Promise<SessionItem[]> {
+export async function approvedItems(profileId: string): Promise<SessionItem[]> {
   const supabase = await createClient();
   const { data } = await supabase
     .from("study_items")
@@ -60,8 +63,20 @@ function split(items: SessionItem[], newLeft: number) {
   return { due, fresh };
 }
 
-export async function getQueue(profileId: string, mode: ReviewMode): Promise<SessionItem[]> {
+export async function getQueue(profileId: string, mode: ReviewMode, focus?: ReviewFocus): Promise<SessionItem[]> {
   const items = await approvedItems(profileId);
+  if (mode === "tema") {
+    if (!focus) return [];
+    // Every item of the theme: overdue first, then new, then the rest by due date.
+    const inFocus = items.filter(
+      (i) => i.theme_id === focus.themeId && (!focus.subthemeId || i.subtheme_id === focus.subthemeId),
+    );
+    const now = new Date().toISOString();
+    const rank = (i: SessionItem) => (!i.review ? 1 : i.review.due_at <= now ? 0 : 2);
+    return inFocus.sort(
+      (a, b) => rank(a) - rank(b) || (a.review?.due_at ?? "").localeCompare(b.review?.due_at ?? ""),
+    );
+  }
   if (mode === "erros") {
     return items
       .filter((i) => i.review?.last_grade === 1)

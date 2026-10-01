@@ -67,6 +67,20 @@ export async function saveStudyItem(_prev: ItemFormState, form: FormData): Promi
   else if (!previous || previous.source_url !== sourceUrl || previous.source_ok === null)
     linkCheck = { source_ok: await linkOpens(sourceUrl), source_checked_at: new Date().toISOString() };
 
+  // The subtheme must belong to the chosen theme (and, through RLS, to this profile).
+  const themeId = text(form, "theme_id");
+  let subthemeId = themeId ? text(form, "subtheme_id") : null;
+  if (subthemeId) {
+    const { data: sub } = await supabase
+      .from("subthemes")
+      .select("id")
+      .eq("id", subthemeId)
+      .eq("theme_id", themeId!)
+      .eq("profile_id", profileId)
+      .maybeSingle();
+    subthemeId = sub?.id ?? null;
+  }
+
   const row = {
     kind,
     prompt,
@@ -74,7 +88,8 @@ export async function saveStudyItem(_prev: ItemFormState, form: FormData): Promi
     options,
     correct_option: correct,
     explanation: text(form, "explanation"),
-    theme_id: text(form, "theme_id"),
+    theme_id: themeId,
+    subtheme_id: subthemeId,
     level,
     source_title: text(form, "source_title", 300),
     source_url: sourceUrl,

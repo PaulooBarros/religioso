@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ItemForm } from "../item-form";
 import { DeleteItem } from "./delete-item";
 import { getStudyItem, getThemes } from "@/lib/queries";
+import { getSubthemes } from "@/lib/trail";
 import { currentProfileId } from "@/lib/session";
 
 export const metadata = { title: "Editar item" };
@@ -11,7 +12,7 @@ export default async function EditItemPage({ params }: PageProps<"/estudar/[id]"
   const { id } = await params;
   const profileId = await currentProfileId();
   if (!profileId || !/^[0-9a-f-]{36}$/i.test(id)) notFound();
-  const [themes, item] = await Promise.all([getThemes(), getStudyItem(profileId, id)]);
+  const [themes, item, subthemes] = await Promise.all([getThemes(), getStudyItem(profileId, id), getSubthemes(profileId)]);
   if (!item) notFound();
 
   return (
@@ -23,7 +24,7 @@ export default async function EditItemPage({ params }: PageProps<"/estudar/[id]"
           </Link>
           <h1 className="h1">Editar item</h1>
         </div>
-        <ItemForm themes={themes} item={item} />
+        <ItemForm themes={themes} subthemes={subthemes} item={item} />
         <div style={{ borderTop: "1px solid var(--line)", paddingTop: 18 }}>
           <DeleteItem id={item.id} />
         </div>

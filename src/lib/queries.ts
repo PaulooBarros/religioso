@@ -55,7 +55,7 @@ export async function getNotes(profileId: string): Promise<Note[]> {
   const supabase = await createClient();
   const { data } = await supabase
     .from("notes")
-    .select("id, body, tags, created_at, updated_at, note_passages(book_id, chapter, verse_start, verse_end)")
+    .select("id, body, tags, created_at, updated_at, theme_id, subtheme_id, note_passages(book_id, chapter, verse_start, verse_end)")
     .eq("profile_id", profileId)
     .order("updated_at", { ascending: false });
   return (data ?? []) as Note[];

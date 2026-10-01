@@ -7,7 +7,6 @@ import { getSession, initials } from "@/lib/session";
 export const metadata = { title: "Mais" };
 
 const LATER = [
-  ["Trilha de sistemática", 3],
   ["Catecismos", 2],
   ["Simulados", 3],
   ["Fé batista", 5],
@@ -45,6 +44,7 @@ export default async function MorePage() {
         <nav style={{ display: "flex", flexDirection: "column", borderTop: "1px solid var(--line)" }}>
           {[
             ["/biblia/marcadores", "Marcadores"],
+            ["/trilha", "Trilha de sistemática"],
             ["/notas", "Notas"],
             ["/fontes", "Fontes e licenças"],
           ].map(([href, label]) => (

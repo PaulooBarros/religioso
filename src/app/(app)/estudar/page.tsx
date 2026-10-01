@@ -167,6 +167,9 @@ export default async function StudyPage({ searchParams }: PageProps<"/estudar">)
             <span className="label">Estudar</span>
             <h1 className="h1">Cards e questões</h1>
           </div>
+          <Link href="/trilha" className="btn">
+            Trilha
+          </Link>
           {profileId && (
             <Link href="/estudar/novo" className="btn btn-primary">
               <Icon name="mais_sinal" size={15} stroke={1.8} />

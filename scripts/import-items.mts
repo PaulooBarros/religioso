@@ -223,6 +223,23 @@ try {
         status,
       ],
     );
+
+    // Subtheme = last segment of the subtopic ("… · Batismo" -> "Batismo"); created when missing.
+    const subName = r.subtopic?.split("·").pop()?.trim();
+    if (r.theme_id && subName) {
+      await db.query(
+        `insert into public.subthemes (profile_id, theme_id, name, position)
+         values ($1, $2, $3, coalesce((select max(position) from public.subthemes where profile_id = $1 and theme_id = $2), 0) + 1)
+         on conflict (profile_id, theme_id, name) do nothing`,
+        [profile.id, r.theme_id, subName],
+      );
+      await db.query(
+        `update public.study_items set subtheme_id =
+           (select id from public.subthemes where profile_id = $1 and theme_id = $2 and name = $3)
+         where profile_id = $1 and external_id = $4`,
+        [profile.id, r.theme_id, subName, r.external_id],
+      );
+    }
   }
   await db.query("commit");
   console.log(`\n${rows.length} itens gravados como ${approve ? "aprovados" : "rascunho"} no perfil "${profile.name}".`);

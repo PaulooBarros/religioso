@@ -3,19 +3,30 @@ import { FromYourBase } from "@/components/icons";
 import { bookById } from "@/lib/bible/books";
 import { chapterHref, formatRef } from "@/lib/bible/reference";
 import { relativeDay } from "@/lib/dates";
-import { getNotes } from "@/lib/queries";
+import { getNotes, getThemes } from "@/lib/queries";
 import { currentProfileId } from "@/lib/session";
 
 export const metadata = { title: "Notas" };
 
-export default async function NotesPage() {
+export default async function NotesPage({ searchParams }: PageProps<"/notas">) {
+  const { tema } = await searchParams;
   const profileId = await currentProfileId();
-  const notes = profileId ? await getNotes(profileId) : [];
+  const [all, themes] = profileId ? await Promise.all([getNotes(profileId), getThemes()]) : [[], []];
+  const themeFilter = typeof tema === "string" ? themes.find((t) => t.id === tema) : undefined;
+  const notes = themeFilter ? all.filter((n) => n.theme_id === themeFilter.id) : all;
+  const themeName = (id?: string | null) => themes.find((t) => t.id === id)?.name;
 
   return (
     <main className="page">
       <div className="page-narrow" style={{ maxWidth: 760 }}>
-        <h1 className="h1">Notas</h1>
+        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          <h1 className="h1">Notas{themeFilter ? ` · ${themeFilter.name}` : ""}</h1>
+          {themeFilter && (
+            <Link href="/notas" className="caption">
+              Ver todas as notas
+            </Link>
+          )}
+        </div>
         {notes.length === 0 ? (
           <div className="empty">
             <p className="empty-title">Nenhuma nota ainda.</p>
@@ -48,6 +59,11 @@ export default async function NotesPage() {
                         </Link>
                       ) : null;
                     })}
+                    {n.theme_id && (
+                      <Link href={`/trilha/${n.theme_id}`} style={{ fontSize: 13, fontWeight: 600, textDecoration: "none" }}>
+                        Tema: {themeName(n.theme_id) ?? n.theme_id}
+                      </Link>
+                    )}
                   </span>
                   <FromYourBase />
                 </div>

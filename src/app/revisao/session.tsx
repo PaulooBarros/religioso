@@ -72,7 +72,17 @@ function Sources({ item }: { item: SessionItem }) {
   );
 }
 
-export function ReviewSession({ mode, initialQueue }: { mode: ReviewMode; initialQueue: SessionItem[] }) {
+export function ReviewSession({
+  mode,
+  initialQueue,
+  title: focusTitle,
+  backHref = "/hoje",
+}: {
+  mode: ReviewMode;
+  initialQueue: SessionItem[];
+  title?: string;
+  backHref?: string;
+}) {
   const router = useRouter();
   const [queue, setQueue] = useState(initialQueue);
   const [answered, setAnswered] = useState(0);
@@ -90,7 +100,8 @@ export function ReviewSession({ mode, initialQueue }: { mode: ReviewMode; initia
 
   const item = queue[0];
   const total = answered + queue.length;
-  const title = mode === "erros" ? "Revisar erros" : "Revisão do dia";
+  const title = focusTitle ?? (mode === "erros" ? "Revisar erros" : "Revisão do dia");
+  const backLabel = backHref === "/hoje" ? "Voltar para Hoje" : "Voltar para a trilha";
 
   function finish() {
     setEndedAt(Date.now());
@@ -187,7 +198,7 @@ export function ReviewSession({ mode, initialQueue }: { mode: ReviewMode; initia
 
   function close() {
     if (answered > 0 && !finished) finish();
-    else router.push("/hoje");
+    else router.push(backHref);
   }
 
   // Keyboard: Space reveal · 1–4 grade · A–F choose · Enter continue · F source · Z undo · Esc close
@@ -225,7 +236,7 @@ export function ReviewSession({ mode, initialQueue }: { mode: ReviewMode; initia
         <div className="session-card" style={{ gap: 14 }}>
           <span className="label">{title}</span>
           <p className="serif" style={{ margin: 0, fontSize: 26 }}>
-            {mode === "erros" ? "Nenhum erro para revisar." : "Nada para revisar agora."}
+            {mode === "erros" ? "Nenhum erro para revisar." : mode === "tema" ? "Nenhum item aprovado aqui." : "Nada para revisar agora."}
           </p>
           <p className="lead">
             {mode === "erros"
@@ -233,8 +244,8 @@ export function ReviewSession({ mode, initialQueue }: { mode: ReviewMode; initia
               : "Os itens aprovados entram aqui quando vencem. Itens em rascunho precisam ser aprovados em Estudar."}
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            <Link href="/hoje" className="btn btn-primary">
-              Voltar para Hoje
+            <Link href={backHref} className="btn btn-primary">
+              {backLabel}
             </Link>
             <Link href="/estudar" className="btn">
               Ir para Estudar
@@ -273,8 +284,8 @@ export function ReviewSession({ mode, initialQueue }: { mode: ReviewMode; initia
           )}
           {queue.length > 0 && <p className="lead">Ficaram {queue.length} itens para depois.</p>}
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            <Link href="/hoje" className="btn btn-lg btn-primary">
-              Voltar para Hoje
+            <Link href={backHref} className="btn btn-lg btn-primary">
+              {backLabel}
             </Link>
             {counts[1] > 0 && mode !== "erros" && (
               <a href="/revisao?modo=erros" className="btn btn-lg">

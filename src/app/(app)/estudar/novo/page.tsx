@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ItemForm } from "../item-form";
 import { getThemes } from "@/lib/queries";
+import { getSubthemes } from "@/lib/trail";
 import { currentProfileId } from "@/lib/session";
 
 export const metadata = { title: "Novo item" };
@@ -8,6 +9,7 @@ export const metadata = { title: "Novo item" };
 export default async function NewItemPage({ searchParams }: PageProps<"/estudar/novo">) {
   const { ref, salvo } = await searchParams;
   const [themes, profileId] = await Promise.all([getThemes(), currentProfileId()]);
+  const subthemes = profileId ? await getSubthemes(profileId) : [];
 
   return (
     <main className="page">
@@ -24,7 +26,7 @@ export default async function NewItemPage({ searchParams }: PageProps<"/estudar/
           </div>
         )}
         {profileId ? (
-          <ItemForm key={typeof salvo === "string" ? salvo : "new"} themes={themes} presetRefs={typeof ref === "string" ? ref : undefined} />
+          <ItemForm subthemes={subthemes} key={typeof salvo === "string" ? salvo : "new"} themes={themes} presetRefs={typeof ref === "string" ? ref : undefined} />
         ) : (
           <p className="lead">Escolha um perfil para cadastrar itens.</p>
         )}

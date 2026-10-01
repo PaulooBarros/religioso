@@ -23,6 +23,8 @@ export type Note = {
   created_at: string;
   updated_at: string;
   note_passages: NotePassage[];
+  theme_id?: string | null;
+  subtheme_id?: string | null;
 };
 
 export type ActionResult<T = undefined> = { ok: true; data: T } | { ok: false; error: string };

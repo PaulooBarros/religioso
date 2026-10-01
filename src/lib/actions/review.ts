@@ -12,9 +12,10 @@ const STATE_COLUMNS = "state, ease, interval_days, reps, lapses, due_at";
 export async function gradeItem(
   itemId: string,
   grade: Grade,
-  mode: "dia" | "erros",
+  mode: "dia" | "erros" | "tema",
 ): Promise<ActionResult<{ logId: string; review: ReviewState & { last_grade: number } }>> {
   if (![1, 2, 3, 4].includes(grade)) return { ok: false, error: "Avaliação inválida." };
+  if (!["dia", "erros", "tema"].includes(mode)) return { ok: false, error: "Modo inválido." };
   const profileId = await currentProfileId();
   if (!profileId) return { ok: false, error: "Escolha um perfil." };
   const supabase = await createClient();

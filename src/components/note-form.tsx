@@ -6,7 +6,15 @@ import { FromYourBase } from "./icons";
 import { createNote, updateNote } from "@/lib/actions/notes";
 import type { Note } from "@/lib/types";
 
-type Target = { bookId: number; chapter: number; verseStart: number | null; verseEnd: number | null };
+/** Passage and/or theme the new note is linked to. */
+type Target = {
+  bookId?: number | null;
+  chapter?: number | null;
+  verseStart?: number | null;
+  verseEnd?: number | null;
+  themeId?: string | null;
+  subthemeId?: string | null;
+};
 
 export function NoteForm({
   refLabel,

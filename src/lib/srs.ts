@@ -141,3 +141,20 @@ export function lastDays(n: number, now = new Date()): string[] {
 }
 
 export const NEW_PER_DAY = 10;
+
+// ---- Mastery ("domínio") ----
+/** An item counts as mastered once its interval reaches this many days. */
+export const MASTERED_DAYS = 21;
+
+export type ItemStatus = "nova" | "estudo" | "dominada";
+
+export function itemStatus(review: Pick<ReviewState, "state" | "interval_days"> | null): ItemStatus {
+  if (!review) return "nova";
+  return review.state === "review" && review.interval_days >= MASTERED_DAYS ? "dominada" : "estudo";
+}
+
+/** 0..1: how far the item is on its way to mastery (learning counts as 0). */
+export function masteryOf(review: Pick<ReviewState, "state" | "interval_days"> | null): number {
+  if (!review || review.state !== "review") return 0;
+  return Math.min(1, review.interval_days / MASTERED_DAYS);
+}

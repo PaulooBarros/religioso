@@ -3,11 +3,24 @@
 import Link from "next/link";
 import { useActionState, useState } from "react";
 import { saveStudyItem, type ItemFormState } from "@/lib/actions/study";
-import { LEVELS, MAX_OPTIONS, type ItemKind, type StudyItem, type Theme } from "@/lib/study";
+import { LEVELS, MAX_OPTIONS, type ItemKind, type StudyItem, type Subtheme, type Theme } from "@/lib/study";
 
 const LETTERS = "ABCDEF";
 
-export function ItemForm({ themes, item, presetRefs }: { themes: Theme[]; item?: StudyItem; presetRefs?: string }) {
+export function ItemForm({
+  themes,
+  subthemes,
+  item,
+  presetRefs,
+}: {
+  themes: Theme[];
+  subthemes: Subtheme[];
+  item?: StudyItem;
+  presetRefs?: string;
+}) {
+  const [themeId, setThemeId] = useState(item?.theme_id ?? "");
+  const [subthemeId, setSubthemeId] = useState(item?.subtheme_id ?? "");
+  const themeSubs = subthemes.filter((s) => s.theme_id === themeId);
   const [state, action, pending] = useActionState<ItemFormState, FormData>(saveStudyItem, {});
   const [kind, setKind] = useState<ItemKind>(item?.kind ?? "card");
   const [options, setOptions] = useState<string[]>(item?.options ?? ["", "", "", ""]);
@@ -107,11 +120,38 @@ export function ItemForm({ themes, item, presetRefs }: { themes: Theme[]; item?:
         <label className="field">
           <span>Tema</span>
           <span className="select-wrap" style={{ width: "100%" }}>
-            <select name="theme_id" defaultValue={item?.theme_id ?? ""} style={{ width: "100%", height: 44 }}>
+            <select
+              name="theme_id"
+              value={themeId}
+              onChange={(e) => {
+                setThemeId(e.target.value);
+                setSubthemeId("");
+              }}
+              style={{ width: "100%", height: 44 }}
+            >
               <option value="">Sem tema</option>
               {themes.map((t) => (
                 <option key={t.id} value={t.id}>
                   {t.name}
+                </option>
+              ))}
+            </select>
+          </span>
+        </label>
+        <label className="field">
+          <span>Subtema</span>
+          <span className="select-wrap" style={{ width: "100%" }}>
+            <select
+              name="subtheme_id"
+              value={subthemeId}
+              onChange={(e) => setSubthemeId(e.target.value)}
+              disabled={!themeId || themeSubs.length === 0}
+              style={{ width: "100%", height: 44 }}
+            >
+              <option value="">{!themeId ? "Escolha um tema" : themeSubs.length ? "Sem subtema" : "Tema sem subtemas"}</option>
+              {themeSubs.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.name}
                 </option>
               ))}
             </select>

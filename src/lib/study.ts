@@ -17,6 +17,8 @@ export function levelLabel(level: number): string {
 
 export type Theme = { id: string; name: string };
 
+export type Subtheme = { id: string; theme_id: string; name: string; position: number };
+
 export type StudyItem = {
   id: string;
   kind: ItemKind;
@@ -33,6 +35,7 @@ export type StudyItem = {
   origin: "manual" | "catecismo" | "ia";
   status: "draft" | "approved";
   subtopic: string | null;
+  subtheme_id: string | null;
   machine_translated: boolean;
   review_note: string | null;
   /** Last link check: true = opened, false = did not open, null = not checked. */
@@ -42,7 +45,7 @@ export type StudyItem = {
 };
 
 export const STUDY_ITEM_COLUMNS =
-  "id, kind, prompt, answer, options, correct_option, explanation, theme_id, level, source_title, source_url, bible_refs, origin, status, subtopic, machine_translated, review_note, source_ok, created_at, updated_at";
+  "id, kind, prompt, answer, options, correct_option, explanation, theme_id, level, source_title, source_url, bible_refs, origin, status, subtopic, subtheme_id, machine_translated, review_note, source_ok, created_at, updated_at";
 
 /** AI drafts need a verified source before they can be approved (principle 1). */
 export function approvalBlocker(item: Pick<StudyItem, "origin" | "source_url" | "source_ok">): string | null {
