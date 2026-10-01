@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { THEME_COOKIE } from "@/lib/theme";
 import "./globals.css";
 import "./reader.css";
+import "./study.css";
 
 const serif = Playfair_Display({
   variable: "--font-serif",

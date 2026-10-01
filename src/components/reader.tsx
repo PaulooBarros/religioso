@@ -597,6 +597,17 @@ export function Reader({
               </svg>
               Grifar
             </button>
+            {canWrite && (
+              <Link
+                className="action-btn"
+                href={`/estudar/novo?ref=${encodeURIComponent(formatRef(book.id, chapter, first, last))}`}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M4 6h13v13H4zM8 3h12v12" />
+                </svg>
+                Criar card
+              </Link>
+            )}
             <button type="button" className="action-btn" onClick={copySelection}>
               <Icon name="copiar" size={18} />
               Copiar

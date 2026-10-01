@@ -15,6 +15,7 @@ const GROUPS: { title: string; items: Item[] }[] = [
     title: "Estudar",
     items: [
       { label: "Hoje", icon: "hoje", href: "/hoje" },
+      { label: "Cards e questões", icon: "simulados", href: "/estudar" },
       { label: "Trilha de sistemática", icon: "trilha", stage: 3 },
       { label: "Fé batista", icon: "batista", stage: 5 },
       { label: "Catecismos", icon: "catecismos", stage: 2 },
@@ -171,8 +172,8 @@ export function TopBar() {
 const MOBILE: { label: string; icon: IconName; href: string }[] = [
   { label: "Hoje", icon: "hoje", href: "/hoje" },
   { label: "Bíblia", icon: "biblia", href: "/biblia" },
+  { label: "Estudar", icon: "trilha", href: "/estudar" },
   { label: "Notas", icon: "notas", href: "/notas" },
-  { label: "Fontes", icon: "fontes", href: "/fontes" },
   { label: "Mais", icon: "mais", href: "/mais" },
 ];
 

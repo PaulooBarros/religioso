@@ -1,6 +1,7 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
 import type { ChapterHighlights } from "@/lib/highlights";
+import { STUDY_ITEM_COLUMNS, type StudyItem, type Theme } from "@/lib/study";
 import type { Bookmark, Note } from "@/lib/types";
 
 const BOOKMARK_COLUMNS = "id, book_id, chapter, verse, name, tag, is_last_read, updated_at";
@@ -73,6 +74,33 @@ export async function getChapterHighlights(
     .eq("book_id", bookId)
     .eq("chapter", chapter);
   return Object.fromEntries((data ?? []).map((h) => [h.verse, h.color])) as ChapterHighlights;
+}
+
+export async function getThemes(): Promise<Theme[]> {
+  const supabase = await createClient();
+  const { data } = await supabase.from("themes").select("id, name").is("parent_id", null).order("position");
+  return (data ?? []) as Theme[];
+}
+
+export async function getStudyItems(profileId: string): Promise<StudyItem[]> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("study_items")
+    .select(STUDY_ITEM_COLUMNS)
+    .eq("profile_id", profileId)
+    .order("created_at", { ascending: false });
+  return (data ?? []) as StudyItem[];
+}
+
+export async function getStudyItem(profileId: string, id: string): Promise<StudyItem | null> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("study_items")
+    .select(STUDY_ITEM_COLUMNS)
+    .eq("profile_id", profileId)
+    .eq("id", id)
+    .maybeSingle();
+  return (data as StudyItem | null) ?? null;
 }
 
 export async function getSources() {

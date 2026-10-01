@@ -36,11 +36,11 @@ export default async function TodayPage() {
         <div className="card" style={{ padding: "28px 32px", display: "flex", flexDirection: "column", gap: 12 }}>
           <span className="label label-accent">Revisão do dia</span>
           <p className="serif" style={{ margin: 0, fontSize: 22, lineHeight: 1.35 }}>
-            A revisão espaçada chega na próxima etapa.
+            A revisão espaçada chega em breve.
           </p>
           <p className="lead">
-            Por enquanto, leia a Bíblia e guarde notas e marcadores. Eles ficam no seu perfil e voltam aqui para você
-            continuar de onde parou.
+            Enquanto isso, cadastre cards e questões em <Link href="/estudar">Estudar</Link>. Eles entram na revisão do
+            dia assim que ela estiver pronta.
           </p>
         </div>
 

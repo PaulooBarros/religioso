@@ -2,6 +2,7 @@ import "server-only";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { type Book, bookById } from "./books";
+import { formatRef, parseReference } from "./reference";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 
 type LocalBible = { books: Record<string, string[][]> };
@@ -47,6 +48,30 @@ export async function getChapter(book: Book, chapter: number): Promise<string[] 
   }
   const bible = await loadLocal();
   return bible.books[book.code]?.[chapter - 1] ?? null;
+}
+
+/**
+ * Normalizes a list of typed references ("rm 8.28; Ef 1:11-12") and checks
+ * that every chapter and verse exists in the Bible text.
+ */
+export async function validateRefs(input: string): Promise<{ refs: string[] } | { error: string }> {
+  const parts = input
+    .split(/[;\n]/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const bible = await loadLocal();
+  const refs: string[] = [];
+  for (const part of parts) {
+    const ref = parseReference(part);
+    if (!ref) return { error: `Não reconheci a referência “${part}”.` };
+    const chapterVerses = bible.books[ref.book.code]?.[ref.chapter - 1];
+    if (!chapterVerses) return { error: `${ref.book.name} não tem capítulo ${ref.chapter}.` };
+    const last = ref.verseEnd ?? ref.verse;
+    if (last && last > chapterVerses.length)
+      return { error: `${ref.book.name} ${ref.chapter} tem ${chapterVerses.length} versículos.` };
+    refs.push(formatRef(ref.book.id, ref.chapter, ref.verse, ref.verseEnd));
+  }
+  return { refs: [...new Set(refs)] };
 }
 
 /** Text of one verse, used for previews (bookmarks, "continuar lendo"). */
