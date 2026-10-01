@@ -12,7 +12,9 @@
     "import:bible": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --env-file=.env.local scripts/import-bible.mts",
     "db:migrate": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --env-file=.env.local scripts/db-migrate.mts",
     "import:items": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --env-file=.env.local scripts/import-items.mts",
-    "test:srs": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/test-srs.mts"
+    "test:srs": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/test-srs.mts",
+    "catechisms:build": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-catechisms.mts",
+    "import:catechisms": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --env-file=.env.local scripts/import-catechisms.mts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

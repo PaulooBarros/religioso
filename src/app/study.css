@@ -172,3 +172,54 @@
   font-size: 13.5px;
   line-height: 1.5;
 }
+
+.item-explanation p {
+  white-space: pre-wrap;
+}
+
+/* Catechism question list (design: Estudar · 05 Catecismos) */
+.catechism-q {
+  border-bottom: 1px solid var(--line);
+}
+.catechism-q summary {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 12px 4px;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-serif), serif;
+  font-size: 16.5px;
+  line-height: 1.45;
+}
+.catechism-q summary::-webkit-details-marker {
+  display: none;
+}
+.catechism-q summary:hover {
+  background: var(--hover);
+}
+.catechism-n {
+  flex: none;
+  width: 28px;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 12.5px;
+  color: var(--muted);
+  text-align: right;
+}
+.catechism-a {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 4px 4px 18px 58px;
+}
+.catechism-original {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+@media (max-width: 899px) {
+  .catechism-a {
+    padding-left: 8px;
+  }
+}

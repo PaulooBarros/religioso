@@ -53,6 +53,21 @@ Se você mesmo já revisou o lote e as fontes, há duas opções:
 
 Exemplo: `npm run import:items -- data/lotes/lote2questoes.json --approve --skip-link-check`.
 
+## Catecismos
+
+Os textos ficam em `data/catechisms/`: o original (`*.json`) e a tradução automática (`*.pt.json`).
+
+```bash
+npm run catechisms:build     # recria os originais a partir de data/source/catechisms/
+npm run import:catechisms    # grava fontes, catecismos e perguntas no banco
+```
+
+- **Breve Catecismo de Westminster (1647):** original em inglês, domínio público.
+- **Catecismo de Heidelberg (1563):** original alemão e tradução inglesa de 1863, da edição de Philip Schaff (1877), domínio público. A tradução inglesa moderna que circula na internet tem direitos autorais e não é usada.
+- **Catecismo de Spurgeon (1855):** ainda fora. As cópias disponíveis trazem uma edição modernizada, com trechos alterados.
+
+O português é tradução automática do original e aparece sempre rotulado assim, com o original ao lado.
+
 ## Texto bíblico
 
 - Bíblia Livre (BLIVRE), © 2018 Diego Santos, Mario Sérgio e Marco Teles, sob licença CC BY 4.0 Brasil. Arquivo original em https://eBible.org/Scriptures/porbr2018_vpl.zip.

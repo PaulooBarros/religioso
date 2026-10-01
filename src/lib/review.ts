@@ -1,5 +1,6 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
+import { releaseCatechismItems } from "@/lib/catechisms";
 import { dayKey, endOfDay, lastDays, NEW_PER_DAY, startOfDay, streak, type ReviewState } from "@/lib/srs";
 import { STUDY_ITEM_COLUMNS, type StudyItem } from "@/lib/study";
 
@@ -59,11 +60,16 @@ function split(items: SessionItem[], newLeft: number) {
       const lb = b.review!.state === "review" ? 1 : 0;
       return la - lb || a.review!.due_at.localeCompare(b.review!.due_at);
     });
-  const fresh = items.filter((i) => !i.review).slice(0, Math.max(0, newLeft));
+  // New items: today's catechism questions first, then the rest by creation order.
+  const fresh = items
+    .filter((i) => !i.review)
+    .sort((a, b) => Number(b.origin === "catecismo") - Number(a.origin === "catecismo"))
+    .slice(0, Math.max(0, newLeft));
   return { due, fresh };
 }
 
 export async function getQueue(profileId: string, mode: ReviewMode, focus?: ReviewFocus): Promise<SessionItem[]> {
+  if (mode === "dia") await releaseCatechismItems(profileId);
   const items = await approvedItems(profileId);
   if (mode === "tema") {
     if (!focus) return [];
@@ -99,6 +105,7 @@ export type ReviewOverview = {
 };
 
 export async function getOverview(profileId: string): Promise<ReviewOverview> {
+  await releaseCatechismItems(profileId);
   const supabase = await createClient();
   const since = new Date(Date.now() - 400 * 86_400_000).toISOString();
   const [items, introduced, logs, drafts] = await Promise.all([

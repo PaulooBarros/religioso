@@ -27,7 +27,7 @@ const GROUPS: { title: string; items: Item[] }[] = [
       { label: "Cards e questões", icon: "simulados", href: "/estudar" },
       { label: "Trilha de sistemática", icon: "trilha", href: "/trilha" },
       { label: "Fé batista", icon: "batista", stage: 5 },
-      { label: "Catecismos", icon: "catecismos", stage: 2 },
+      { label: "Catecismos", icon: "catecismos", href: "/catecismos" },
       { label: "Simulados", icon: "simulados", stage: 3 },
     ],
   },

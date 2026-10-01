@@ -1,0 +1,647 @@
+[
+ {
+  "n": 1,
+  "q": "Qual é o teu único consolo na vida e na morte?",
+  "a": "Que eu, com corpo e alma, tanto na vida como na morte, não pertenço a mim mesmo, mas ao meu fiel Salvador Jesus Cristo, que com o seu precioso sangue pagou plenamente por todos os meus pecados e me libertou de todo o poder do diabo; e de tal modo me guarda que, sem a vontade do meu Pai que está no céu, nenhum fio de cabelo pode cair da minha cabeça; e mais, que todas as coisas têm de servir para a minha salvação. Por isso ele também me assegura, pelo seu Espírito Santo, a vida eterna, e me torna de coração disposto e pronto a viver para ele daqui em diante."
+ },
+ {
+  "n": 2,
+  "q": "Quantas coisas precisas saber para viver e morrer bem-aventuradamente neste consolo?",
+  "a": "Três coisas: primeiro, como são grandes o meu pecado e a minha miséria; segundo, como sou libertado de todos os meus pecados e da minha miséria; e terceiro, como devo ser grato a Deus por essa libertação."
+ },
+ {
+  "n": 3,
+  "q": "De onde conheces a tua miséria?",
+  "a": "Da lei de Deus."
+ },
+ {
+  "n": 4,
+  "q": "O que a lei de Deus exige de nós?",
+  "a": "Isso Cristo nos ensina em resumo, em Mateus 22: Amarás o Senhor teu Deus de todo o teu coração, de toda a tua alma, de todo o teu entendimento e de todas as tuas forças; este é o primeiro e o maior mandamento. E o segundo é semelhante a este: Amarás o teu próximo como a ti mesmo. Destes dois mandamentos dependem toda a lei e os profetas."
+ },
+ {
+  "n": 5,
+  "q": "Podes guardar tudo isso perfeitamente?",
+  "a": "Não, pois por natureza sou inclinado a odiar a Deus e ao meu próximo."
+ },
+ {
+  "n": 6,
+  "q": "Então Deus criou o homem assim mau e perverso?",
+  "a": "Não; Deus criou o homem bom e à sua imagem, isto é, em verdadeira justiça e santidade, para que conhecesse corretamente a Deus, seu Criador, o amasse de coração e vivesse com ele em eterna bem-aventurança, para o louvar e exaltar."
+ },
+ {
+  "n": 7,
+  "q": "De onde vem, então, essa natureza corrompida do homem?",
+  "a": "Da queda e da desobediência de nossos primeiros pais, Adão e Eva, no paraíso, onde a nossa natureza ficou tão envenenada que todos nós somos concebidos e nascemos em pecado."
+ },
+ {
+  "n": 8,
+  "q": "Mas somos tão corrompidos que somos totalmente incapazes de qualquer bem e inclinados a todo mal?",
+  "a": "Sim, a não ser que nasçamos de novo pelo Espírito de Deus."
+ },
+ {
+  "n": 9,
+  "q": "Deus não é injusto com o homem, ao exigir dele na sua lei o que ele não pode fazer?",
+  "a": "Não, pois Deus criou o homem de tal modo que ele podia fazê-lo. Mas o homem, por instigação do diabo e por desobediência deliberada, privou a si mesmo e a todos os seus descendentes desses dons."
+ },
+ {
+  "n": 10,
+  "q": "Deus deixará sem castigo essa desobediência e apostasia?",
+  "a": "De modo nenhum; ele se ira terrivelmente tanto com os pecados em que nascemos como com os que cometemos, e os castigará por justo juízo, no tempo e na eternidade, como ele declarou: Maldito todo aquele que não permanecer em todas as coisas que estão escritas no livro da lei, para fazê-las."
+ },
+ {
+  "n": 11,
+  "q": "Mas Deus não é também misericordioso?",
+  "a": "Deus é, sim, misericordioso, mas é também justo. Por isso a sua justiça exige que o pecado, cometido contra a altíssima majestade de Deus, seja castigado também com a pena máxima, isto é, a eterna, no corpo e na alma."
+ },
+ {
+  "n": 12,
+  "q": "Visto que, segundo o justo juízo de Deus, merecemos castigo temporal e eterno, como poderíamos escapar desse castigo e voltar a ser recebidos na graça?",
+  "a": "Deus quer que a sua justiça seja satisfeita; por isso precisamos fazer a ela um pagamento completo, por nós mesmos ou por meio de outro."
+ },
+ {
+  "n": 13,
+  "q": "Podemos, porém, fazer esse pagamento por nós mesmos?",
+  "a": "De modo nenhum; ao contrário, a cada dia aumentamos ainda mais a dívida."
+ },
+ {
+  "n": 14,
+  "q": "Pode alguma mera criatura pagar por nós?",
+  "a": "Não; pois, primeiro, Deus não quer castigar em outra criatura aquilo de que o homem se tornou culpado; segundo, nenhuma mera criatura pode suportar o peso da ira eterna de Deus contra o pecado e libertar dela a outros."
+ },
+ {
+  "n": 15,
+  "q": "Que mediador e redentor devemos então buscar?",
+  "a": "Um que seja verdadeiro e justo homem, e contudo mais forte que todas as criaturas, isto é, que seja ao mesmo tempo verdadeiro Deus."
+ },
+ {
+  "n": 16,
+  "q": "Por que ele precisa ser verdadeiro e justo homem?",
+  "a": "Porque a justiça de Deus exige que a natureza humana, que pecou, pague pelo pecado; mas alguém que fosse ele mesmo pecador não poderia pagar por outros."
+ },
+ {
+  "n": 17,
+  "q": "Por que ele precisa ser ao mesmo tempo verdadeiro Deus?",
+  "a": "Para que, pelo poder da sua divindade, pudesse suportar na sua humanidade o peso da ira de Deus, e nos adquirir e restituir a justiça e a vida."
+ },
+ {
+  "n": 18,
+  "q": "Mas quem é esse mediador, que é ao mesmo tempo verdadeiro Deus e verdadeiro e justo homem?",
+  "a": "Nosso Senhor Jesus Cristo, que nos foi dado para completa redenção e justiça."
+ },
+ {
+  "n": 19,
+  "q": "De onde sabes isso?",
+  "a": "Do santo evangelho, que o próprio Deus revelou primeiro no paraíso, depois fez anunciar pelos santos patriarcas e profetas e prefigurou pelos sacrifícios e outras cerimônias da lei, e por fim cumpriu por meio do seu Filho amado."
+ },
+ {
+  "n": 20,
+  "q": "Então todos os homens são salvos por Cristo, assim como se perderam por Adão?",
+  "a": "Não; somente aqueles que, pela verdadeira fé, são incorporados a ele e aceitam todos os seus benefícios."
+ },
+ {
+  "n": 21,
+  "q": "O que é a verdadeira fé?",
+  "a": "Não é só um conhecimento certo, pelo qual tenho por verdadeiro tudo o que Deus nos revelou na sua Palavra, mas também uma confiança de coração, que o Espírito Santo opera em mim pelo evangelho, de que não só a outros, mas também a mim, foram dados por Deus o perdão dos pecados, a justiça eterna e a salvação, por pura graça, somente por causa do mérito de Cristo."
+ },
+ {
+  "n": 22,
+  "q": "Mas o que é necessário ao cristão crer?",
+  "a": "Tudo o que nos é prometido no evangelho, o que os artigos da nossa fé cristã, universal e indubitável, nos ensinam em resumo."
+ },
+ {
+  "n": 23,
+  "q": "Quais são esses artigos?",
+  "a": "Creio em Deus Pai, Todo-Poderoso, Criador do céu e da terra. E em Jesus Cristo, seu Filho unigênito, nosso Senhor; que foi concebido do Espírito Santo, nasceu da virgem Maria; padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado; desceu ao inferno; ao terceiro dia ressurgiu dentre os mortos; subiu ao céu; está sentado à direita de Deus, o Pai Todo-Poderoso; de onde há de vir para julgar os vivos e os mortos. Creio no Espírito Santo; em uma santa igreja cristã universal; na comunhão dos santos; no perdão dos pecados; na ressurreição da carne e na vida eterna."
+ },
+ {
+  "n": 24,
+  "q": "Como se dividem esses artigos?",
+  "a": "Em três partes: a primeira trata de Deus Pai e da nossa criação; a segunda, de Deus Filho e da nossa redenção; a terceira, de Deus Espírito Santo e da nossa santificação."
+ },
+ {
+  "n": 25,
+  "q": "Visto que há um só ser divino, por que falas de três: o Pai, o Filho e o Espírito Santo?",
+  "a": "Porque Deus assim se revelou na sua Palavra: que essas três pessoas distintas são o único, verdadeiro e eterno Deus."
+ },
+ {
+  "n": 26,
+  "q": "O que crês quando dizes: Creio em Deus Pai, Todo-Poderoso, Criador do céu e da terra?",
+  "a": "Que o eterno Pai de nosso Senhor Jesus Cristo, que do nada criou o céu e a terra com tudo o que neles há, e que ainda os sustenta e governa pelo seu eterno conselho e providência, é, por causa do seu Filho Cristo, meu Deus e meu Pai. Nele confio de tal modo que não duvido de que me proverá de tudo o que é necessário ao corpo e à alma, e de que fará reverter para o meu bem todo mal que me enviar neste vale de lágrimas; pois ele pode fazê-lo, como Deus todo-poderoso, e também quer fazê-lo, como Pai fiel."
+ },
+ {
+  "n": 27,
+  "q": "O que entendes por providência de Deus?",
+  "a": "O poder onipotente e presente de Deus, pelo qual ele ainda sustenta, como que pela sua mão, o céu e a terra com todas as criaturas, e de tal modo os governa que folhas e erva, chuva e seca, anos férteis e estéreis, comida e bebida, saúde e doença, riqueza e pobreza, e tudo o mais, não nos vêm por acaso, mas da sua mão paternal."
+ },
+ {
+  "n": 28,
+  "q": "Que proveito temos de conhecer a criação e a providência de Deus?",
+  "a": "Que sejamos pacientes em toda adversidade, gratos na prosperidade e, quanto ao futuro, tenhamos boa confiança em nosso fiel Deus e Pai, de que nenhuma criatura nos separará do seu amor; pois todas as criaturas estão de tal modo na sua mão que, sem a sua vontade, não podem sequer se mexer nem se mover."
+ },
+ {
+  "n": 29,
+  "q": "Por que o Filho de Deus é chamado Jesus, isto é, Salvador?",
+  "a": "Porque ele nos salva dos nossos pecados, e porque em nenhum outro se deve buscar nem se pode achar salvação alguma."
+ },
+ {
+  "n": 30,
+  "q": "Creem também no único Salvador Jesus aqueles que buscam a sua salvação e o seu bem nos santos, em si mesmos ou em outro lugar?",
+  "a": "Não; antes, negam de fato o único Salvador Jesus, ainda que se gloriem dele. Pois ou Jesus não é um Salvador completo, ou aqueles que aceitam este Salvador com verdadeira fé têm de ter nele tudo o que é necessário para a sua salvação."
+ },
+ {
+  "n": 31,
+  "q": "Por que ele é chamado Cristo, isto é, Ungido?",
+  "a": "Porque foi ordenado por Deus Pai e ungido com o Espírito Santo para ser o nosso supremo Profeta e Mestre, que nos revela plenamente o conselho secreto e a vontade de Deus a respeito da nossa redenção; o nosso único Sumo Sacerdote, que nos redimiu com o único sacrifício do seu corpo e sempre intercede por nós diante do Pai; e o nosso eterno Rei, que nos governa com a sua Palavra e o seu Espírito, e nos protege e conserva na redenção conquistada."
+ },
+ {
+  "n": 32,
+  "q": "Mas por que tu és chamado cristão?",
+  "a": "Porque, pela fé, sou membro de Cristo e assim participo da sua unção, para que também eu confesse o seu nome, me apresente a ele como sacrifício vivo de gratidão, lute nesta vida com a consciência livre contra o pecado e o diabo, e depois reine com ele eternamente sobre todas as criaturas."
+ },
+ {
+  "n": 33,
+  "q": "Por que ele é chamado Filho unigênito de Deus, se nós também somos filhos de Deus?",
+  "a": "Porque só Cristo é o eterno e natural Filho de Deus; nós, porém, por causa dele, fomos adotados como filhos de Deus pela graça."
+ },
+ {
+  "n": 34,
+  "q": "Por que o chamas nosso Senhor?",
+  "a": "Porque ele nos redimiu e comprou, em corpo e alma, do pecado e de todo o poder do diabo, para sermos propriedade sua, não com ouro ou prata, mas com o seu precioso sangue."
+ },
+ {
+  "n": 35,
+  "q": "O que significa que ele foi concebido do Espírito Santo e nasceu da virgem Maria?",
+  "a": "Que o eterno Filho de Deus, que é e permanece verdadeiro e eterno Deus, tomou para si a verdadeira natureza humana, da carne e do sangue da virgem Maria, pela operação do Espírito Santo, para que fosse também a verdadeira descendência de Davi, semelhante em tudo aos seus irmãos, exceto no pecado."
+ },
+ {
+  "n": 36,
+  "q": "Que proveito tens da santa concepção e do nascimento de Cristo?",
+  "a": "Que ele é o nosso Mediador e, com a sua inocência e perfeita santidade, cobre diante da face de Deus o meu pecado, em que fui concebido."
+ },
+ {
+  "n": 37,
+  "q": "O que entendes pela palavra: padeceu?",
+  "a": "Que ele, no corpo e na alma, durante todo o tempo da sua vida na terra, mas especialmente no fim dela, suportou a ira de Deus contra o pecado de todo o gênero humano, para que, com o seu sofrimento, como único sacrifício expiatório, redimisse o nosso corpo e a nossa alma da condenação eterna e nos adquirisse a graça de Deus, a justiça e a vida eterna."
+ },
+ {
+  "n": 38,
+  "q": "Por que ele padeceu sob o juiz Pôncio Pilatos?",
+  "a": "Para que, sendo inocente, fosse condenado pelo juiz secular e assim nos livrasse do severo juízo de Deus, que devia cair sobre nós."
+ },
+ {
+  "n": 39,
+  "q": "Há algo mais em ele ter sido crucificado do que se tivesse morrido de outra morte?",
+  "a": "Sim, pois por isso tenho certeza de que ele tomou sobre si a maldição que pesava sobre mim, visto que a morte de cruz era amaldiçoada por Deus."
+ },
+ {
+  "n": 40,
+  "q": "Por que Cristo teve de sofrer a morte?",
+  "a": "Porque, por causa da justiça e da verdade de Deus, não se podia pagar pelos nossos pecados de outro modo, senão pela morte do Filho de Deus."
+ },
+ {
+  "n": 41,
+  "q": "Por que ele foi sepultado?",
+  "a": "Para testemunhar com isso que ele verdadeiramente morreu."
+ },
+ {
+  "n": 42,
+  "q": "Visto que Cristo morreu por nós, como é que nós também temos de morrer?",
+  "a": "A nossa morte não é um pagamento pelo nosso pecado, mas somente um morrer para os pecados e a entrada na vida eterna."
+ },
+ {
+  "n": 43,
+  "q": "Que outro proveito recebemos do sacrifício e da morte de Cristo na cruz?",
+  "a": "Que, pelo seu poder, o nosso velho homem é crucificado, morto e sepultado com ele, para que os maus desejos da carne não reinem mais em nós, mas nos ofereçamos a ele em sacrifício de gratidão."
+ },
+ {
+  "n": 44,
+  "q": "Por que se acrescenta: desceu ao inferno?",
+  "a": "Para que, nas minhas maiores tentações, eu tenha a certeza de que Cristo, meu Senhor, pela sua indizível angústia, dores e terrores, que ele sofreu também na sua alma, na cruz e antes dela, me libertou da angústia e do tormento do inferno."
+ },
+ {
+  "n": 45,
+  "q": "Que proveito nos traz a ressurreição de Cristo?",
+  "a": "Primeiro, pela sua ressurreição ele venceu a morte, para nos poder fazer participantes da justiça que nos adquiriu pela sua morte. Segundo, também nós somos agora, pelo seu poder, despertados para uma nova vida. Terceiro, a ressurreição de Cristo é para nós um penhor seguro da nossa bem-aventurada ressurreição."
+ },
+ {
+  "n": 46,
+  "q": "Como entendes que ele subiu ao céu?",
+  "a": "Que Cristo, diante dos olhos dos seus discípulos, foi elevado da terra ao céu, e ali está para o nosso bem, até que volte para julgar os vivos e os mortos."
+ },
+ {
+  "n": 47,
+  "q": "Então Cristo não está conosco até o fim do mundo, como nos prometeu?",
+  "a": "Cristo é verdadeiro homem e verdadeiro Deus: segundo a sua natureza humana, ele agora não está na terra; mas segundo a sua divindade, majestade, graça e Espírito, ele nunca se afasta de nós."
+ },
+ {
+  "n": 48,
+  "q": "Mas, desse modo, não se separam as duas naturezas de Cristo uma da outra, se a humanidade não está em toda parte onde está a divindade?",
+  "a": "De modo nenhum; pois, visto que a divindade é incompreensível e está presente em toda parte, segue-se necessariamente que ela está, sim, fora da humanidade que assumiu, e contudo está também nela e permanece pessoalmente unida a ela."
+ },
+ {
+  "n": 49,
+  "q": "Que proveito nos traz a ascensão de Cristo ao céu?",
+  "a": "Primeiro, que ele é o nosso Advogado no céu, diante da face de seu Pai. Segundo, que temos a nossa carne no céu como penhor seguro de que ele, como a Cabeça, também nos levará para junto de si, a nós, os seus membros. Terceiro, que ele nos envia o seu Espírito como penhor correspondente, por cujo poder buscamos o que é do alto, onde Cristo está, sentado à direita de Deus, e não o que é da terra."
+ },
+ {
+  "n": 50,
+  "q": "Por que se acrescenta que ele está sentado à direita de Deus?",
+  "a": "Porque Cristo subiu ao céu para ali se mostrar como a Cabeça da sua igreja cristã, por meio de quem o Pai governa todas as coisas."
+ },
+ {
+  "n": 51,
+  "q": "Que proveito nos traz essa glória de Cristo, nossa Cabeça?",
+  "a": "Primeiro, que ele, pelo seu Espírito Santo, derrama os dons celestiais em nós, seus membros; depois, que com o seu poder ele nos protege e conserva contra todos os inimigos."
+ },
+ {
+  "n": 52,
+  "q": "Que consolo te dá a volta de Cristo para julgar os vivos e os mortos?",
+  "a": "Que, em toda tribulação e perseguição, de cabeça erguida, aguardo do céu o mesmo Juiz que antes se apresentou por mim ao juízo de Deus e tirou de mim toda maldição; e que ele lançará todos os seus e os meus inimigos na condenação eterna, mas a mim, com todos os eleitos, me tomará para si, na alegria e na glória celestiais."
+ },
+ {
+  "n": 53,
+  "q": "O que crês a respeito do Espírito Santo?",
+  "a": "Primeiro, que ele é Deus igualmente eterno com o Pai e o Filho. Segundo, que ele foi dado também a mim, me faz participante de Cristo e de todos os seus benefícios por meio de uma fé verdadeira, me consola e ficará comigo para sempre."
+ },
+ {
+  "n": 54,
+  "q": "O que crês a respeito da santa igreja cristã universal?",
+  "a": "Que o Filho de Deus, de todo o gênero humano, reúne, protege e conserva para si, desde o princípio do mundo até o fim, uma comunidade eleita para a vida eterna, pelo seu Espírito e pela sua Palavra, na unidade da verdadeira fé; e que eu sou um membro vivo dela e o serei para sempre."
+ },
+ {
+  "n": 55,
+  "q": "O que entendes por comunhão dos santos?",
+  "a": "Primeiro, que todos os crentes, e cada um deles, como membros, têm comunhão com o Senhor Cristo e com todos os seus tesouros e dons. Segundo, que cada um deve saber-se obrigado a empregar os seus dons, de boa vontade e com alegria, para o proveito e a salvação dos outros membros."
+ },
+ {
+  "n": 56,
+  "q": "O que crês a respeito do perdão dos pecados?",
+  "a": "Que Deus, por causa da satisfação de Cristo, nunca mais quer se lembrar de todos os meus pecados, nem da natureza pecaminosa contra a qual tenho de lutar a vida inteira; antes, me dá de graça a justiça de Cristo, para que eu nunca mais venha a juízo."
+ },
+ {
+  "n": 57,
+  "q": "Que consolo te dá a ressurreição da carne?",
+  "a": "Que não só a minha alma, depois desta vida, será levada imediatamente para Cristo, sua Cabeça, mas também esta minha carne, ressuscitada pelo poder de Cristo, será de novo unida à minha alma e se tornará semelhante ao corpo glorioso de Cristo."
+ },
+ {
+  "n": 58,
+  "q": "Que consolo te dá o artigo da vida eterna?",
+  "a": "Que, assim como já agora sinto no meu coração o começo da alegria eterna, depois desta vida possuirei a bem-aventurança perfeita, que olho nenhum viu, ouvido nenhum ouviu e que jamais entrou no coração do homem, para nela louvar a Deus eternamente."
+ },
+ {
+  "n": 59,
+  "q": "Mas de que te serve agora crer em tudo isso?",
+  "a": "Que em Cristo sou justo diante de Deus e herdeiro da vida eterna."
+ },
+ {
+  "n": 60,
+  "q": "Como és justo diante de Deus?",
+  "a": "Somente pela verdadeira fé em Jesus Cristo. Assim, ainda que a minha consciência me acuse de ter pecado gravemente contra todos os mandamentos de Deus, de nunca ter guardado nenhum deles e de ainda ser sempre inclinado a todo mal, Deus, sem nenhum mérito meu, por pura graça, me dá e me imputa a perfeita satisfação, justiça e santidade de Cristo, como se eu nunca tivesse cometido nem tido pecado algum e eu mesmo tivesse cumprido toda a obediência que Cristo prestou por mim; contanto que eu aceite esse benefício com um coração crente."
+ },
+ {
+  "n": 61,
+  "q": "Por que dizes que és justo somente pela fé?",
+  "a": "Não porque eu agrade a Deus pela dignidade da minha fé, mas porque somente a satisfação, a justiça e a santidade de Cristo são a minha justiça diante de Deus, e eu não posso aceitá-la e torná-la minha de outro modo, senão somente pela fé."
+ },
+ {
+  "n": 62,
+  "q": "Mas por que as nossas boas obras não podem ser a justiça diante de Deus, ou uma parte dela?",
+  "a": "Porque a justiça que há de subsistir diante do juízo de Deus tem de ser absolutamente perfeita e inteiramente conforme à lei; mas até as nossas melhores obras, nesta vida, são todas imperfeitas e manchadas de pecados."
+ },
+ {
+  "n": 63,
+  "q": "Mas as nossas boas obras não merecem nada, se Deus quer recompensá-las nesta vida e na futura?",
+  "a": "Essa recompensa não acontece por mérito, mas por graça."
+ },
+ {
+  "n": 64,
+  "q": "Mas essa doutrina não torna as pessoas descuidadas e ímpias?",
+  "a": "Não, pois é impossível que aqueles que foram implantados em Cristo pela verdadeira fé não produzam fruto de gratidão."
+ },
+ {
+  "n": 65,
+  "q": "Visto que só a fé nos faz participantes de Cristo e de todos os seus benefícios, de onde vem essa fé?",
+  "a": "O Espírito Santo a opera em nossos corações pela pregação do santo evangelho, e a confirma pelo uso dos santos sacramentos."
+ },
+ {
+  "n": 66,
+  "q": "O que são os sacramentos?",
+  "a": "São santos sinais e selos visíveis, instituídos por Deus para que, pelo uso deles, ele nos faça entender melhor e nos sele a promessa do evangelho, a saber: que ele nos dá de graça o perdão dos pecados e a vida eterna, por causa do único sacrifício de Cristo, consumado na cruz."
+ },
+ {
+  "n": 67,
+  "q": "Então ambos, a Palavra e os sacramentos, têm o propósito de dirigir a nossa fé para o sacrifício de Jesus Cristo na cruz, como o único fundamento da nossa salvação?",
+  "a": "Sim, certamente; pois o Espírito Santo ensina no evangelho, e confirma pelos santos sacramentos, que toda a nossa salvação está no único sacrifício de Cristo, feito por nós na cruz."
+ },
+ {
+  "n": 68,
+  "q": "Quantos sacramentos Cristo instituiu no Novo Testamento?",
+  "a": "Dois: o santo batismo e a santa ceia."
+ },
+ {
+  "n": 69,
+  "q": "Como és lembrado e assegurado, no santo batismo, de que o único sacrifício de Cristo na cruz te beneficia?",
+  "a": "Deste modo: Cristo instituiu essa lavagem exterior com água e prometeu, com ela, que eu sou lavado com o seu sangue e o seu Espírito da impureza da minha alma, isto é, de todos os meus pecados, tão certamente como sou lavado exteriormente com a água, que costuma tirar a sujeira do corpo."
+ },
+ {
+  "n": 70,
+  "q": "O que significa ser lavado com o sangue e o Espírito de Cristo?",
+  "a": "Significa ter de Deus o perdão dos pecados, por graça, por causa do sangue de Cristo, que ele derramou por nós no seu sacrifício na cruz; e também ser renovado pelo Espírito Santo e santificado como membro de Cristo, para que cada vez mais morramos para o pecado e andemos em uma vida piedosa e irrepreensível."
+ },
+ {
+  "n": 71,
+  "q": "Onde Cristo prometeu que somos lavados com o seu sangue e o seu Espírito tão certamente como com a água do batismo?",
+  "a": "Na instituição do batismo, que diz assim: Ide e ensinai todos os povos, batizando-os em nome do Pai, e do Filho, e do Espírito Santo; quem crer e for batizado será salvo; mas quem não crer será condenado. Essa promessa também é repetida onde a Escritura chama o batismo de lavagem da regeneração e de purificação dos pecados."
+ },
+ {
+  "n": 72,
+  "q": "Então a lavagem exterior com água é a própria purificação dos pecados?",
+  "a": "Não, pois somente o sangue de Jesus Cristo e o Espírito Santo nos purificam de todos os pecados."
+ },
+ {
+  "n": 73,
+  "q": "Por que, então, o Espírito Santo chama o batismo de lavagem da regeneração e de purificação dos pecados?",
+  "a": "Deus não fala assim sem grande razão: não só porque ele nos quer ensinar com isso que, assim como a sujeira do corpo é tirada pela água, os nossos pecados são tirados pelo sangue e pelo Espírito de Cristo; mas, muito mais, porque ele nos quer assegurar, por esse penhor e sinal divino, que somos lavados espiritualmente dos nossos pecados tão verdadeiramente como somos lavados com a água material."
+ },
+ {
+  "n": 74,
+  "q": "Devem-se batizar também as crianças pequenas?",
+  "a": "Sim; pois, visto que elas, tanto quanto os adultos, pertencem à aliança de Deus e à sua igreja, e a elas, não menos que aos adultos, são prometidos, no sangue de Cristo, a redenção dos pecados e o Espírito Santo, que opera a fé, devem também, pelo batismo, como sinal da aliança, ser incorporadas à igreja cristã e distinguidas dos filhos dos incrédulos, como se fazia no Antigo Testamento pela circuncisão, em lugar da qual o batismo foi instituído no Novo Testamento."
+ },
+ {
+  "n": 75,
+  "q": "Como és lembrado e assegurado, na santa ceia, de que tens comunhão no único sacrifício de Cristo na cruz e em todos os seus bens?",
+  "a": "Deste modo: Cristo ordenou a mim e a todos os crentes que comêssemos deste pão partido e bebêssemos deste cálice, em sua memória, e com isso prometeu: primeiro, que o seu corpo foi oferecido e partido por mim na cruz, e o seu sangue derramado por mim, tão certamente como vejo com os meus olhos que o pão do Senhor é partido para mim e o cálice me é dado; e segundo, que ele mesmo alimenta e sacia a minha alma para a vida eterna com o seu corpo crucificado e o seu sangue derramado, tão certamente como recebo da mão do ministro e tomo com a boca o pão e o cálice do Senhor, que me são dados como sinais seguros do corpo e do sangue de Cristo."
+ },
+ {
+  "n": 76,
+  "q": "O que significa comer o corpo crucificado de Cristo e beber o seu sangue derramado?",
+  "a": "Significa não só aceitar com coração crente todo o sofrimento e a morte de Cristo, e por meio disso receber o perdão dos pecados e a vida eterna, mas também, além disso, ser unido cada vez mais ao seu corpo bendito pelo Espírito Santo, que habita ao mesmo tempo em Cristo e em nós; de modo que, embora ele esteja no céu e nós na terra, somos carne da sua carne e osso dos seus ossos, e vivemos e somos governados para sempre por um só Espírito (como os membros do nosso corpo por uma só alma)."
+ },
+ {
+  "n": 77,
+  "q": "Onde Cristo prometeu que alimenta e sacia os crentes com o seu corpo e o seu sangue tão certamente como eles comem deste pão partido e bebem deste cálice?",
+  "a": "Na instituição da santa ceia, que diz assim: Nosso Senhor Jesus, na noite em que foi traído, tomou o pão, deu graças, partiu-o e disse: “Tomai, comei; isto é o meu corpo, que é partido por vós; fazei isto em memória de mim.” Do mesmo modo também o cálice, depois da ceia, dizendo: “Este cálice é o Novo Testamento no meu sangue; fazei isto, todas as vezes que o beberdes, em memória de mim.” Pois todas as vezes que comerdes deste pão e beberdes deste cálice, anunciareis a morte do Senhor, até que ele venha. E essa promessa também é repetida por São Paulo, quando diz: O cálice da bênção, pelo qual damos graças, não é a comunhão do sangue de Cristo? O pão que partimos não é a comunhão do corpo de Cristo? Porque é um só pão, nós, sendo muitos, somos um só corpo, pois todos participamos de um só pão."
+ },
+ {
+  "n": 78,
+  "q": "Então o pão e o vinho se tornam o próprio corpo e sangue de Cristo?",
+  "a": "Não; assim como a água do batismo não é transformada no sangue de Cristo, nem se torna a própria purificação dos pecados, da qual é somente sinal e garantia divinos, também o pão santo da ceia não se torna o próprio corpo de Cristo, embora seja chamado corpo de Cristo, conforme a natureza e o uso dos sacramentos."
+ },
+ {
+  "n": 79,
+  "q": "Por que, então, Cristo chama o pão de seu corpo e o cálice de seu sangue, ou de Novo Testamento no seu sangue, e São Paulo os chama de comunhão do corpo e do sangue de Jesus Cristo?",
+  "a": "Cristo não fala assim sem grande razão: não só porque ele nos quer ensinar com isso que, assim como o pão e o vinho sustentam a vida temporal, o seu corpo crucificado e o seu sangue derramado são a verdadeira comida e bebida das nossas almas para a vida eterna; mas, muito mais, porque ele nos quer assegurar, por esse sinal e penhor visível, que nos tornamos participantes do seu verdadeiro corpo e sangue, pela operação do Espírito Santo, tão verdadeiramente como recebemos com a boca esses santos sinais em sua memória; e que todo o seu sofrimento e a sua obediência são nossos tão certamente como se nós mesmos, em nossa própria pessoa, tivéssemos sofrido tudo e feito a satisfação."
+ },
+ {
+  "n": 80,
+  "q": "Que diferença há entre a ceia do Senhor e a missa papal?",
+  "a": "A ceia nos testifica que temos perdão completo de todos os nossos pecados pelo único sacrifício de Jesus Cristo, que ele mesmo consumou uma vez na cruz; [e que, pelo Espírito Santo, somos incorporados a Cristo, que agora está no céu com o seu verdadeiro corpo, à direita do Pai, e ali quer ser adorado]. A missa, porém, ensina que os vivos e os mortos não têm perdão dos pecados pelo sofrimento de Cristo, a não ser que Cristo ainda seja oferecido diariamente por eles pelos sacerdotes da missa; [e que Cristo está corporalmente sob a forma de pão e vinho, e por isso deve ser adorado neles]. Assim, a missa não é, no fundo, outra coisa senão uma negação do único sacrifício e sofrimento de Jesus Cristo [e uma idolatria maldita]."
+ },
+ {
+  "n": 81,
+  "q": "Quem deve vir à mesa do Senhor?",
+  "a": "Os que se desagradam de si mesmos por causa dos seus pecados, e contudo confiam que estes lhes são perdoados e que a fraqueza que resta é coberta pelo sofrimento e pela morte de Cristo; e que também desejam cada vez mais fortalecer a sua fé e melhorar a sua vida. Os impenitentes e os hipócritas, porém, comem e bebem juízo para si mesmos."
+ },
+ {
+  "n": 82,
+  "q": "Mas devem ser admitidos a esta ceia também os que, pela sua confissão e vida, se mostram incrédulos e ímpios?",
+  "a": "Não, pois assim a aliança de Deus é profanada e a sua ira é provocada sobre toda a comunidade. Por isso a igreja cristã tem o dever, segundo a ordem de Cristo e dos seus apóstolos, de excluir tais pessoas pelo ofício das chaves, até que melhorem de vida."
+ },
+ {
+  "n": 83,
+  "q": "O que é o ofício das chaves?",
+  "a": "A pregação do santo evangelho e a disciplina cristã; por essas duas coisas o reino dos céus é aberto aos crentes e fechado aos incrédulos."
+ },
+ {
+  "n": 84,
+  "q": "Como o reino dos céus é aberto e fechado pela pregação do santo evangelho?",
+  "a": "Deste modo: conforme o mandamento de Cristo, anuncia-se e testifica-se publicamente a todos os crentes, e a cada um deles, que, todas as vezes que aceitam a promessa do evangelho com verdadeira fé, todos os seus pecados lhes são verdadeiramente perdoados por Deus, por causa do mérito de Cristo; e, por outro lado, a todos os incrédulos e hipócritas, que a ira de Deus e a condenação eterna permanecem sobre eles enquanto não se converterem. Segundo esse testemunho do evangelho Deus julgará a ambos, nesta vida e na futura."
+ },
+ {
+  "n": 85,
+  "q": "Como o reino dos céus é aberto e fechado pela disciplina cristã?",
+  "a": "Deste modo: conforme o mandamento de Cristo, aqueles que, sob o nome de cristãos, mantêm doutrina ou conduta não cristã, depois de terem sido algumas vezes admoestados fraternalmente e não deixarem os seus erros ou vícios, são denunciados à igreja, ou aos que foram ordenados pela igreja para isso; e, se também não derem atenção à admoestação destes, são por eles excluídos da comunidade cristã, pela proibição dos santos sacramentos, e pelo próprio Deus são excluídos do reino de Cristo. E são de novo recebidos como membros de Cristo e da igreja quando prometem e mostram verdadeira emenda."
+ },
+ {
+  "n": 86,
+  "q": "Visto que fomos libertados da nossa miséria por graça, por meio de Cristo, sem nenhum mérito nosso, por que devemos fazer boas obras?",
+  "a": "Porque Cristo, depois de nos ter comprado com o seu sangue, também nos renova pelo seu Espírito Santo à sua imagem, para que com toda a nossa vida nos mostremos gratos a Deus pelo seu benefício e ele seja louvado por nós. Depois, também, para que nós mesmos tenhamos certeza da nossa fé pelos seus frutos e, com a nossa conduta piedosa, ganhemos também o nosso próximo para Cristo."
+ },
+ {
+  "n": 87,
+  "q": "Então não podem ser salvos os que não se convertem a Deus da sua conduta ingrata e impenitente?",
+  "a": "De modo nenhum; pois, como diz a Escritura, nenhum impuro, idólatra, adúltero, ladrão, avarento, bêbado, maldizente, roubador ou semelhante herdará o reino de Deus."
+ },
+ {
+  "n": 88,
+  "q": "Em quantas partes consiste o verdadeiro arrependimento ou conversão do homem?",
+  "a": "Em duas partes: a mortificação do velho homem e a ressurreição do novo."
+ },
+ {
+  "n": 89,
+  "q": "O que é a mortificação do velho homem?",
+  "a": "Entristecer-se de coração pelo pecado e, cada vez mais, odiá-lo e fugir dele."
+ },
+ {
+  "n": 90,
+  "q": "O que é a ressurreição do novo homem?",
+  "a": "Alegria de coração em Deus, por meio de Cristo, e prazer e amor em viver conforme a vontade de Deus em todas as boas obras."
+ },
+ {
+  "n": 91,
+  "q": "Mas quais são as boas obras?",
+  "a": "Somente as que são feitas com verdadeira fé, conforme a lei de Deus e para a honra dele; e não as que se baseiam na nossa própria opinião ou em preceitos de homens."
+ },
+ {
+  "n": 92,
+  "q": "O que diz a lei do Senhor?",
+  "a": "Deus fala todas estas palavras. Primeiro mandamento: Eu sou o Senhor teu Deus, que te tirei da terra do Egito, da casa da servidão. Não terás outros deuses diante de mim. Segundo mandamento: Não farás para ti imagem, nem semelhança alguma do que há em cima no céu, nem embaixo na terra, nem na água debaixo da terra; não as adorarás, nem as servirás. Porque eu, o Senhor teu Deus, sou Deus forte e zeloso, que visito a iniquidade dos pais nos filhos até a terceira e a quarta geração dos que me odeiam, e faço misericórdia a muitos milhares dos que me amam e guardam os meus mandamentos. Terceiro mandamento: Não usarás mal o nome do Senhor teu Deus, porque o Senhor não deixará sem castigo aquele que usar mal o seu nome. Quarto mandamento: Lembra-te do dia de sábado, para o santificar. Seis dias trabalharás e farás todas as tuas obras; mas o sétimo dia é o sábado do Senhor teu Deus; nele não farás trabalho algum, nem teu filho, nem tua filha, nem teu servo, nem tua serva, nem teu gado, nem o estrangeiro que está dentro das tuas portas; porque em seis dias o Senhor fez o céu e a terra, o mar e tudo o que neles há, e descansou no sétimo dia; por isso o Senhor abençoou o dia de sábado e o santificou. Quinto mandamento: Honrarás teu pai e tua mãe, para que vivas muito tempo na terra que o Senhor teu Deus te dá. Sexto mandamento: Não matarás. Sétimo mandamento: Não adulterarás. Oitavo mandamento: Não furtarás. Nono mandamento: Não dirás falso testemunho contra o teu próximo. Décimo mandamento: Não cobiçarás a casa do teu próximo; não cobiçarás a mulher do teu próximo, nem o seu servo, nem a sua serva, nem o seu boi, nem o seu jumento, nem coisa alguma que seja do teu próximo."
+ },
+ {
+  "n": 93,
+  "q": "Como se dividem esses mandamentos?",
+  "a": "Em duas tábuas: a primeira ensina, em quatro mandamentos, como devemos nos portar para com Deus; a segunda, em seis mandamentos, o que devemos ao nosso próximo."
+ },
+ {
+  "n": 94,
+  "q": "O que o Senhor exige no primeiro mandamento?",
+  "a": "Que eu, sob pena de perder a salvação da minha alma, evite e fuja de toda idolatria, feitiçaria, bênçãos supersticiosas e invocação dos santos ou de outras criaturas; e que conheça corretamente o único Deus verdadeiro, confie somente nele, com toda humildade e paciência espere somente dele todo o bem, e o ame, tema e honre de todo o coração; de modo que eu renuncie a todas as criaturas antes de fazer a menor coisa contra a sua vontade."
+ },
+ {
+  "n": 95,
+  "q": "O que é idolatria?",
+  "a": "É inventar ou ter, em lugar do único Deus verdadeiro, que se revelou na sua Palavra, ou ao lado dele, alguma outra coisa em que o homem ponha a sua confiança."
+ },
+ {
+  "n": 96,
+  "q": "O que Deus quer no segundo mandamento?",
+  "a": "Que de maneira nenhuma façamos imagem de Deus, nem o adoremos de outro modo que não aquele que ele ordenou na sua Palavra."
+ },
+ {
+  "n": 97,
+  "q": "Então não se deve fazer imagem alguma?",
+  "a": "Deus não pode nem deve ser representado de modo nenhum. Quanto às criaturas, ainda que possam ser representadas, Deus proíbe fazer e ter imagem delas para as venerar ou para servi-lo por meio delas."
+ },
+ {
+  "n": 98,
+  "q": "Mas as imagens não podem ser toleradas nas igrejas como livros dos leigos?",
+  "a": "Não, pois não devemos ser mais sábios do que Deus, que quer que a sua cristandade seja instruída não por ídolos mudos, mas pela pregação viva da sua Palavra."
+ },
+ {
+  "n": 99,
+  "q": "O que quer o terceiro mandamento?",
+  "a": "Que não blasfememos nem usemos mal o nome de Deus, não só com maldições ou com juramento falso, mas também com juramentos desnecessários; e que não nos tornemos participantes desses pecados terríveis pelo nosso silêncio e consentimento. Em resumo, que não usemos o santo nome de Deus senão com temor e reverência, para que ele seja por nós corretamente confessado, invocado e louvado em todas as nossas palavras e obras."
+ },
+ {
+  "n": 100,
+  "q": "Blasfemar o nome de Deus com maldições e juramentos é pecado tão grave que Deus se ira também com os que, no que deles depende, não ajudam a impedi-lo e proibi-lo?",
+  "a": "Sim, certamente; pois não há pecado maior, nem que mais provoque a ira de Deus, do que a blasfêmia do seu nome; por isso ele também mandou castigá-la com a morte."
+ },
+ {
+  "n": 101,
+  "q": "Mas pode-se jurar piedosamente pelo nome de Deus?",
+  "a": "Sim, quando a autoridade o exige dos seus súditos, ou quando a necessidade o requer, para manter e promover a fidelidade e a verdade, para a honra de Deus e o bem do próximo. Pois tal juramento está fundado na Palavra de Deus e, por isso, foi usado corretamente pelos santos no Antigo e no Novo Testamento."
+ },
+ {
+  "n": 102,
+  "q": "Pode-se jurar também pelos santos ou por outras criaturas?",
+  "a": "Não, pois um juramento legítimo é uma invocação de Deus, para que ele, como o único que conhece os corações, dê testemunho da verdade e me castigue se eu jurar falsamente; e essa honra não cabe a criatura alguma."
+ },
+ {
+  "n": 103,
+  "q": "O que Deus quer no quarto mandamento?",
+  "a": "Deus quer, primeiro, que o ministério da pregação e as escolas sejam mantidos, e que eu, especialmente no dia de descanso, venha com diligência à congregação de Deus, para aprender a Palavra de Deus, usar os santos sacramentos, invocar publicamente o Senhor e dar a esmola cristã. Segundo, que em todos os dias da minha vida eu descanse das minhas más obras, deixe o Senhor operar em mim pelo seu Espírito e, assim, comece nesta vida o sábado eterno."
+ },
+ {
+  "n": 104,
+  "q": "O que Deus quer no quinto mandamento?",
+  "a": "Que eu mostre toda honra, amor e fidelidade a meu pai e a minha mãe, e a todos os que foram postos sobre mim; que me submeta com a devida obediência a todo bom ensino e correção; e que também tenha paciência com os seus defeitos, pois Deus quer nos governar pela mão deles."
+ },
+ {
+  "n": 105,
+  "q": "O que Deus quer no sexto mandamento?",
+  "a": "Que eu não insulte, odeie, ofenda nem mate o meu próximo, nem com pensamentos, nem com palavras ou gestos, muito menos com atos, por mim mesmo ou por meio de outros; antes, que eu abandone todo desejo de vingança, e também não me fira a mim mesmo, nem me exponha ao perigo por imprudência. Por isso também a autoridade traz a espada, para impedir o homicídio."
+ },
+ {
+  "n": 106,
+  "q": "Mas este mandamento fala somente de matar?",
+  "a": "Ao proibir o homicídio, Deus nos quer ensinar que ele odeia a raiz do homicídio, como a inveja, o ódio, a ira e o desejo de vingança, e que tudo isso é, diante dele, um homicídio oculto."
+ },
+ {
+  "n": 107,
+  "q": "Mas basta não matarmos o nosso próximo, como foi dito?",
+  "a": "Não; pois, ao condenar a inveja, o ódio e a ira, Deus quer de nós que amemos o nosso próximo como a nós mesmos, que lhe mostremos paciência, paz, mansidão, misericórdia e bondade, que desviemos dele o dano, tanto quanto nos for possível, e que façamos o bem também aos nossos inimigos."
+ },
+ {
+  "n": 108,
+  "q": "O que quer o sétimo mandamento?",
+  "a": "Que toda impureza é amaldiçoada por Deus e que, por isso, devemos detestá-la de coração e viver de modo casto e disciplinado, seja no santo matrimônio, seja fora dele."
+ },
+ {
+  "n": 109,
+  "q": "Deus não proíbe neste mandamento nada além do adultério e de vergonhas semelhantes?",
+  "a": "Visto que tanto o nosso corpo como a nossa alma são templo do Espírito Santo, ele quer que guardemos a ambos puros e santos; por isso proíbe todos os atos, gestos, palavras, pensamentos e desejos impuros, e tudo o que possa incitar o homem a eles."
+ },
+ {
+  "n": 110,
+  "q": "O que Deus proíbe no oitavo mandamento?",
+  "a": "Ele não proíbe somente o furto e o roubo, que a autoridade castiga; Deus chama também de furto todos os maus truques e planos pelos quais procuramos trazer para nós os bens do nosso próximo, seja pela força, seja com aparência de direito, como peso, medida de comprimento, medida, mercadoria e moeda falsos, a usura, ou qualquer meio que Deus tenha proibido; e ainda toda avareza e todo desperdício inútil dos seus dons."
+ },
+ {
+  "n": 111,
+  "q": "Mas o que Deus te ordena neste mandamento?",
+  "a": "Que eu promova o proveito do meu próximo, onde eu puder e me for possível; que eu o trate como gostaria de ser tratado; e que trabalhe fielmente, para poder ajudar o necessitado na sua necessidade."
+ },
+ {
+  "n": 112,
+  "q": "O que quer o nono mandamento?",
+  "a": "Que eu não dê falso testemunho contra ninguém, não distorça as palavras de ninguém, não seja difamador nem caluniador, não ajude a condenar ninguém sem ser ouvido e levianamente; antes, que eu evite toda espécie de mentira e engano, como obras próprias do diabo, sob pena da grave ira de Deus; que nos assuntos de tribunal e em todos os outros eu ame a verdade, a diga e a confesse com sinceridade; e que também defenda e promova, conforme as minhas forças, a honra e a boa fama do meu próximo."
+ },
+ {
+  "n": 113,
+  "q": "O que quer o décimo mandamento?",
+  "a": "Que nunca mais entre em nosso coração nem o menor desejo ou pensamento contra qualquer mandamento de Deus; antes, que sempre detestemos de todo o coração todo pecado e tenhamos prazer em toda justiça."
+ },
+ {
+  "n": 114,
+  "q": "Mas os que se converteram a Deus podem guardar perfeitamente esses mandamentos?",
+  "a": "Não; até os mais santos, enquanto estão nesta vida, têm apenas um pequeno começo dessa obediência; contudo, de tal modo que, com sério propósito, começam a viver não só segundo alguns, mas segundo todos os mandamentos de Deus."
+ },
+ {
+  "n": 115,
+  "q": "Por que, então, Deus manda pregar os dez mandamentos com tanto rigor, se ninguém pode guardá-los nesta vida?",
+  "a": "Primeiro, para que durante toda a nossa vida conheçamos cada vez mais a nossa natureza pecaminosa e, com tanto mais anseio, busquemos em Cristo o perdão dos pecados e a justiça. Depois, para que nos esforcemos sem cessar e peçamos a Deus a graça do Espírito Santo, a fim de sermos cada vez mais renovados à imagem de Deus, até alcançarmos, depois desta vida, o alvo da perfeição."
+ },
+ {
+  "n": 116,
+  "q": "Por que a oração é necessária aos cristãos?",
+  "a": "Porque ela é a parte principal da gratidão que Deus exige de nós, e porque Deus quer dar a sua graça e o seu Espírito Santo somente àqueles que, com gemidos sinceros, lhe pedem isso sem cessar e lhe agradecem por isso."
+ },
+ {
+  "n": 117,
+  "q": "O que é preciso para que uma oração agrade a Deus e seja ouvida por ele?",
+  "a": "Primeiro, que invoquemos de coração somente o único Deus verdadeiro, que se revelou a nós na sua Palavra, pedindo tudo o que ele nos mandou pedir. Segundo, que conheçamos a fundo a nossa necessidade e miséria, para nos humilharmos diante da face da sua majestade. Terceiro, que tenhamos este firme fundamento: que ele, embora sejamos indignos disso, certamente quer ouvir a nossa oração, por causa do Senhor Cristo, como nos prometeu na sua Palavra."
+ },
+ {
+  "n": 118,
+  "q": "O que Deus nos mandou pedir a ele?",
+  "a": "Tudo o que é necessário ao espírito e ao corpo, o que o Senhor Cristo reuniu na oração que ele mesmo nos ensinou."
+ },
+ {
+  "n": 119,
+  "q": "Como é a oração do Senhor?",
+  "a": "Pai nosso, que estás nos céus: santificado seja o teu nome. Venha o teu reino. Seja feita a tua vontade, assim na terra como no céu. O pão nosso de cada dia nos dá hoje. E perdoa-nos as nossas dívidas, assim como nós perdoamos aos nossos devedores. E não nos conduzas à tentação, mas livra-nos do mal. Porque teu é o reino, e o poder, e a glória, para sempre. Amém."
+ },
+ {
+  "n": 120,
+  "q": "Por que Cristo nos mandou dirigir-nos a Deus assim: Pai nosso?",
+  "a": "Para despertar em nós, logo no começo da nossa oração, o temor e a confiança de filhos para com Deus, que devem ser o fundamento da nossa oração: a saber, que Deus se tornou nosso Pai por meio de Cristo, e que muito menos nos negará o que lhe pedimos com fé do que os nossos pais nos recusam as coisas terrenas."
+ },
+ {
+  "n": 121,
+  "q": "Por que se acrescenta: que estás nos céus?",
+  "a": "Para que não pensemos nada de terreno a respeito da majestade celestial de Deus, e esperemos da sua onipotência tudo o que é necessário ao corpo e à alma."
+ },
+ {
+  "n": 122,
+  "q": "Qual é a primeira petição?",
+  "a": "Santificado seja o teu nome. Isto é: concede-nos, primeiro, que te conheçamos corretamente, e que te santifiquemos, exaltemos e louvemos em todas as tuas obras, nas quais brilham a tua onipotência, sabedoria, bondade, justiça, misericórdia e verdade. Depois, também, que dirijamos toda a nossa vida, os pensamentos, as palavras e as obras, de modo que o teu nome não seja blasfemado por nossa causa, mas honrado e louvado."
+ },
+ {
+  "n": 123,
+  "q": "Qual é a segunda petição?",
+  "a": "Venha o teu reino. Isto é: governa-nos de tal modo pela tua Palavra e pelo teu Espírito que nos submetamos a ti cada vez mais; conserva e aumenta a tua igreja; e destrói as obras do diabo, todo poder que se levanta contra ti e todos os maus planos tramados contra a tua santa Palavra, até que venha a plenitude do teu reino, em que tu serás tudo em todos."
+ },
+ {
+  "n": 124,
+  "q": "Qual é a terceira petição?",
+  "a": "Seja feita a tua vontade, assim na terra como no céu. Isto é: concede que nós e todos os homens renunciemos à nossa própria vontade e obedeçamos, sem nenhuma contradição, à tua vontade, a única que é boa; para que assim cada um cumpra o seu ofício e a sua vocação com tanta boa vontade e fidelidade como os anjos no céu."
+ },
+ {
+  "n": 125,
+  "q": "Qual é a quarta petição?",
+  "a": "O pão nosso de cada dia nos dá hoje. Isto é: queiras prover-nos de tudo o que é necessário ao corpo, para que por isso reconheçamos que tu és a única origem de todo bem, e que, sem a tua bênção, nem os nossos cuidados e o nosso trabalho, nem os teus dons nos aproveitam; e para que, por isso, retiremos de todas as criaturas a nossa confiança e a ponhamos somente em ti."
+ },
+ {
+  "n": 126,
+  "q": "Qual é a quinta petição?",
+  "a": "Perdoa-nos as nossas dívidas, assim como nós perdoamos aos nossos devedores. Isto é: por causa do sangue de Cristo, não queiras imputar a nós, pobres pecadores, todas as nossas transgressões, nem o mal que ainda sempre se apega a nós; assim como nós também achamos em nós este testemunho da tua graça: que é nosso firme propósito perdoar de coração ao nosso próximo."
+ },
+ {
+  "n": 127,
+  "q": "Qual é a sexta petição?",
+  "a": "E não nos conduzas à tentação, mas livra-nos do mal. Isto é: visto que, por nós mesmos, somos tão fracos que não podemos subsistir nem por um instante, e além disso os nossos inimigos declarados, o diabo, o mundo e a nossa própria carne, não param de nos atacar, queiras conservar-nos e fortalecer-nos pelo poder do teu Espírito Santo, para que lhes possamos resistir firmemente e não sejamos vencidos nesta luta espiritual, até que por fim alcancemos a vitória completa."
+ },
+ {
+  "n": 128,
+  "q": "Como concluis esta oração?",
+  "a": "Porque teu é o reino, e o poder, e a glória, para sempre. Isto é: tudo isso te pedimos porque tu, como nosso Rei e poderoso sobre todas as coisas, queres e podes dar-nos todo o bem; e para que, por isso, não nós, mas o teu santo nome seja louvado eternamente."
+ },
+ {
+  "n": 129,
+  "q": "O que significa a palavra: Amém?",
+  "a": "Amém quer dizer: isto é verdadeiro e certo. Pois a minha oração é ouvida por Deus com muito mais certeza do que eu sinto no meu coração que desejo isso dele."
+ }
+]
