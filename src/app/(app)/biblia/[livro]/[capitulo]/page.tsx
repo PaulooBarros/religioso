@@ -5,7 +5,7 @@ import { BOOKS, bookById, bookBySlug } from "@/lib/bible/books";
 import { chapterHref } from "@/lib/bible/reference";
 import { BIBLIA_LIVRE_SOURCE } from "@/lib/bible/source";
 import { chapterCounts, getChapter } from "@/lib/bible/text";
-import { getBookmarks, getChapterNotes } from "@/lib/queries";
+import { getBookmarks, getChapterHighlights, getChapterNotes } from "@/lib/queries";
 import { currentProfileId } from "@/lib/session";
 
 type Params = { livro: string; capitulo: string };
@@ -25,9 +25,13 @@ export default async function ChapterPage({ params }: PageProps<"/biblia/[livro]
   const [verses, counts, profileId] = await Promise.all([getChapter(book, chapter), chapterCounts(), currentProfileId()]);
   if (!verses) notFound();
 
-  const [allBookmarks, notes] = profileId
-    ? await Promise.all([getBookmarks(profileId), getChapterNotes(profileId, book.id, chapter)])
-    : [[], []];
+  const [allBookmarks, notes, highlights] = profileId
+    ? await Promise.all([
+        getBookmarks(profileId),
+        getChapterNotes(profileId, book.id, chapter),
+        getChapterHighlights(profileId, book.id, chapter),
+      ])
+    : [[], [], {}];
 
   const total = counts[book.id];
   const prevBook = bookById(book.id - 1);
@@ -56,6 +60,7 @@ export default async function ChapterPage({ params }: PageProps<"/biblia/[livro]
       verses={verses}
       initialBookmarks={allBookmarks.filter((b) => b.book_id === book.id && b.chapter === chapter)}
       initialNotes={notes}
+      initialHighlights={highlights}
       knownTags={knownTags}
       canWrite={Boolean(profileId)}
       books={BOOKS.map((b) => ({ id: b.id, name: b.name, slug: b.slug, chapters: counts[b.id] }))}

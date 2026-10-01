@@ -425,7 +425,7 @@
   }
   .action-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 8px;
   }
   .action-grid .action-btn {
@@ -441,5 +441,97 @@
     width: auto;
     padding: 0 4px;
     font-size: 13.5px;
+  }
+}
+
+/* Highlights ("grifos"): soft marker colors, one set per theme */
+:root {
+  --hl-amarelo: #f5e3a1;
+  --hl-verde: #d6e6c0;
+  --hl-azul: #cfe0ee;
+  --hl-rosa: #f0d3d6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --hl-amarelo: #534522;
+    --hl-verde: #33442a;
+    --hl-azul: #283b4a;
+    --hl-rosa: #4d2d33;
+  }
+}
+:root[data-theme="dark"] {
+  --hl-amarelo: #534522;
+  --hl-verde: #33442a;
+  --hl-azul: #283b4a;
+  --hl-rosa: #4d2d33;
+}
+.hl {
+  border-radius: 2px;
+  padding: 0.08em 0;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.hl-amarelo { background: var(--hl-amarelo); }
+.hl-verde { background: var(--hl-verde); }
+.hl-azul { background: var(--hl-azul); }
+.hl-rosa { background: var(--hl-rosa); }
+
+.hl-palette {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 6px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--faint);
+  border-radius: 8px;
+  background: var(--sheet);
+}
+.swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  cursor: pointer;
+}
+.swatch[aria-pressed="true"] {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Text size picker */
+.size-picker {
+  display: flex;
+  align-items: flex-end;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.size-picker button {
+  flex: 1;
+  height: 44px;
+  min-width: 52px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-serif), serif;
+  cursor: pointer;
+}
+.size-picker button[aria-checked="true"] {
+  background: var(--inverse);
+  color: var(--on-inverse);
+}
+
+@media (max-width: 899px) {
+  .hl-palette {
+    position: static;
+    border: 0;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+  .swatch {
+    width: 40px;
+    height: 40px;
   }
 }

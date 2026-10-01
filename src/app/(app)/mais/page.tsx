@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Icon } from "@/components/icons";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { signOut } from "@/lib/actions/auth";
 import { getSession, initials } from "@/lib/session";
 
@@ -66,6 +67,9 @@ export default async function MorePage() {
             </span>
           ))}
         </nav>
+        <div>
+          <ThemeToggle withLabel className="btn" />
+        </div>
         {session.mode === "user" && (
           <form action={signOut}>
             <button type="submit" className="btn btn-ghost" style={{ paddingLeft: 0 }}>

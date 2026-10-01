@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Icon, type IconName } from "./icons";
+import { ThemeToggle } from "./theme-toggle";
 import { parseReference, chapterHref } from "@/lib/bible/reference";
 
 type Item = { label: string; icon: IconName; href?: string; stage?: number };
@@ -162,6 +163,7 @@ export function TopBar() {
     <header className="topbar">
       <PassageSearch placeholder="Ir para uma passagem, ex.: Rm 8:28" />
       <div style={{ flex: 1 }} />
+      <ThemeToggle withLabel className="btn btn-sm" />
     </header>
   );
 }

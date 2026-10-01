@@ -7,11 +7,14 @@ import { FromYourBase, Icon, Ribbon, RibbonOutline } from "./icons";
 import { BookmarkForm } from "./bookmark-form";
 import { NoteForm } from "./note-form";
 import { Sheet } from "./sheet";
+import { ThemeToggle } from "./theme-toggle";
 import { markLastRead } from "@/lib/actions/bookmarks";
+import { removeHighlight, setHighlight } from "@/lib/actions/highlights";
 import { deleteNote } from "@/lib/actions/notes";
 import { formatRef, formatSelection, OTHER_VERSIONS, otherVersionHref } from "@/lib/bible/reference";
 import type { Book } from "@/lib/bible/books";
 import { relativeDay } from "@/lib/dates";
+import { HIGHLIGHT_COLORS, type ChapterHighlights, type HighlightColor } from "@/lib/highlights";
 import type { Bookmark, Note } from "@/lib/types";
 
 type BookOption = { id: number; name: string; slug: string; chapters: number };
@@ -45,6 +48,50 @@ function subscribeSize(onChange: () => void) {
     window.removeEventListener(SIZE_EVENT, onChange);
     window.removeEventListener("storage", onChange);
   };
+}
+
+function setSizeStep(step: number) {
+  try {
+    localStorage.setItem(SIZE_KEY, String(SIZES[step]));
+  } catch {
+    // Preference is optional.
+  }
+  window.dispatchEvent(new Event(SIZE_EVENT));
+}
+
+/** "Aa" opens a picker with the four reading sizes. */
+function SizePicker({ step }: { step: number }) {
+  const ref = useRef<HTMLDetailsElement>(null);
+  return (
+    <details className="menu" ref={ref}>
+      <summary className="aa-btn" aria-label={`Tamanho do texto: ${SIZES[step]} px`} style={{ display: "inline-flex", alignItems: "center" }}>
+        Aa
+      </summary>
+      <div className="menu-list" style={{ minWidth: 0, gap: 8 }}>
+        <span className="label" style={{ padding: "2px 2px 0" }}>
+          Tamanho do texto
+        </span>
+        <div className="size-picker" role="radiogroup" aria-label="Tamanho do texto">
+          {SIZES.map((s, i) => (
+            <button
+              key={s}
+              type="button"
+              role="radio"
+              aria-checked={i === step}
+              aria-label={`${s} px`}
+              style={{ fontSize: 13 + i * 3 }}
+              onClick={() => {
+                setSizeStep(i);
+                ref.current?.removeAttribute("open");
+              }}
+            >
+              A
+            </button>
+          ))}
+        </div>
+      </div>
+    </details>
+  );
 }
 
 function noteRef(n: Note, fallbackBook: number, fallbackChapter: number) {
@@ -142,6 +189,7 @@ export function Reader({
   verses,
   initialBookmarks,
   initialNotes,
+  initialHighlights,
   knownTags,
   canWrite,
   books,
@@ -155,6 +203,7 @@ export function Reader({
   verses: string[];
   initialBookmarks: Bookmark[];
   initialNotes: Note[];
+  initialHighlights: ChapterHighlights;
   knownTags: string[];
   canWrite: boolean;
   books: BookOption[];
@@ -170,8 +219,11 @@ export function Reader({
   const [dialog, setDialog] = useState<Dialog>(null);
   const [panelOpen, setPanelOpen] = useState(true);
   const [toast, setToast] = useState<string | null>(null);
+  const [highlights, setHighlights] = useState(initialHighlights);
+  const [paletteOpen, setPaletteOpen] = useState(false);
   const sizeStep = useSyncExternalStore(subscribeSize, readSizeStep, () => 1);
   const [, startDelete] = useTransition();
+  const [, startHighlight] = useTransition();
 
   useEffect(() => {
     if (!toast) return;
@@ -275,14 +327,29 @@ export function Reader({
     });
   }
 
-  function cycleSize() {
-    const step = (sizeStep + 1) % SIZES.length;
-    try {
-      localStorage.setItem(SIZE_KEY, String(SIZES[step]));
-    } catch {
-      // Preference is optional.
+  const selectionHighlighted = sorted.some((v) => highlights[v]);
+  const selectionColor = sorted.length && sorted.every((v) => highlights[v] === highlights[first]) ? highlights[first] : undefined;
+
+  /** Optimistic: paint now, roll back if the server refuses. */
+  function applyHighlight(color: HighlightColor | null) {
+    const before = highlights;
+    const after = { ...highlights };
+    for (const v of sorted) {
+      if (color) after[v] = color;
+      else delete after[v];
     }
-    window.dispatchEvent(new Event(SIZE_EVENT));
+    setHighlights(after);
+    setPaletteOpen(false);
+    setSelected([]);
+    startHighlight(async () => {
+      const res = color
+        ? await setHighlight(book.id, chapter, sorted, color)
+        : await removeHighlight(book.id, chapter, sorted);
+      if (!res.ok) {
+        setHighlights(before);
+        setToast(res.error);
+      }
+    });
   }
 
   const notesList = (
@@ -341,9 +408,10 @@ export function Reader({
           <span className="desktop-only">
             <OtherVersions book={book} chapter={chapter} />
           </span>
-          <button type="button" className="aa-btn" onClick={cycleSize} aria-label={`Tamanho do texto: ${SIZES[sizeStep]} px`}>
-            Aa
-          </button>
+          <SizePicker step={sizeStep} />
+          <span className="mobile-only">
+            <ThemeToggle />
+          </span>
           <button type="button" className="btn btn-sm mobile-only" onClick={() => setDialog({ kind: "notes" })}>
             Notas{notes.length ? ` ${notes.length}` : ""}
           </button>
@@ -390,14 +458,23 @@ export function Reader({
                       {n}
                       {notedVerses.has(n) && <span aria-label=", tem nota">•</span>}
                     </span>
-                    <p className="verse-text">{t}</p>
+                    <p className="verse-text">
+                      {highlights[n] ? (
+                        <span className={`hl hl-${highlights[n]}`}>
+                          {t}
+                          <span className="visually-hidden"> (grifado)</span>
+                        </span>
+                      ) : (
+                        t
+                      )}
+                    </p>
                   </div>
                 );
               })}
             </div>
             <p className="reader-hint">
-              Toque num versículo para selecionar. Sublinhado pontilhado e “•”: tem nota. Fitilho na margem: marcador
-              (bordô = “Onde parei”).
+              Toque num versículo para selecionar, anotar, marcar ou grifar. Sublinhado pontilhado e “•”: tem nota.
+              Fitilho na margem: marcador (bordô = “Onde parei”).
             </p>
             <nav className="chapter-nav" aria-label="Capítulos">
               {prev ? (
@@ -448,7 +525,15 @@ export function Reader({
         <div className={`action-bar${panelOpen ? "" : " no-panel"}`} role="toolbar" aria-label={`Ações para ${selLabel}`}>
           <div className="action-bar-head">
             <span className="action-ref">{selLabel}</span>
-            <button type="button" className="action-close" onClick={() => setSelected([])} aria-label="Limpar seleção">
+            <button
+              type="button"
+              className="action-close"
+              onClick={() => {
+                setSelected([]);
+                setPaletteOpen(false);
+              }}
+              aria-label="Limpar seleção"
+            >
               <span className="mobile-only">Cancelar</span>
               <span className="desktop-only" style={{ display: "inline-flex" }}>
                 <Icon name="fechar" size={14} />
@@ -464,12 +549,44 @@ export function Reader({
               <RibbonOutline size={15} />
               Marcar
             </button>
+            <button
+              type="button"
+              className="action-btn"
+              disabled={!canWrite}
+              aria-expanded={paletteOpen}
+              onClick={() => setPaletteOpen((o) => !o)}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M15 4l5 5-9 9H6v-5zM4 21h16" />
+              </svg>
+              Grifar
+            </button>
             <button type="button" className="action-btn" onClick={copySelection}>
               <Icon name="copiar" size={18} />
               Copiar
             </button>
           </div>
           <OtherVersions book={book} chapter={chapter} verse={first} up />
+          {paletteOpen && (
+            <div className="hl-palette" role="group" aria-label="Cor do grifo">
+              {HIGHLIGHT_COLORS.map((c) => (
+                <button
+                  key={c.id}
+                  type="button"
+                  className={`swatch hl-${c.id}`}
+                  aria-label={`Grifar em ${c.label.toLowerCase()}`}
+                  title={c.label}
+                  aria-pressed={selectionColor === c.id}
+                  onClick={() => applyHighlight(c.id)}
+                />
+              ))}
+              {selectionHighlighted && (
+                <button type="button" className="btn btn-sm" onClick={() => applyHighlight(null)}>
+                  Remover grifo
+                </button>
+              )}
+            </div>
+          )}
         </div>
       )}
 

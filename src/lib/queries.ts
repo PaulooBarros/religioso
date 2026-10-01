@@ -1,5 +1,6 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
+import type { ChapterHighlights } from "@/lib/highlights";
 import type { Bookmark, Note } from "@/lib/types";
 
 const BOOKMARK_COLUMNS = "id, book_id, chapter, verse, name, tag, is_last_read, updated_at";
@@ -57,6 +58,21 @@ export async function getNotes(profileId: string): Promise<Note[]> {
     .eq("profile_id", profileId)
     .order("updated_at", { ascending: false });
   return (data ?? []) as Note[];
+}
+
+export async function getChapterHighlights(
+  profileId: string,
+  bookId: number,
+  chapter: number,
+): Promise<ChapterHighlights> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("highlights")
+    .select("verse, color")
+    .eq("profile_id", profileId)
+    .eq("book_id", bookId)
+    .eq("chapter", chapter);
+  return Object.fromEntries((data ?? []).map((h) => [h.verse, h.color])) as ChapterHighlights;
 }
 
 export async function getSources() {

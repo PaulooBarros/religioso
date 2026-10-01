@@ -151,3 +151,12 @@ Trabalho por tasks: cada task termina com commit, e a próxima só começa depoi
 - [x] **Task 1: base do app, sem banco.** Next.js 16 + design do Claude Design (`design/`); leitor da Bíblia Livre lendo do arquivo local (`data/bible/blivre.json`, 66 livros, 31.102 versículos); busca por referência; "Ler em outra versão" (só link externo); páginas Hoje, Marcadores, Notas, Fontes e licenças, Mais, Perfis e Entrar; migração SQL com tabelas e RLS; script de importação. Decisão tomada pelo design: **vários perfis dentro da mesma conta** ("Quem está estudando?"). Login provisório: e-mail e senha.
 - [x] **Task 2: conectar o Supabase** (projeto `religioso`). Chave publishable e `DATABASE_URL` em `.env.local`; migração aplicada com `npm run db:migrate`; Bíblia importada com `npm run import:bible` (fonte cadastrada, 31.102 versículos); leitura pública e bloqueio de escrita conferidos pela API; isolamento entre contas testado por SQL (9 de 9 verificações).
 - [x] **Task 3: testar o fluxo completo.** Conta e perfil criados; leitura, nota, marcador e "onde parei" testados manualmente pelo dono. Testes automáticos com Playwright ficam para a Etapa 10.
+- [x] **Task 4: ajustes no leitor (pedido do dono).** Grifo por versículo em quatro cores suaves (amarelo, verde, azul, rosa), com "Remover grifo", salvo por perfil (tabela `highlights`, RLS); "Aa" abre um seletor de tamanho em vez de alternar sozinho; botão de modo claro/escuro no topo, no leitor (celular) e em Mais, guardado em cookie.
+
+### Etapa 2 (próxima)
+
+Decisão do dono: catecismos entram pelo **texto original em domínio público com tradução automática rotulada** ("tradução automática do original", com link para o original).
+
+- [ ] Task 1: cards e questões (cadastro manual, temas, RLS).
+- [ ] Task 2: revisão espaçada SM-2, revisão do dia, sequência de dias, "revisar erros".
+- [ ] Task 3: catecismos (Westminster Breve, Heidelberg, Spurgeon) com fonte e licença.
