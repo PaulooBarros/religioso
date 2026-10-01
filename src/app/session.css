@@ -265,3 +265,79 @@
     gap: 20px;
   }
 }
+
+/* Mock exam (design: Estudar · 06 Simulados) */
+.exam {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+.exam-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  padding: 40px 48px;
+}
+.exam-aside {
+  width: 280px;
+  flex: none;
+  border-left: 1px solid var(--line);
+  background: var(--sheet);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.exam-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+.exam-grid button {
+  position: relative;
+  height: 38px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 13px;
+  cursor: pointer;
+}
+.exam-grid button.answered {
+  border-color: var(--inverse);
+  background: var(--inverse);
+  color: var(--on-inverse);
+}
+.exam-grid button.current {
+  border: 1.5px solid var(--accent);
+  background: transparent;
+  color: var(--ink);
+  font-weight: 600;
+}
+.exam-grid button.current.answered {
+  background: var(--accent-soft);
+}
+.exam-grid button span {
+  position: absolute;
+  top: 1px;
+  right: 3px;
+  font-size: 9px;
+}
+@media (max-width: 899px) {
+  .exam {
+    flex-direction: column;
+  }
+  .exam-main {
+    padding: 20px;
+  }
+  .exam-aside {
+    width: auto;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding: 16px 20px calc(20px + env(safe-area-inset-bottom));
+  }
+  .exam-grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+}

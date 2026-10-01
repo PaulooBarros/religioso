@@ -46,6 +46,7 @@ async function newIntroducedToday(profileId: string): Promise<number> {
     .select("id", { count: "exact", head: true })
     .eq("profile_id", profileId)
     .is("prev_state", null)
+    .neq("mode", "simulado") // exam errors are scheduled, not "introduced" in a session
     .gte("reviewed_at", startOfDay());
   return count ?? 0;
 }

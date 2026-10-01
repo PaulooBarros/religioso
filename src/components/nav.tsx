@@ -24,11 +24,11 @@ const GROUPS: { title: string; items: Item[] }[] = [
     title: "Estudar",
     items: [
       { label: "Hoje", icon: "hoje", href: "/hoje" },
-      { label: "Cards e questões", icon: "simulados", href: "/estudar" },
+      { label: "Cards e questões", icon: "fila", href: "/estudar" },
       { label: "Trilha de sistemática", icon: "trilha", href: "/trilha" },
       { label: "Fé batista", icon: "batista", stage: 5 },
       { label: "Catecismos", icon: "catecismos", href: "/catecismos" },
-      { label: "Simulados", icon: "simulados", stage: 3 },
+      { label: "Simulados", icon: "simulados", href: "/simulados" },
     ],
   },
   {

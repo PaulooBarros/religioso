@@ -81,9 +81,11 @@ export default async function ThemePage({ params, searchParams }: PageProps<"/tr
                 Criar a primeira questão
               </Link>
             )}
-            <span className="btn" aria-disabled="true" title="Chega na próxima task" style={{ color: "var(--faint)", cursor: "default" }}>
-              Simulado do tema
-            </span>
+            {items.some((i) => i.kind === "mcq") && (
+              <Link href={`/simulados?tema=${theme.id}`} className="btn">
+                Simulado do tema
+              </Link>
+            )}
           </div>
 
           <section style={{ display: "flex", flexDirection: "column" }} aria-labelledby="subs-title">

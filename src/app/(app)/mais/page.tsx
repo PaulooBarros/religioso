@@ -7,7 +7,6 @@ import { getSession, initials } from "@/lib/session";
 export const metadata = { title: "Mais" };
 
 const LATER = [
-  ["Simulados", 3],
   ["Fé batista", 5],
   ["História e confissões", 5],
   ["Teólogos e movimentos", 6],
@@ -45,6 +44,7 @@ export default async function MorePage() {
             ["/biblia/marcadores", "Marcadores"],
             ["/trilha", "Trilha de sistemática"],
             ["/catecismos", "Catecismos"],
+            ["/simulados", "Simulados"],
             ["/notas", "Notas"],
             ["/fontes", "Fontes e licenças"],
           ].map(([href, label]) => (
