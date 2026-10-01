@@ -53,6 +53,18 @@ function ReviewCard({ o }: { o: ReviewOverview }) {
             <span className="muted" style={{ fontSize: 14 }}>
               {parts.join(" · ")}
             </span>
+            {o.priority.length > 0 && (
+              <span style={{ fontSize: 14 }}>
+                <b style={{ fontWeight: 600 }}>Primeiro:</b>{" "}
+                {o.priority.map((w, i) => (
+                  <span key={w.themeId}>
+                    {i > 0 && ", "}
+                    <Link href={`/trilha/${w.themeId}`}>{w.name}</Link> ({w.percent}% no último simulado, {w.inQueue}{" "}
+                    {w.inQueue === 1 ? "item" : "itens"})
+                  </span>
+                ))}
+              </span>
+            )}
             <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 8, flexWrap: "wrap" }}>
               <Link href="/revisao" className="btn btn-lg btn-primary" style={{ padding: "0 28px" }}>
                 Começar

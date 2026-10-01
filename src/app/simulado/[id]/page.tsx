@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { ExamRunner } from "./runner";
 import { Icon } from "@/components/icons";
-import { getExam, resultsByTheme } from "@/lib/exams";
+import { getExam, resultsByTheme, WEAK_DAYS, WEAK_THRESHOLD } from "@/lib/exams";
 import { getThemes } from "@/lib/queries";
 import { getSession } from "@/lib/session";
 
@@ -52,6 +52,7 @@ export default async function ExamPage({ params, searchParams }: PageProps<"/sim
   const minutes = Math.max(1, Math.round((new Date(exam.finished_at!).getTime() - new Date(exam.started_at).getTime()) / 60_000));
   const byTheme = resultsByTheme(answers).sort((a, b) => a.percent - b.percent);
   const weakest = byTheme.length > 1 && byTheme[0].percent < 100 ? byTheme[0] : null;
+  const priority = byTheme.filter((t) => t.themeId && t.percent < WEAK_THRESHOLD).map((t) => themeName(t.themeId));
   const wrongCount = exam.total - (exam.score ?? 0);
   const onlyWrong = ver === "erradas";
   const shown = onlyWrong ? answers.filter((a) => !a.is_correct) : answers;
@@ -113,6 +114,8 @@ export default async function ExamPage({ params, searchParams }: PageProps<"/sim
             {wrongCount === 0
               ? "Nenhuma questão errada. Os acertos não mudam o agendamento da revisão."
               : `${wrongCount === 1 ? "A questão errada entra" : `As ${wrongCount} questões erradas entram`} na sua revisão a partir de amanhã.`}
+            {priority.length > 0 &&
+              ` Enquanto este for o seu simulado mais recente, por até ${WEAK_DAYS} dias, a revisão do dia começa por ${priority.join(", ")} (abaixo de ${WEAK_THRESHOLD}% de acerto).`}
           </p>
 
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>

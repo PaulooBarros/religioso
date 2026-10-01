@@ -81,7 +81,46 @@ export function resultsByTheme(answers: Pick<ExamAnswer, "theme_id" | "is_correc
   return [...map.entries()].map(([themeId, r]) => ({ themeId, ...r, percent: Math.round((r.correct / r.total) * 100) }));
 }
 
-export type Trend = "subindo" | "caindo" | "estável" | "primeira medição";
+/** Below this accuracy in the latest exam, a theme gets priority in the daily review. */
+export const WEAK_THRESHOLD = 70;
+/** The priority lasts this many days after the exam (or until a newer exam). */
+export const WEAK_DAYS = 7;
+
+export type WeakTheme = { themeId: string; name: string; percent: number; correct: number; total: number };
+
+/** Themes of the latest finished exam below the threshold, weakest first. */
+export async function getWeakThemes(profileId: string): Promise<WeakTheme[]> {
+  const supabase = await createClient();
+  const { data: exam } = await supabase
+    .from("exams")
+    .select("id, finished_at, exam_answers(theme_id, is_correct)")
+    .eq("profile_id", profileId)
+    .eq("status", "finished")
+    .order("finished_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (!exam?.finished_at) return [];
+  if (Date.now() - new Date(exam.finished_at as string).getTime() > WEAK_DAYS * 86_400_000) return [];
+
+  const weak = resultsByTheme(exam.exam_answers as Pick<ExamAnswer, "theme_id" | "is_correct">[])
+    .filter((r) => r.themeId && r.percent < WEAK_THRESHOLD)
+    .sort((a, b) => a.percent - b.percent || b.total - a.total);
+  if (!weak.length) return [];
+
+  const { data: themes } = await supabase
+    .from("themes")
+    .select("id, name")
+    .in("id", weak.map((r) => r.themeId as string));
+  return weak.map((r) => ({
+    themeId: r.themeId as string,
+    name: themes?.find((t) => t.id === r.themeId)?.name ?? "Tema",
+    percent: r.percent,
+    correct: r.correct,
+    total: r.total,
+  }));
+}
+
+export type Trend ="subindo" | "caindo" | "estável" | "primeira medição";
 
 export type Diagnosis = ThemeResult & { exams: number; trend: Trend; lastPercent: number };
 
