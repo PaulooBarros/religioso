@@ -149,5 +149,5 @@ Trabalho por tasks: cada task termina com commit, e a próxima só começa depoi
 ### Etapa 1 (em andamento)
 
 - [x] **Task 1: base do app, sem banco.** Next.js 16 + design do Claude Design (`design/`); leitor da Bíblia Livre lendo do arquivo local (`data/bible/blivre.json`, 66 livros, 31.102 versículos); busca por referência; "Ler em outra versão" (só link externo); páginas Hoje, Marcadores, Notas, Fontes e licenças, Mais, Perfis e Entrar; migração SQL com tabelas e RLS; script de importação. Decisão tomada pelo design: **vários perfis dentro da mesma conta** ("Quem está estudando?"). Login provisório: e-mail e senha.
-- [ ] **Task 2: conectar o Supabase** (projeto `religioso`): chaves em `.env.local`, aplicar a migração, importar a Bíblia, criar conta e perfil.
-- [ ] **Task 3: testar o fluxo completo** (ler, nota, marcador, "onde parei" no celular e no desktop) e fechar a Etapa 1.
+- [x] **Task 2: conectar o Supabase** (projeto `religioso`). Chave publishable e `DATABASE_URL` em `.env.local`; migração aplicada com `npm run db:migrate`; Bíblia importada com `npm run import:bible` (fonte cadastrada, 31.102 versículos); leitura pública e bloqueio de escrita conferidos pela API; isolamento entre contas testado por SQL (9 de 9 verificações).
+- [ ] **Task 3: testar o fluxo completo**: criar a conta e o primeiro perfil, ler, salvar nota e marcador, conferir o "onde parei" no celular e no desktop, e fechar a Etapa 1.

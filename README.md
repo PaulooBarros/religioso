@@ -15,14 +15,14 @@ Sem o Supabase configurado, o app abre em **modo de leitura local**. Dá para le
 
 ## Conectar o Supabase
 
-1. Crie um projeto em https://supabase.com.
-2. Copie `.env.example` para `.env.local` e preencha com os valores de *Project Settings > API*:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `SUPABASE_SERVICE_ROLE_KEY`, que só é usada no servidor e nos scripts.
-3. Crie as tabelas rodando a migração [supabase/migrations/20260930000001_base.sql](supabase/migrations/20260930000001_base.sql). Há dois jeitos:
-   - colar o arquivo no *SQL Editor* do painel;
-   - usar a CLI: `npx supabase link` e depois `npx supabase db push`.
+1. Crie um projeto em https://supabase.com. O projeto deste app se chama `religioso`.
+2. Copie `.env.example` para `.env.local` e preencha:
+   - `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, de *Project Settings > API Keys*;
+   - `DATABASE_URL`, a string de conexão do *Session pooler* (*Connect* no topo do painel). Ela só é usada pelos scripts e nunca vai para o navegador.
+3. Aplique as migrações em [supabase/migrations/](supabase/migrations/). A tabela de controle é a mesma da CLI do Supabase.
+   ```bash
+   npm run db:migrate
+   ```
 4. Importe a Bíblia Livre:
    ```bash
    npm run import:bible

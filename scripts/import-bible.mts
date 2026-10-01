@@ -1,83 +1,99 @@
-// Imports the Bíblia Livre into Supabase: source row first, then translation,
-// books and verses. Idempotent (upserts). Needs the service key.
+// Imports the Bíblia Livre into the database: source row first, then
+// translation, books and verses. Idempotent (upserts). Uses the direct
+// Postgres connection, so it never needs the service key.
 // Usage: npm run import:bible
 import { readFileSync } from "node:fs";
-import { createClient } from "@supabase/supabase-js";
+import pg from "pg";
 import { BOOKS } from "../src/lib/bible/books.ts";
-import { BIBLIA_LIVRE_SOURCE } from "../src/lib/bible/source.ts";
+import { BIBLIA_LIVRE_SOURCE as S } from "../src/lib/bible/source.ts";
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-if (!url || !key) {
-  console.error("Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY in .env.local");
+const url = process.env.DATABASE_URL;
+if (!url) {
+  console.error("Missing DATABASE_URL in .env.local");
   process.exit(1);
 }
 
-const db = createClient(url, key, { auth: { persistSession: false } });
 const data = JSON.parse(readFileSync("data/bible/blivre.json", "utf8")) as {
   books: Record<string, string[][]>;
 };
 
-function check<T>(res: { error: { message: string } | null; data?: T | null }, what: string): T {
-  if (res.error) throw new Error(`${what}: ${res.error.message}`);
-  return res.data as T;
-}
+const db = new pg.Client({ connectionString: url, ssl: { rejectUnauthorized: false } });
+await db.connect();
 
-const { slug, name, author, year, license, license_url, url: srcUrl, verified_at, required_credit, notes } =
-  BIBLIA_LIVRE_SOURCE;
-const [source] = check<{ id: string }[]>(
-  await db
-    .from("sources")
-    .upsert(
-      { slug, name, author, year, license, license_url, url: srcUrl, verified_at, required_credit, notes },
-      { onConflict: "slug" },
-    )
-    .select("id"),
-  "source",
-);
+try {
+  await db.query("begin");
 
-check(
-  await db
-    .from("bible_translations")
-    .upsert({ id: "blivre", name: "Bíblia Livre", abbrev: "BLIVRE", source_id: source.id }),
-  "translation",
-);
+  const {
+    rows: [source],
+  } = await db.query<{ id: string }>(
+    `insert into public.sources (slug, name, author, year, license, license_url, url, verified_at, required_credit, notes)
+     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+     on conflict (slug) do update set
+       name = excluded.name, author = excluded.author, year = excluded.year, license = excluded.license,
+       license_url = excluded.license_url, url = excluded.url, verified_at = excluded.verified_at,
+       required_credit = excluded.required_credit, notes = excluded.notes
+     returning id`,
+    [S.slug, S.name, S.author, S.year, S.license, S.license_url, S.url, S.verified_at, S.required_credit, S.notes],
+  );
 
-check(
-  await db.from("bible_books").upsert(
-    BOOKS.map((b) => ({
-      id: b.id,
-      code: b.code,
-      name: b.name,
-      abbrev: b.abbrev,
-      slug: b.slug,
-      testament: b.testament,
-      chapters: data.books[b.code].length,
-    })),
-  ),
-  "books",
-);
+  await db.query(
+    `insert into public.bible_translations (id, name, abbrev, source_id) values ('blivre', 'Bíblia Livre', 'BLIVRE', $1)
+     on conflict (id) do update set name = excluded.name, abbrev = excluded.abbrev, source_id = excluded.source_id`,
+    [source.id],
+  );
 
-const BATCH = 1000;
-let rows: { translation_id: string; book_id: number; chapter: number; verse: number; text: string }[] = [];
-let total = 0;
+  for (const b of BOOKS) {
+    await db.query(
+      `insert into public.bible_books (id, code, name, abbrev, slug, testament, chapters)
+       values ($1, $2, $3, $4, $5, $6, $7)
+       on conflict (id) do update set code = excluded.code, name = excluded.name, abbrev = excluded.abbrev,
+         slug = excluded.slug, testament = excluded.testament, chapters = excluded.chapters`,
+      [b.id, b.code, b.name, b.abbrev, b.slug, b.testament, data.books[b.code].length],
+    );
+  }
 
-async function flush() {
-  if (!rows.length) return;
-  check(await db.from("bible_verses").upsert(rows), "verses");
-  total += rows.length;
-  rows = [];
-  process.stdout.write(`\r${total} verses`);
-}
+  // Verses go in batches through unnest() to keep round trips low.
+  const BATCH = 2000;
+  let books: number[] = [];
+  let chapters: number[] = [];
+  let verses: number[] = [];
+  let texts: string[] = [];
+  let total = 0;
 
-for (const b of BOOKS) {
-  const chapters = data.books[b.code];
-  for (let c = 0; c < chapters.length; c++) {
-    for (let v = 0; v < chapters[c].length; v++) {
-      rows.push({ translation_id: "blivre", book_id: b.id, chapter: c + 1, verse: v + 1, text: chapters[c][v] });
-      if (rows.length >= BATCH) await flush();
+  async function flush() {
+    if (!texts.length) return;
+    await db.query(
+      `insert into public.bible_verses (translation_id, book_id, chapter, verse, text)
+       select 'blivre', * from unnest($1::smallint[], $2::smallint[], $3::smallint[], $4::text[])
+       on conflict (translation_id, book_id, chapter, verse) do update set text = excluded.text`,
+      [books, chapters, verses, texts],
+    );
+    total += texts.length;
+    books = [];
+    chapters = [];
+    verses = [];
+    texts = [];
+    process.stdout.write(`\r${total} verses`);
+  }
+
+  for (const b of BOOKS) {
+    const chs = data.books[b.code];
+    for (let c = 0; c < chs.length; c++) {
+      for (let v = 0; v < chs[c].length; v++) {
+        books.push(b.id);
+        chapters.push(c + 1);
+        verses.push(v + 1);
+        texts.push(chs[c][v]);
+        if (texts.length >= BATCH) await flush();
+      }
     }
   }
+  await flush();
+  await db.query("commit");
+  console.log("\nDone.");
+} catch (e) {
+  await db.query("rollback");
+  throw e;
+} finally {
+  await db.end();
 }
-await flush();
-console.log("\nDone.");

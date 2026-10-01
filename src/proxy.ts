@@ -5,12 +5,12 @@ const PUBLIC_PATHS = ["/entrar"];
 
 export async function proxy(request: NextRequest) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
   // Without Supabase the app runs in local reading mode (no login).
-  if (!url || !anon) return NextResponse.next();
+  if (!url || !key) return NextResponse.next();
 
   let response = NextResponse.next({ request });
-  const supabase = createServerClient(url, anon, {
+  const supabase = createServerClient(url, key, {
     cookies: {
       getAll() {
         return request.cookies.getAll();
