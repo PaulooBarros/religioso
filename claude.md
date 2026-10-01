@@ -175,3 +175,22 @@ Decisão do dono: os subtemas vêm dos lotes de questões (último trecho do sub
 - [x] Task 3: prioridade dos temas fracos. Tema com menos de 70% de acerto no **simulado mais recente** (até 7 dias depois dele) passa na frente na revisão do dia, do mais fraco ao menos fraco: entre os itens vencidos, logo depois dos que estão em passo de aprendizado; entre os novos, logo depois das perguntas de catecismo do dia. Um simulado novo substitui a prioridade anterior. A tela Hoje mostra "Primeiro: tema (x% no último simulado, n itens)" e o resultado do simulado avisa quais temas ganharam prioridade. Sem migração (regra em `getWeakThemes`, `src/lib/exams.ts`, e na ordenação de `src/lib/review.ts`). Conferido por typecheck e lint; sem teste automático da ordenação.
 
 **Etapa 3 concluída em 2026-10-01**, faltando só o teste manual do dono.
+
+- [ ] **Pendente:** o item SAL-010 foi aprovado, mas a visão arminiana ainda não tem fonte primária (Artigos Remonstrantes ou sermões de Wesley).
+
+### Etapa 4 (a começar)
+
+Antes da Task 2, o dono precisa resolver:
+
+- [ ] Chave da Anthropic em `.env.local` (`ANTHROPIC_API_KEY`), só no servidor.
+- [ ] Como obter as fontes: busca na web da própria API da Anthropic (recomendado) ou outro provedor.
+- [ ] Versão para compartilhar com a célula: só PDF e copiar texto por enquanto (recomendado) ou página pública.
+- [ ] Testar se `api.anthropic.com` abre na rede do dono (a rede corporativa bloqueia vários sites).
+
+Tasks:
+
+- [ ] Task 1: mensagens sem IA. Tabelas de mensagens, versões e modelos de estrutura (expositiva, temática, narrativa) com os blocos abertura, leitura, contexto, pontos, aplicação, perguntas e oração. Editor para escrever à mão, salvar versões e marcar como usada. Não depende da chave.
+- [ ] Task 2: rascunho com IA. Entradas: passagem, tempo, perfil do grupo e tema. Parte do texto da base e das notas do dono sobre a passagem; afirmações factuais com link verificado ou marcadas "sem fonte verificada"; texto de versículo sempre da base.
+- [ ] Task 3: lista de conferência antes de finalizar ("o texto sustenta cada ponto?", "as referências existem na base?") e versão para impressão/PDF.
+- [ ] Task 4: séries de 4 a 6 semanas, com ordem, passagem de cada semana e histórico do que já foi ensinado. A IA pode sugerir a divisão de um livro, como rascunho.
+- [ ] Task 5: banco de ilustrações e perguntas de discussão reutilizáveis, com tema e fonte, para inserir nos modelos.
