@@ -7,6 +7,10 @@
 //
 // Usage:
 //   npm run import:items -- lote1questoes.json [--profile "Nome"] [--dry-run]
+//
+// Owner-reviewed batches (only when the owner says so):
+//   --approve          items go straight to the study bank instead of drafts
+//   --skip-link-check  links are not checked (stored as "not checked", never as verified)
 import { readFileSync } from "node:fs";
 import pg from "pg";
 import { validateRefsIn, type BibleText } from "../src/lib/bible/validate.ts";
@@ -33,6 +37,9 @@ type RawItem = {
 const args = process.argv.slice(2);
 const file = args.find((a) => !a.startsWith("--"));
 const dryRun = args.includes("--dry-run");
+const approve = args.includes("--approve");
+const skipLinkCheck = args.includes("--skip-link-check");
+const status = approve ? "approved" : "draft";
 const profileArg = args.includes("--profile") ? args[args.indexOf("--profile") + 1] : undefined;
 if (!file) {
   console.error('Usage: npm run import:items -- <file.json> [--profile "Nome"] [--dry-run]');
@@ -64,11 +71,13 @@ const BY_SUBTOPIC: Record<string, string> = {
 function themeFor(item: RawItem): string | null {
   if (THEME[item.tema]) return THEME[item.tema];
   if (item.tema.startsWith("Cristo")) return "cristo";
+  if (item.tema.startsWith("Panorama bíblico")) return "panorama-biblico";
   if (item.subtema && BY_SUBTOPIC[item.subtema]) return BY_SUBTOPIC[item.subtema];
   return null;
 }
 
 function subtopicFor(item: RawItem): string | null {
+  if (item.tema.startsWith("Panorama bíblico")) return item.subtema || null;
   const direct = THEME[item.tema] && THEME[item.tema] !== "igreja" ? null : item.tema;
   const parts = [direct ?? (item.tema.startsWith("Cristo") ? item.tema : null), item.subtema].filter(Boolean);
   return parts.length ? parts.join(" · ") : null;
@@ -130,17 +139,18 @@ if (problems.length) {
 }
 
 // ---- Check links ----
-const urls = [...new Set(rows.map((r) => r.source_url).filter((u): u is string => Boolean(u)))];
-console.log(`Verificando ${urls.length} links…`);
-const status = new Map<string, boolean>();
+const urls = skipLinkCheck ? [] : [...new Set(rows.map((r) => r.source_url).filter((u): u is string => Boolean(u)))];
+if (skipLinkCheck) console.log("Links não verificados (--skip-link-check): ficam como “não verificados”.");
+else console.log(`Verificando ${urls.length} links…`);
+const linkStatus = new Map<string, boolean>();
 const queue = [...urls];
 await Promise.all(
   Array.from({ length: 6 }, async () => {
-    for (let u = queue.shift(); u; u = queue.shift()) status.set(u, await linkOpens(u));
+    for (let u = queue.shift(); u; u = queue.shift()) linkStatus.set(u, await linkOpens(u));
   }),
 );
-for (const r of rows) r.source_ok = r.source_url ? (status.get(r.source_url) ?? false) : null;
-const broken = urls.filter((u) => !status.get(u));
+if (!skipLinkCheck) for (const r of rows) r.source_ok = r.source_url ? (linkStatus.get(r.source_url) ?? false) : null;
+const broken = urls.filter((u) => !linkStatus.get(u));
 
 const themeCount = rows.reduce<Record<string, number>>((m, r) => {
   const k = r.theme_id ?? "(sem tema)";
@@ -149,7 +159,8 @@ const themeCount = rows.reduce<Record<string, number>>((m, r) => {
 }, {});
 console.log(`Itens: ${rows.length} (${rows.filter((r) => r.kind === "card").length} cards, ${rows.filter((r) => r.kind === "mcq").length} múltipla escolha)`);
 console.log("Por tema:", themeCount);
-console.log(`Links que abriram: ${urls.length - broken.length} de ${urls.length}`);
+if (!skipLinkCheck) console.log(`Links que abriram: ${urls.length - broken.length} de ${urls.length}`);
+console.log(`Situação ao gravar: ${approve ? "aprovados" : "rascunho"}`);
 for (const u of broken) console.log("  não abriu:", u, "→", rows.filter((r) => r.source_url === u).map((r) => r.external_id).join(", "));
 
 if (dryRun) {
@@ -181,7 +192,7 @@ try {
          (profile_id, external_id, kind, prompt, answer, options, correct_option, explanation, theme_id, subtopic,
           level, source_title, source_url, bible_refs, machine_translated, review_note, source_ok, source_checked_at,
           origin, status)
-       values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,'ia','draft')
+       values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,'ia',$19)
        on conflict (profile_id, external_id) where external_id is not null do update set
          kind = excluded.kind, prompt = excluded.prompt, answer = excluded.answer, options = excluded.options,
          correct_option = excluded.correct_option, explanation = excluded.explanation, theme_id = excluded.theme_id,
@@ -189,7 +200,7 @@ try {
          source_url = excluded.source_url, bible_refs = excluded.bible_refs,
          machine_translated = excluded.machine_translated, review_note = excluded.review_note,
          source_ok = excluded.source_ok, source_checked_at = excluded.source_checked_at,
-         origin = 'ia', status = 'draft'`,
+         origin = 'ia', status = excluded.status`,
       [
         profile.id,
         r.external_id,
@@ -208,12 +219,13 @@ try {
         r.machine_translated,
         r.review_note,
         r.source_ok,
-        r.source_url ? checkedAt : null,
+        r.source_url && !skipLinkCheck ? checkedAt : null,
+        status,
       ],
     );
   }
   await db.query("commit");
-  console.log(`\n${rows.length} itens gravados como rascunho no perfil "${profile.name}".`);
+  console.log(`\n${rows.length} itens gravados como ${approve ? "aprovados" : "rascunho"} no perfil "${profile.name}".`);
 } catch (e) {
   await db.query("rollback");
   throw e;

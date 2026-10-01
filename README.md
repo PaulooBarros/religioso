@@ -47,6 +47,12 @@ O script:
 
 Com mais de um perfil, use `--profile "Nome"`.
 
+Se você mesmo já revisou o lote e as fontes, há duas opções:
+- `--approve`: os itens entram já aprovados;
+- `--skip-link-check`: os links não são verificados e ficam como "não verificados", nunca como "verificada".
+
+Exemplo: `npm run import:items -- data/lotes/lote2questoes.json --approve --skip-link-check`.
+
 ## Texto bíblico
 
 - Bíblia Livre (BLIVRE), © 2018 Diego Santos, Mario Sérgio e Marco Teles, sob licença CC BY 4.0 Brasil. Arquivo original em https://eBible.org/Scriptures/porbr2018_vpl.zip.
