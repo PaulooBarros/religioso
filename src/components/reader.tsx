@@ -8,7 +8,7 @@ import { BookmarkForm } from "./bookmark-form";
 import { NoteForm } from "./note-form";
 import { Sheet } from "./sheet";
 import { ThemeToggle } from "./theme-toggle";
-import { markLastRead } from "@/lib/actions/bookmarks";
+import { markLastRead, removeBookmark, saveBookmark } from "@/lib/actions/bookmarks";
 import { removeHighlight, setHighlight } from "@/lib/actions/highlights";
 import { deleteNote } from "@/lib/actions/notes";
 import { formatRef, formatSelection, OTHER_VERSIONS, otherVersionHref } from "@/lib/bible/reference";
@@ -218,16 +218,18 @@ export function Reader({
   const [tags, setTags] = useState(knownTags);
   const [dialog, setDialog] = useState<Dialog>(null);
   const [panelOpen, setPanelOpen] = useState(true);
-  const [toast, setToast] = useState<string | null>(null);
+  const [toast, setToastState] = useState<{ text: string; undo?: () => void } | null>(null);
   const [highlights, setHighlights] = useState(initialHighlights);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const sizeStep = useSyncExternalStore(subscribeSize, readSizeStep, () => 1);
   const [, startDelete] = useTransition();
   const [, startHighlight] = useTransition();
 
+  const setToast = (text: string, undo?: () => void) => setToastState({ text, undo });
+
   useEffect(() => {
     if (!toast) return;
-    const t = setTimeout(() => setToast(null), 3500);
+    const t = setTimeout(() => setToastState(null), toast.undo ? 6000 : 3500);
     return () => clearTimeout(t);
   }, [toast]);
 
@@ -324,6 +326,33 @@ export function Reader({
       const res = await deleteNote(n.id);
       if (res.ok) setNotes((ns) => ns.filter((x) => x.id !== n.id));
       else setToast(res.error);
+    });
+  }
+
+  // Manual bookmarks on the selected verses ("Onde parei" is automatic and stays).
+  const selectedBookmarks = bookmarks.filter((b) => !b.is_last_read && b.verse !== null && sorted.includes(b.verse));
+
+  function unmark() {
+    const removed = selectedBookmarks;
+    const ids = new Set(removed.map((b) => b.id));
+    setBookmarks((bs) => bs.filter((b) => !ids.has(b.id)));
+    setSelected([]);
+    startDelete(async () => {
+      const results = await Promise.all(removed.map((b) => removeBookmark(b.id)));
+      const failed = results.some((r) => !r.ok);
+      if (failed) {
+        setBookmarks((bs) => [...bs, ...removed.filter((b) => !bs.some((x) => x.id === b.id))]);
+        setToast("Não foi possível remover o marcador.");
+        return;
+      }
+      setToast(removed.length > 1 ? "Marcadores removidos" : "Marcador removido", () => {
+        startDelete(async () => {
+          const restored = await Promise.all(
+            removed.map((b) => saveBookmark({ bookId: b.book_id, chapter: b.chapter, verse: b.verse, name: b.name, tag: b.tag })),
+          );
+          setBookmarks((bs) => [...bs, ...restored.flatMap((r) => (r.ok ? [r.data] : []))]);
+        });
+      });
     });
   }
 
@@ -545,10 +574,17 @@ export function Reader({
               <Icon name="notas" size={18} />
               Nova nota
             </button>
-            <button type="button" className="action-btn" disabled={!canWrite} onClick={() => setDialog({ kind: "bookmark" })}>
-              <RibbonOutline size={15} />
-              Marcar
-            </button>
+            {selectedBookmarks.length > 0 ? (
+              <button type="button" className="action-btn" disabled={!canWrite} onClick={unmark}>
+                <Ribbon color="currentColor" width={11} height={15} />
+                Desmarcar
+              </button>
+            ) : (
+              <button type="button" className="action-btn" disabled={!canWrite} onClick={() => setDialog({ kind: "bookmark" })}>
+                <RibbonOutline size={15} />
+                Marcar
+              </button>
+            )}
             <button
               type="button"
               className="action-btn"
@@ -647,7 +683,18 @@ export function Reader({
 
       {toast && (
         <div className="toast" role="status">
-          {toast}
+          {toast.text}
+          {toast.undo && (
+            <button
+              type="button"
+              onClick={() => {
+                toast.undo?.();
+                setToastState(null);
+              }}
+            >
+              Desfazer
+            </button>
+          )}
         </div>
       )}
     </div>
