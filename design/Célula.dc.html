@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap"><style>body{margin:0;background:#E9E4D8;-webkit-font-smoothing:antialiased}a{color:#8E2B22}a:hover{color:#6E1F18}</style></helmet>
+
+<section data-screen-label="10 Célula" style="padding:64px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">10 · Célula: editor de mensagem</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · editor com assistente e conferência (use ↑ ↓ para reordenar blocos)</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Célula" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <div style="height:60px;border-bottom:1px solid #E4DED1;display:flex;align-items:center;gap:12px;padding:0 24px;font-size:13.5px">
+            <a href="#" style="color:#6B6B68;text-decoration:none">Romanos 8 · série</a><span style="color:#8A8378">/</span><b style="font-weight:600">Semana 4</b>
+            <span style="font-size:12px;color:#6B6B68;margin-left:8px">Salvo há 1 min · versão 3</span>
+            <div style="flex:1"></div>
+            <button style="height:34px;padding:0 12px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#1A1A1A">Versões</button>
+            <button style="height:34px;padding:0 12px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#1A1A1A">Exportar PDF</button>
+            <button style="height:34px;padding:0 14px;border:0;border-radius:6px;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:13px;font-weight:500">Marcar como ensinada</button>
+          </div>
+          <div style="flex:1;display:flex;min-height:0">
+            <main style="flex:1;overflow:auto;padding:32px 40px 48px;display:flex;justify-content:center">
+              <div style="width:100%;max-width:600px;display:flex;flex-direction:column;gap:14px">
+                <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:6px">
+                  <span style="font-size:12.5px;color:#6B6B68">Rm 8:31–39</span>
+                  <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:30px;line-height:1.2">Nada nos separará</h2>
+                  <div style="display:flex;align-items:center;gap:10px;margin-top:8px;font-size:13px">
+                    <span style="color:#6B6B68">Modelo</span>
+                    <div style="display:flex;border:1px solid #CFC7B7;border-radius:6px;overflow:hidden">
+                      <sc-for list="{{ modelos }}" as="m" hint-placeholder-count="3">
+                        <sc-if value="{{ m.on }}"><button onClick="{{ m.go }}" style="height:30px;padding:0 12px;border:0;background:#1A1A1A;color:#F7F4EC;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:500;cursor:pointer">{{ m.n }}</button></sc-if>
+                        <sc-if value="{{ m.off }}"><button onClick="{{ m.go }}" style="height:30px;padding:0 12px;border:0;background:transparent;color:#1A1A1A;font-family:'Inter',sans-serif;font-size:12.5px;cursor:pointer">{{ m.n }}</button></sc-if>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+                <sc-for list="{{ blocos }}" as="b" hint-placeholder-count="7">
+                  <sc-if value="{{ b.rasc }}">
+                    <div style="border:1px dashed #8A8378;border-radius:8px;display:flex;background:repeating-linear-gradient(135deg,transparent 0 10px,rgba(26,26,26,0.025) 10px 11px)">
+                      <div style="width:32px;display:flex;flex-direction:column;align-items:center;padding-top:12px;gap:2px;color:#8A8378"><button onClick="{{ b.up }}" aria-label="Subir" style="width:26px;height:22px;border:0;background:transparent;color:#6B6B68;cursor:pointer">↑</button><button onClick="{{ b.down }}" aria-label="Descer" style="width:26px;height:22px;border:0;background:transparent;color:#6B6B68;cursor:pointer">↓</button></div>
+                      <div style="flex:1;padding:14px 18px 16px 0;display:flex;flex-direction:column;gap:8px">
+                        <div style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;color:#6B6B68;flex:1">{{ b.nome }}</span><span style="font-size:10px;letter-spacing:0.14em;font-weight:600;text-transform:uppercase;border:1px solid #1A1A1A;border-radius:3px;padding:1px 5px">Rascunho da IA</span></div>
+                        <p style="margin:0;font-family:'Playfair Display',serif;font-size:15.5px;line-height:1.6">{{ b.t }}</p>
+                        <div style="display:flex;gap:6px"><button style="height:28px;padding:0 10px;border-radius:5px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:12px">Aprovar</button><button style="height:28px;padding:0 10px;border-radius:5px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:12px">Editar</button><button style="height:28px;padding:0 10px;border:0;background:transparent;font-family:'Inter',sans-serif;font-size:12px;color:#6B6B68">Descartar</button></div>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ b.meu }}">
+                    <div style="border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5;display:flex">
+                      <div style="width:32px;display:flex;flex-direction:column;align-items:center;padding-top:12px;gap:2px"><button onClick="{{ b.up }}" aria-label="Subir" style="width:26px;height:22px;border:0;background:transparent;color:#6B6B68;cursor:pointer">↑</button><button onClick="{{ b.down }}" aria-label="Descer" style="width:26px;height:22px;border:0;background:transparent;color:#6B6B68;cursor:pointer">↓</button></div>
+                      <div style="flex:1;padding:14px 18px 16px 0;display:flex;flex-direction:column;gap:6px">
+                        <div style="display:flex;justify-content:space-between"><span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;color:#6B6B68">{{ b.nome }}</span><span style="font-size:11.5px;color:#6B6B68">{{ b.info }}</span></div>
+                        <p contenteditable="true" style="margin:0;font-family:'Playfair Display',serif;font-size:15.5px;line-height:1.6;outline:none">{{ b.t }}</p>
+                      </div>
+                    </div>
+                  </sc-if>
+                </sc-for>
+                <button style="height:40px;border:1px dashed #CFC7B7;border-radius:8px;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#6B6B68">+ Adicionar bloco</button>
+              </div>
+            </main>
+            <aside style="width:320px;border-left:1px solid #E4DED1;background:#FCFAF5;display:flex;flex-direction:column;min-height:0">
+              <div style="display:flex;border-bottom:1px solid #E4DED1;padding:0 12px">
+                <sc-for list="{{ paineis }}" as="p" hint-placeholder-count="2">
+                  <sc-if value="{{ p.on }}"><button onClick="{{ p.go }}" style="flex:1;height:48px;border:0;border-bottom:2px solid #8E2B22;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;color:#1A1A1A;cursor:pointer">{{ p.n }}</button></sc-if>
+                  <sc-if value="{{ p.off }}"><button onClick="{{ p.go }}" style="flex:1;height:48px;border:0;border-bottom:2px solid transparent;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;color:#6B6B68;cursor:pointer">{{ p.n }}</button></sc-if>
+                </sc-for>
+              </div>
+              <sc-if value="{{ vConf }}" hint-placeholder-val="{{ true }}">
+                <div style="flex:1;overflow:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+                  <span style="font-size:12.5px;color:#6B6B68;line-height:1.5">O texto sustenta cada ponto? Marque ao conferir.</span>
+                  <sc-for list="{{ checks }}" as="c" hint-placeholder-count="5">
+                    <label onClick="{{ c.go }}" style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-size:13.5px;line-height:1.45">
+                      <sc-if value="{{ c.on }}"><span style="flex:none;width:18px;height:18px;margin-top:1px;border-radius:4px;background:#1A1A1A;color:#F7F4EC;display:flex;align-items:center;justify-content:center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span></sc-if>
+                      <sc-if value="{{ c.off }}"><span style="flex:none;width:18px;height:18px;margin-top:1px;border-radius:4px;border:1.5px solid #8A8378;box-sizing:border-box"></span></sc-if>
+                      <span style="display:flex;flex-direction:column;gap:2px"><span>{{ c.t }}</span><span style="font-size:12px;color:#6B6B68">{{ c.ref }}</span></span>
+                    </label>
+                  </sc-for>
+                  <span style="font-size:12.5px;border-top:1px solid #E4DED1;padding-top:12px">{{ feitos }} de 5 conferidos</span>
+                </div>
+              </sc-if>
+              <sc-if value="{{ vIA }}" hint-placeholder-val="{{ false }}">
+                <div style="flex:1;overflow:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+                  <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500"><span style="font-size:9.5px;font-weight:600;border:1px solid #1A1A1A;border-radius:3px;padding:0 3px;line-height:14px">IA</span>Fala da IA (com fontes)</span>
+                  <p style="margin:0;font-size:13.5px;line-height:1.6">Os vv. 35–39 formam uma lista em dois movimentos: sete ameaças concretas (v. 35) e dez poderes cósmicos (vv. 38–39). Isso pode estruturar o ponto 2.</p>
+                  <a href="#" style="align-self:flex-start;display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border:1px solid #CFC7B7;border-radius:4px;font-size:11.5px;color:#1A1A1A;text-decoration:none">✓ Rm 8:35–39 · verificada</a>
+                  <div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid #E4DED1;padding-top:14px">
+                    <button style="height:36px;text-align:left;padding:0 12px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#1A1A1A">Sugerir perguntas para discussão</button>
+                    <button style="height:36px;text-align:left;padding:0 12px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#1A1A1A">Resumir o contexto do capítulo</button>
+                    <button style="height:36px;text-align:left;padding:0 12px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#1A1A1A">Conferir pontos contra o texto</button>
+                  </div>
+                  <span style="font-size:12px;color:#6B6B68;line-height:1.5">Tudo o que a IA inserir entra como rascunho.</span>
+                </div>
+              </sc-if>
+              <div style="padding:12px 16px;border-top:1px solid #E4DED1"><div style="display:flex;align-items:center;height:40px;padding:0 12px;border:1px solid #E4DED1;border-radius:6px;background:#F7F4EC;font-size:13px;color:#6B6B68">Pergunte sobre este esboço…</div></div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · página da série</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:14px;font-weight:600">9:41<span style="font-size:12px;font-weight:500">5G ▮▮▮</span></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 8px"><a href="#" aria-label="Voltar" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></a><span style="font-size:15px;font-weight:600">Séries</span></div>
+        <div style="flex:1;overflow:auto;padding:4px 20px 24px;display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;flex-direction:column;gap:4px"><h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:28px">Romanos 8</h2><span style="font-size:13px;color:#6B6B68">6 semanas · 3 ensinadas · modelo expositivo</span></div>
+          <div style="display:flex;flex-direction:column;border-top:1px solid #E4DED1">
+            <sc-for list="{{ semanas }}" as="s" hint-placeholder-count="6">
+              <a href="#" style="display:flex;align-items:center;gap:14px;min-height:64px;border-bottom:1px solid #E4DED1;text-decoration:none;color:#1A1A1A">
+                <span style="width:24px;font-family:'Playfair Display',serif;font-size:18px;color:#6B6B68">{{ s.n }}</span>
+                <span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px">{{ s.t }}</span><span style="font-size:12.5px;color:#6B6B68">{{ s.ref }}</span></span>
+                <span style="font-size:12px;color:#1A1A1A;font-weight:{{ s.w }}">{{ s.st }}</span>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+        <dc-import name="Barra Celular" ativo="Célula" hint-size="100%,84px"></dc-import>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · editor</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:14px;font-weight:600">9:41<span style="font-size:12px;font-weight:500">5G ▮▮▮</span></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 8px;gap:2px;border-bottom:1px solid #E4DED1">
+          <a href="#" aria-label="Voltar" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></a>
+          <span style="flex:1;display:flex;flex-direction:column"><span style="font-size:14.5px;font-weight:600">Semana 4</span><span style="font-size:11.5px;color:#6B6B68">Salvo · versão 3</span></span>
+          <a href="#" style="height:44px;display:flex;align-items:center;padding:0 12px;font-size:14px;text-decoration:none;color:#1A1A1A">Exportar</a>
+        </div>
+        <div style="flex:1;overflow:auto;padding:16px 16px 24px;display:flex;flex-direction:column;gap:10px">
+          <h2 style="margin:0 4px 4px;font-family:'Playfair Display',serif;font-weight:600;font-size:24px">Nada nos separará</h2>
+          <div style="border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5;padding:14px 16px;display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;color:#6B6B68">Abertura</span><p style="margin:0;font-family:'Playfair Display',serif;font-size:15.5px;line-height:1.6">[Texto de exemplo] O que faz você se sentir seguro quando tudo parece incerto?</p></div>
+          <div style="border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5;padding:14px 16px;display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;color:#6B6B68">Leitura</span><p style="margin:0;font-family:'Playfair Display',serif;font-size:15.5px;line-height:1.6"><a href="#" style="text-decoration:underline;text-underline-offset:3px">Romanos 8:31–39</a></p></div>
+          <div style="border:1px dashed #8A8378;border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:8px"><div style="display:flex;align-items:center;gap:8px"><span style="flex:1;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;color:#6B6B68">Contexto</span><span style="font-size:10px;letter-spacing:0.14em;font-weight:600;text-transform:uppercase;border:1px solid #1A1A1A;border-radius:3px;padding:1px 5px">Rascunho</span></div><p style="margin:0;font-family:'Playfair Display',serif;font-size:15.5px;line-height:1.6">O capítulo fecha o argumento iniciado em 5:1 sobre a segurança de quem foi justificado.</p><div style="display:flex;gap:8px"><button style="height:44px;flex:1;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:14px">Aprovar</button><button style="height:44px;flex:1;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:14px">Editar</button></div></div>
+          <div style="border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5;padding:14px 16px;display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;color:#6B6B68">Pontos · 1 de 3</span><p style="margin:0;font-family:'Playfair Display',serif;font-size:15.5px;line-height:1.6">Deus é por nós: a prova é o Filho entregue (vv. 31–32).</p></div>
+          <span style="font-size:12px;color:#6B6B68;text-align:center;padding-top:4px">Toque e segure um bloco para reordenar</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #E4DED1;padding:6px 8px 30px;background:#F7F4EC">
+          <button style="min-height:48px;border:0;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#1A1A1A">Conferência 3/5</button>
+          <button style="min-height:48px;border:0;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#1A1A1A">Assistente</button>
+          <button style="min-height:48px;border:0;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#1A1A1A">Versões</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    modelo: 0, painel: 0, checks: [true, true, true, false, false],
+    ordem: [
+      { nome: 'Abertura', t: '[Texto de exemplo] O que faz você se sentir seguro quando tudo parece incerto?', info: 'Editado por você' },
+      { nome: 'Leitura', t: 'Romanos 8:31–39 (leitura em voz alta, dois leitores).', info: 'Da sua base' },
+      { nome: 'Contexto', t: 'O capítulo fecha o argumento iniciado em 5:1 sobre a segurança de quem foi justificado.', rasc: true },
+      { nome: 'Pontos', t: '1. Deus é por nós: a prova é o Filho entregue (vv. 31–32). 2. Ninguém pode condenar (vv. 33–34). 3. Nada pode separar (vv. 35–39).', info: 'Editado por você' },
+      { nome: 'Aplicação', t: '[Texto de exemplo] Onde, nesta semana, você tem vivido como se algo pudesse separá-lo do amor de Cristo?', info: 'Editado por você' },
+      { nome: 'Perguntas para discussão', t: '[Texto de exemplo] Qual das ameaças do v. 35 parece mais real para você hoje? Por quê?', info: 'Editado por você' },
+      { nome: 'Oração', t: '[Texto de exemplo] Agradecer pela segurança em Cristo; orar pelos que enfrentam perdas.', info: 'Editado por você' }
+    ]
+  };
+  mover(i, d) { this.setState(s => { const o = [...s.ordem], j = i + d; if (j < 0 || j >= o.length) return null; [o[i], o[j]] = [o[j], o[i]]; return { ordem: o }; }); }
+  renderVals() {
+    const { modelo, painel, checks, ordem } = this.state;
+    const modelos = ['Expositiva', 'Temática', 'Narrativa'].map((n, i) => ({ n, on: i === modelo, off: i !== modelo, go: () => this.setState({ modelo: i }) }));
+    const blocos = ordem.map((b, i) => ({ ...b, rasc: !!b.rasc, meu: !b.rasc, up: () => this.mover(i, -1), down: () => this.mover(i, 1) }));
+    const paineis = ['Conferência', 'Assistente'].map((n, i) => ({ n, on: i === painel, off: i !== painel, go: () => this.setState({ painel: i }) }));
+    const C = [['Ponto 1 decorre do texto', 'vv. 31–32'], ['Ponto 2 decorre do texto', 'vv. 33–34'], ['Ponto 3 decorre do texto', 'vv. 35–39'], ['A aplicação nasce dos pontos', 'Aplicação'], ['As perguntas levam de volta ao texto', 'Perguntas']];
+    const cks = C.map(([t, ref], i) => ({ t, ref, on: checks[i], off: !checks[i], go: () => this.setState(s => { const c = [...s.checks]; c[i] = !c[i]; return { checks: c }; }) }));
+    const semanas = [['Nenhuma condenação', 'Rm 8:1–11', 'Ensinada'], ['Filhos pelo Espírito', 'Rm 8:12–17', 'Ensinada'], ['Gemidos e esperança', 'Rm 8:18–30', 'Ensinada'], ['Nada nos separará', 'Rm 8:31–39', 'Em preparo'], ['A fidelidade de Deus', 'Rm 9:1–13', 'A preparar'], ['Misericórdia soberana', 'Rm 9:14–29', 'A preparar']].map(([t, ref, st], i) => ({ n: i + 1, t, ref, st, w: st === 'Em preparo' ? 600 : 400 }));
+    return { modelos, blocos, paineis, vConf: painel === 0, vIA: painel === 1, checks: cks, feitos: checks.filter(Boolean).length, semanas };
+  }
+}
+</script>
+</body>
+</html>

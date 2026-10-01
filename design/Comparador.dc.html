@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap"><style>body{margin:0;background:#E9E4D8;-webkit-font-smoothing:antialiased}a{color:#8E2B22}a:hover{color:#6E1F18}</style></helmet>
+
+<section data-screen-label="09 Comparador" style="padding:64px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">9 · Comparador de posições</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · quatro tradições, colunas de mesmo peso, ordem alfabética</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Comparador" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <dc-import name="Topo Desktop" hint-size="100%,60px"></dc-import>
+          <main style="flex:1;overflow:auto;padding:36px 40px;display:flex;flex-direction:column;gap:24px">
+            <div style="display:flex;align-items:flex-end;gap:24px;flex-wrap:wrap">
+              <div style="display:flex;flex-direction:column;gap:6px;flex:1;min-width:280px">
+                <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Tema</span>
+                <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:32px">Batismo: sujeitos e significado</h2>
+              </div>
+              <button style="display:flex;align-items:center;gap:6px;height:36px;padding:0 14px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;color:#1A1A1A">Trocar tema</button>
+              <button style="display:flex;align-items:center;gap:6px;height:36px;padding:0 14px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;color:#1A1A1A">Salvar como nota</button>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px">
+              <span style="color:#6B6B68;margin-right:4px">Comparando</span>
+              <sc-for list="{{ cols }}" as="c" hint-placeholder-count="4">
+                <span style="display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 6px 0 12px;border:1px solid #CFC7B7;border-radius:4px;background:#FCFAF5">{{ c.nome }}<button aria-label="Remover" style="width:22px;height:22px;border:0;background:transparent;color:#6B6B68;cursor:pointer">×</button></span>
+              </sc-for>
+              <span style="font-size:12.5px;color:#6B6B68">4 de 4 · máximo atingido</span>
+              <div style="flex:1"></div>
+              <span style="font-size:12.5px;color:#6B6B68">Ordem alfabética · nenhum veredito</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5">
+              <sc-for list="{{ cols }}" as="c" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;border-left:1px solid #E4DED1;margin-left:-1px">
+                  <div style="padding:18px 20px 14px;border-bottom:1px solid #E4DED1;display:flex;flex-direction:column;gap:4px">
+                    <b style="font-family:'Playfair Display',serif;font-size:19px;font-weight:600">{{ c.nome }}</b>
+                    <span style="font-size:12px;color:#6B6B68">{{ c.doc }}</span>
+                  </div>
+                  <sc-for list="{{ c.linhas }}" as="l" hint-placeholder-count="3">
+                    <div style="padding:16px 20px;border-bottom:1px solid #E4DED1;display:flex;flex-direction:column;gap:6px;min-height:96px">
+                      <span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;color:#6B6B68">{{ l.k }}</span>
+                      <p style="margin:0;font-family:'Playfair Display',serif;font-size:15px;line-height:1.55;text-wrap:pretty">{{ l.v }}</p>
+                    </div>
+                  </sc-for>
+                  <div style="padding:14px 20px 18px;display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+                    <span style="display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:500"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19"></path></svg>Da sua base</span>
+                    <sc-if value="{{ c.ok }}"><a href="#" style="display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border:1px solid #CFC7B7;border-radius:4px;font-size:11.5px;color:#1A1A1A;text-decoration:none"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>{{ c.fonte }} · verificada</a></sc-if>
+                    <sc-if value="{{ c.falha }}"><a href="#" style="display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border:1px dashed #8A8378;border-radius:4px;font-size:11.5px;color:#1A1A1A;text-decoration:none"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5v.01"></path></svg>{{ c.fonte }} · sem fonte verificada</a><span style="font-size:11.5px;color:#6B6B68;line-height:1.4">O documento não abriu. <a href="#">Tentar de novo</a></span></sc-if>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <p style="margin:0;font-size:12.5px;color:#6B6B68;max-width:640px;line-height:1.55">Resumos de exemplo, redigidos a partir dos documentos históricos citados. Cada coluna leva à fonte primária; confira sempre o texto original.</p>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · abas por aspecto, tradições empilhadas (toque na aba)</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:14px;font-weight:600">9:41<span style="font-size:12px;font-weight:500">5G ▮▮▮</span></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 8px;gap:2px">
+          <a href="#" aria-label="Voltar" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></a>
+          <span style="flex:1;font-size:15px;font-weight:600">Comparador</span>
+          <a href="#" style="height:44px;display:flex;align-items:center;padding:0 12px;font-size:14px;text-decoration:none;color:#1A1A1A">Editar</a>
+        </div>
+        <div style="padding:6px 20px 14px;display:flex;flex-direction:column;gap:4px">
+          <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:25px;line-height:1.2">Batismo: sujeitos e significado</h2>
+          <span style="font-size:12.5px;color:#6B6B68">4 tradições · ordem alfabética</span>
+        </div>
+        <div role="tablist" style="display:flex;border-bottom:1px solid #E4DED1;padding:0 12px">
+          <sc-for list="{{ abas }}" as="a" hint-placeholder-count="3">
+            <sc-if value="{{ a.on }}"><button role="tab" aria-selected="true" onClick="{{ a.go }}" style="flex:1;height:44px;border:0;border-bottom:2px solid #8E2B22;background:transparent;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#1A1A1A;cursor:pointer">{{ a.k }}</button></sc-if>
+            <sc-if value="{{ a.off }}"><button role="tab" onClick="{{ a.go }}" style="flex:1;height:44px;border:0;border-bottom:2px solid transparent;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#6B6B68;cursor:pointer">{{ a.k }}</button></sc-if>
+          </sc-for>
+        </div>
+        <div style="flex:1;overflow:auto;padding:16px 20px 24px;display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ mob }}" as="m" hint-placeholder-count="4">
+            <div style="border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5;padding:16px;display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><b style="font-family:'Playfair Display',serif;font-size:17px;font-weight:600">{{ m.nome }}</b><span style="font-size:11.5px;color:#6B6B68;text-align:right">{{ m.doc }}</span></div>
+              <p style="margin:0;font-family:'Playfair Display',serif;font-size:15.5px;line-height:1.55">{{ m.v }}</p>
+              <sc-if value="{{ m.ok }}"><span style="font-size:11.5px;color:#6B6B68">✓ {{ m.fonte }} · verificada</span></sc-if>
+              <sc-if value="{{ m.falha }}"><span style="font-size:11.5px;color:#6B6B68">○ {{ m.fonte }} · sem fonte verificada</span></sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <dc-import name="Barra Celular" ativo="Mais" hint-size="100%,84px"></dc-import>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · escolher tema e tradições</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:14px;font-weight:600">9:41<span style="font-size:12px;font-weight:500">5G ▮▮▮</span></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 20px"><span style="flex:1;font-size:15px;font-weight:600">Nova comparação</span></div>
+        <div style="flex:1;padding:8px 20px;display:flex;flex-direction:column;gap:22px;overflow:auto">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">1 · Tema</span>
+            <div style="display:flex;align-items:center;min-height:48px;padding:0 14px;border:1px solid #CFC7B7;border-radius:6px;background:#FCFAF5;font-size:15px">Batismo: sujeitos e significado</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">2 · Tradições ou autores <span style="letter-spacing:0;text-transform:none;font-weight:400">· de 2 a 4</span></span>
+            <div style="display:flex;flex-direction:column;border-top:1px solid #E4DED1">
+              <sc-for list="{{ opcoes }}" as="o" hint-placeholder-count="6">
+                <label style="display:flex;align-items:center;gap:12px;min-height:52px;border-bottom:1px solid #E4DED1;font-size:15px">
+                  <sc-if value="{{ o.on }}"><span style="width:20px;height:20px;border-radius:4px;background:#1A1A1A;color:#F7F4EC;display:flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span></sc-if>
+                  <sc-if value="{{ o.off }}"><span style="width:20px;height:20px;border-radius:4px;border:1.5px solid #8A8378;box-sizing:border-box"></span></sc-if>
+                  <span style="flex:1">{{ o.n }}</span><span style="font-size:12px;color:#6B6B68">{{ o.t }}</span>
+                </label>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        <div style="padding:12px 20px 36px"><button style="width:100%;height:52px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:15.5px;font-weight:500">Comparar 4</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { aba: 0 };
+  renderVals() {
+    const K = ['Sujeitos', 'Significado', 'Modo'];
+    const raw = [
+      { nome: 'Batista reformada', doc: 'Confissão de Fé Batista de 1689', fonte: '1689, cap. 29', ok: true, v: ['Somente os que professam arrependimento e fé em Cristo.', 'Sinal da comunhão do crente com Cristo em sua morte e ressurreição.', 'Imersão é o modo exigido para a devida administração.'] },
+      { nome: 'Católica romana', doc: 'Concílio de Trento, sessão VII', fonte: 'Trento, sessão VII', ok: false, v: ['Adultos convertidos e também crianças.', 'Sacramento que confere a graça da regeneração.', 'Admite imersão, aspersão ou efusão.'] },
+      { nome: 'Luterana', doc: 'Confissão de Augsburgo, art. IX', fonte: 'Augsburgo, art. IX', ok: true, v: ['Adultos e crianças, que por ele são entregues a Deus.', 'Meio necessário pelo qual a graça é oferecida.', 'A confissão não prescreve um modo específico.'] },
+      { nome: 'Presbiteriana', doc: 'Confissão de Westminster, cap. 28', fonte: 'Westminster, cap. 28', ok: true, v: ['Os que professam fé e os filhos de um ou ambos os pais crentes.', 'Sinal e selo do pacto da graça.', 'Imersão não é necessária; aspersão ou efusão é devida.'] }
+    ];
+    const cols = raw.map(c => ({ ...c, falha: !c.ok, linhas: K.map((k, i) => ({ k, v: c.v[i] })) }));
+    const a = this.state.aba;
+    const abas = K.map((k, i) => ({ k, on: i === a, off: i !== a, go: () => this.setState({ aba: i }) }));
+    const mob = raw.map(c => ({ nome: c.nome, doc: c.fonte, fonte: c.fonte, ok: c.ok, falha: !c.ok, v: c.v[a] }));
+    const opcoes = [['Anglicana', 'tradição'], ['Batista reformada', 'tradição'], ['Católica romana', 'tradição'], ['Luterana', 'tradição'], ['Presbiteriana', 'tradição'], ['João Calvino', 'autor, 1509–1564']].map(([n, t]) => ({ n, t, on: ['Batista reformada', 'Católica romana', 'Luterana', 'Presbiteriana'].includes(n) }));
+    opcoes.forEach(o => o.off = !o.on);
+    return { cols, abas, mob, opcoes };
+  }
+}
+</script>
+</body>
+</html>

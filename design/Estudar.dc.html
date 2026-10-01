@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap"><style>body{margin:0;background:#E9E4D8;-webkit-font-smoothing:antialiased}a{color:#8E2B22}a:hover{color:#6E1F18}</style></helmet>
+
+<section data-screen-label="04 Trilha de sistemática" style="padding:64px 64px 32px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">4 · Trilha de teologia sistemática</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · lista de temas + página do tema</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Trilha de sistemática" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <dc-import name="Topo Desktop" hint-size="100%,60px"></dc-import>
+          <div style="flex:1;display:flex;min-height:0">
+            <div style="width:340px;border-right:1px solid #E4DED1;overflow:auto;padding:28px 0">
+              <h2 style="margin:0 24px 18px;font-family:'Playfair Display',serif;font-weight:600;font-size:24px">Temas</h2>
+              <sc-for list="{{ temas }}" as="t" hint-placeholder-count="9">
+                <sc-if value="{{ t.on }}"><a href="#" style="display:flex;flex-direction:column;gap:7px;padding:12px 24px;background:#E6DFD0;text-decoration:none;color:#1A1A1A;border-left:2px solid #8E2B22"><div style="display:flex;justify-content:space-between;font-size:14px"><b style="font-weight:600">{{ t.n }}. {{ t.nome }}</b><span style="color:#4A4A47">{{ t.lbl }}</span></div><div style="height:3px;background:#CFC7B7;border-radius:2px"><div style="height:3px;width:{{ t.pct }};background:#1A1A1A;border-radius:2px"></div></div></a></sc-if>
+                <sc-if value="{{ t.off }}"><a href="#" style="display:flex;flex-direction:column;gap:7px;padding:12px 24px;text-decoration:none;color:#1A1A1A;border-left:2px solid transparent" style-hover="background:#EFEADF"><div style="display:flex;justify-content:space-between;font-size:14px"><span>{{ t.n }}. {{ t.nome }}</span><span style="color:#6B6B68">{{ t.lbl }}</span></div><div style="height:3px;background:#E4DED1;border-radius:2px"><div style="height:3px;width:{{ t.pct }};background:#1A1A1A;border-radius:2px"></div></div></a></sc-if>
+              </sc-for>
+            </div>
+            <main style="flex:1;overflow:auto;padding:36px 48px">
+              <div style="max-width:620px;display:flex;flex-direction:column;gap:28px">
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Tema 3</span>
+                  <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">Cristologia</h2>
+                  <div style="display:flex;align-items:center;gap:14px;margin-top:6px"><div style="flex:1;height:4px;background:#E4DED1;border-radius:2px"><div style="height:4px;width:41%;background:#1A1A1A;border-radius:2px"></div></div><span style="font-size:13px">41% de domínio</span></div>
+                  <span style="font-size:13px;color:#6B6B68">38 questões · 12 dominadas · 9 vencem esta semana</span>
+                </div>
+                <div style="display:flex;gap:10px"><button style="height:40px;padding:0 18px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:14px;font-weight:500">Estudar este tema</button><button style="height:40px;padding:0 18px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#1A1A1A">Simulado do tema</button></div>
+                <div style="display:flex;flex-direction:column">
+                  <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68;padding-bottom:8px;border-bottom:1px solid #E4DED1">Subtemas</span>
+                  <sc-for list="{{ subs }}" as="s" hint-placeholder-count="5">
+                    <a href="#" style="display:grid;grid-template-columns:1fr 120px 60px;gap:16px;align-items:center;min-height:52px;border-bottom:1px solid #E4DED1;text-decoration:none;color:#1A1A1A;font-size:14.5px"><span>{{ s.nome }}</span><div style="height:3px;background:#E4DED1;border-radius:2px"><div style="height:3px;width:{{ s.pct }};background:#1A1A1A;border-radius:2px"></div></div><span style="font-size:12.5px;color:#6B6B68;text-align:right">{{ s.q }} questões</span></a>
+                  </sc-for>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
+                  <div style="display:flex;flex-direction:column;gap:10px">
+                    <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Leituras indicadas</span>
+                    <a href="#" style="font-family:'Playfair Display',serif;font-size:15.5px;text-decoration:none;color:#1A1A1A">Definição de Calcedônia (451)</a>
+                    <a href="#" style="font-family:'Playfair Display',serif;font-size:15.5px;text-decoration:none;color:#1A1A1A">Confissão de 1689, cap. 8</a>
+                    <a href="#" style="font-family:'Playfair Display',serif;font-size:15.5px;text-decoration:none;color:#1A1A1A">Atanásio, <i>Sobre a encarnação</i></a>
+                    <a href="#" style="font-family:'Playfair Display',serif;font-size:15.5px;text-decoration:none;color:#1A1A1A">Filipenses 2:5–11</a>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:10px">
+                    <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Suas notas · 4</span>
+                    <a href="#" style="font-size:14px;text-decoration:none;color:#1A1A1A;line-height:1.45">[Exemplo] Kenosis em Fp 2: esvaziamento sem perda da natureza divina</a>
+                    <a href="#" style="font-size:14px;text-decoration:none;color:#1A1A1A;line-height:1.45">[Exemplo] As quatro negações de Calcedônia</a>
+                    <a href="#" style="font-size:13.5px">Ver todas</a>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · Estudar (trilha, catecismos, simulados)</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 20px"><span style="font-family:'Playfair Display',serif;font-size:26px;font-weight:600">Estudar</span></div>
+        <div role="tablist" style="display:flex;border-bottom:1px solid #E4DED1;padding:0 12px">
+          <button style="flex:1;height:44px;border:0;border-bottom:2px solid #8E2B22;background:transparent;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#1A1A1A">Trilha</button>
+          <button style="flex:1;height:44px;border:0;border-bottom:2px solid transparent;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#6B6B68">Catecismos</button>
+          <button style="flex:1;height:44px;border:0;border-bottom:2px solid transparent;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#6B6B68">Simulados</button>
+        </div>
+        <div style="flex:1;overflow:auto;padding:4px 20px 20px">
+          <sc-for list="{{ temas }}" as="t" hint-placeholder-count="9">
+            <a href="#" style="display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:1px solid #E4DED1;text-decoration:none;color:#1A1A1A;min-height:44px"><div style="display:flex;justify-content:space-between;font-size:15px"><span>{{ t.n }}. {{ t.nome }}</span><span style="font-size:13px;color:#6B6B68">{{ t.lbl }}</span></div><div style="height:3px;background:#E4DED1;border-radius:2px"><div style="height:3px;width:{{ t.pct }};background:#1A1A1A;border-radius:2px"></div></div></a>
+          </sc-for>
+        </div>
+        <dc-import name="Barra Celular" ativo="Estudar" hint-size="100%,84px"></dc-import>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="05 Catecismos" style="padding:32px 64px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">5 · Catecismos</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · página do catecismo (filtre por estado)</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Catecismos" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <dc-import name="Topo Desktop" hint-size="100%,60px"></dc-import>
+          <main style="flex:1;overflow:auto;padding:36px 64px">
+            <div style="max-width:760px;display:flex;flex-direction:column;gap:24px">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <a href="#" style="font-size:13px;text-decoration:none">← Catecismos</a>
+                <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">Catecismo Menor de Westminster</h2>
+                <span style="font-size:13.5px;color:#6B6B68">1647 · 107 perguntas · 4 dominadas · 4 em estudo · 99 novas</span>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <sc-for list="{{ filtros }}" as="f" hint-placeholder-count="4">
+                  <sc-if value="{{ f.on }}"><button onClick="{{ f.go }}" style="height:32px;padding:0 12px;border-radius:4px;border:1px solid #1A1A1A;background:#1A1A1A;color:#F7F4EC;font-family:'Inter',sans-serif;font-size:13px;cursor:pointer">{{ f.n }}</button></sc-if>
+                  <sc-if value="{{ f.off }}"><button onClick="{{ f.go }}" style="height:32px;padding:0 12px;border-radius:4px;border:1px solid #CFC7B7;background:transparent;color:#1A1A1A;font-family:'Inter',sans-serif;font-size:13px;cursor:pointer">{{ f.n }}</button></sc-if>
+                </sc-for>
+                <div style="flex:1"></div>
+                <button style="height:36px;padding:0 16px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500">Aprender P. 5–8</button>
+              </div>
+              <div style="display:flex;flex-direction:column;border-top:1px solid #E4DED1">
+                <sc-for list="{{ perguntas }}" as="p" hint-placeholder-count="8">
+                  <a href="#" style="display:grid;grid-template-columns:44px 1fr 120px;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid #E4DED1;text-decoration:none;color:#1A1A1A">
+                    <span style="font-family:'Playfair Display',serif;font-size:17px;color:#6B6B68">{{ p.n }}</span>
+                    <span style="font-family:'Playfair Display',serif;font-size:17px;line-height:1.45">{{ p.t }}</span>
+                    <span style="display:flex;align-items:center;gap:6px;justify-content:flex-end;font-size:12.5px"><span style="font-size:13px">{{ p.ic }}</span>{{ p.st }}</span>
+                  </a>
+                </sc-for>
+              </div>
+              <span style="font-size:12px;color:#6B6B68">● dominada · ◐ em estudo · ○ nova — o estado sempre aparece em texto.</span>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · lista de catecismos</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 20px"><span style="font-family:'Playfair Display',serif;font-size:26px;font-weight:600">Estudar</span></div>
+        <div style="display:flex;border-bottom:1px solid #E4DED1;padding:0 12px">
+          <button style="flex:1;height:44px;border:0;border-bottom:2px solid transparent;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#6B6B68">Trilha</button>
+          <button style="flex:1;height:44px;border:0;border-bottom:2px solid #8E2B22;background:transparent;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#1A1A1A">Catecismos</button>
+          <button style="flex:1;height:44px;border:0;border-bottom:2px solid transparent;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#6B6B68">Simulados</button>
+        </div>
+        <div style="flex:1;overflow:auto;padding:4px 20px 20px">
+          <sc-for list="{{ catecismos }}" as="c" hint-placeholder-count="4">
+            <a href="#" style="display:flex;flex-direction:column;gap:8px;padding:16px 0;border-bottom:1px solid #E4DED1;text-decoration:none;color:#1A1A1A">
+              <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:500">{{ c.n }}</span>
+              <span style="font-size:12.5px;color:#6B6B68">{{ c.info }}</span>
+              <div style="display:flex;align-items:center;gap:10px"><div style="flex:1;height:3px;background:#E4DED1;border-radius:2px"><div style="height:3px;width:{{ c.pct }};background:#1A1A1A;border-radius:2px"></div></div><span style="font-size:12.5px">{{ c.pct }}</span></div>
+            </a>
+          </sc-for>
+        </div>
+        <dc-import name="Barra Celular" ativo="Estudar" hint-size="100%,84px"></dc-import>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="06 Simulados" style="padding:32px 64px 64px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">6 · Simulados</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · prova em andamento</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <header style="height:60px;border-bottom:1px solid #E4DED1;display:flex;align-items:center;padding:0 28px;gap:16px;font-size:13.5px">
+          <a href="#" style="color:#1A1A1A;text-decoration:none">Sair do simulado</a>
+          <div style="flex:1;text-align:center;color:#6B6B68">Simulado · Cristologia e concílios · 20 questões</div>
+          <span style="display:inline-flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2M10 2h4"></path></svg>14:32 restantes</span>
+        </header>
+        <div style="flex:1;display:flex;min-height:0">
+          <main style="flex:1;display:flex;justify-content:center;padding:48px 64px;overflow:auto">
+            <div style="width:100%;max-width:640px;display:flex;flex-direction:column;gap:20px">
+              <span style="font-size:13px;color:#6B6B68">Questão 8 de 20 · Cristologia</span>
+              <p style="margin:0 0 6px;font-family:'Playfair Display',serif;font-weight:500;font-size:28px;line-height:1.3">Qual heresia negava a plena humanidade de Cristo, afirmando que o Logos ocupava o lugar da mente humana?</p>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div style="display:flex;align-items:center;gap:14px;min-height:52px;padding:0 18px;border:1px solid #CFC7B7;border-radius:6px;font-size:15.5px"><span style="width:18px;color:#6B6B68">A</span>Arianismo</div>
+                <div style="display:flex;align-items:center;gap:14px;min-height:52px;padding:0 18px;border:1.5px solid #1A1A1A;background:#FCFAF5;border-radius:6px;font-size:15.5px"><span style="width:18px;color:#6B6B68">B</span><span style="flex:1">Apolinarismo</span><span style="font-size:12.5px;font-weight:600">Selecionada</span></div>
+                <div style="display:flex;align-items:center;gap:14px;min-height:52px;padding:0 18px;border:1px solid #CFC7B7;border-radius:6px;font-size:15.5px"><span style="width:18px;color:#6B6B68">C</span>Nestorianismo</div>
+                <div style="display:flex;align-items:center;gap:14px;min-height:52px;padding:0 18px;border:1px solid #CFC7B7;border-radius:6px;font-size:15.5px"><span style="width:18px;color:#6B6B68">D</span>Eutiquianismo</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-top:12px"><button style="height:42px;padding:0 18px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#1A1A1A">← Anterior</button><button style="height:42px;padding:0 14px;border:0;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#1A1A1A">Marcar para revisar</button><button style="height:42px;padding:0 18px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:14px;font-weight:500">Próxima →</button></div>
+            </div>
+          </main>
+          <aside style="width:260px;border-left:1px solid #E4DED1;padding:28px 24px;display:flex;flex-direction:column;gap:16px">
+            <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Questões</span>
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px">
+              <sc-for list="{{ grade }}" as="g" hint-placeholder-count="20">
+                <span style="height:34px;display:flex;align-items:center;justify-content:center;border-radius:4px;font-size:12.5px;border:{{ g.b }};background:{{ g.bg }};color:{{ g.c }}">{{ g.n }}</span>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:#6B6B68"><span>■ respondida · □ em branco</span><span>◇ marcada para revisar</span></div>
+            <div style="flex:1"></div>
+            <button style="height:40px;border-radius:6px;border:1px solid #1A1A1A;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;color:#1A1A1A">Entregar simulado</button>
+          </aside>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · configuração</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 20px"><span style="font-size:15px;font-weight:600">Novo simulado</span></div>
+        <div style="flex:1;padding:8px 20px;display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Temas</span>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <span style="height:40px;display:flex;align-items:center;padding:0 14px;border-radius:4px;background:#1A1A1A;color:#F7F4EC;font-size:14px">✓ Cristologia</span>
+              <span style="height:40px;display:flex;align-items:center;padding:0 14px;border-radius:4px;background:#1A1A1A;color:#F7F4EC;font-size:14px">✓ Concílios</span>
+              <span style="height:40px;display:flex;align-items:center;padding:0 14px;border-radius:4px;border:1px solid #CFC7B7;font-size:14px">Escrituras</span>
+              <span style="height:40px;display:flex;align-items:center;padding:0 14px;border-radius:4px;border:1px solid #CFC7B7;font-size:14px">Doutrina de Deus</span>
+              <span style="height:40px;display:flex;align-items:center;padding:0 14px;border-radius:4px;border:1px solid #CFC7B7;font-size:14px">Salvação</span>
+            </div></div>
+          <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Número de questões</span>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #CFC7B7;border-radius:6px;overflow:hidden"><span style="height:44px;display:flex;align-items:center;justify-content:center;font-size:14px">10</span><span style="height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;background:#1A1A1A;color:#F7F4EC">20</span><span style="height:44px;display:flex;align-items:center;justify-content:center;font-size:14px">30</span><span style="height:44px;display:flex;align-items:center;justify-content:center;font-size:14px">50</span></div></div>
+          <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Tempo</span>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #CFC7B7;border-radius:6px;overflow:hidden"><span style="height:44px;display:flex;align-items:center;justify-content:center;font-size:14px">Sem limite</span><span style="height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;background:#1A1A1A;color:#F7F4EC">30 min</span><span style="height:44px;display:flex;align-items:center;justify-content:center;font-size:14px">60 min</span></div></div>
+          <p style="margin:0;font-size:13px;line-height:1.55;color:#4A4A47">Questões erradas entram na sua revisão diária ao final.</p>
+        </div>
+        <div style="padding:12px 20px 40px"><button style="width:100%;height:52px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:15.5px;font-weight:500">Começar simulado</button></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · gabarito comentado</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 20px;gap:8px"><span style="flex:1;font-size:15px;font-weight:600">Gabarito · 14 de 20</span><span style="font-size:13px;color:#6B6B68">Só erradas</span></div>
+        <div style="flex:1;overflow:auto;padding:4px 20px 24px;display:flex;flex-direction:column;gap:14px">
+          <div style="border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5;padding:16px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;font-size:12.5px"><span style="color:#6B6B68">Questão 12 · Concílios</span><span style="font-weight:600">✕ Errada</span></div>
+            <p style="margin:0;font-family:'Playfair Display',serif;font-size:17px;line-height:1.4">Qual concílio definiu Cristo “em duas naturezas”?</p>
+            <span style="font-size:13.5px">Sua resposta: Éfeso (431)</span>
+            <span style="font-size:13.5px;color:#8E2B22;font-weight:600">✓ Correta: Calcedônia (451)</span>
+            <p style="margin:0;font-family:'Playfair Display',serif;font-size:14.5px;line-height:1.6;color:#4A4A47">Éfeso tratou da unidade da pessoa; a fórmula das duas naturezas é de Calcedônia.</p>
+            <span style="font-size:11.5px;color:#6B6B68">Da sua base · Definição de Calcedônia · verificada</span>
+          </div>
+          <div style="border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5;padding:16px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;font-size:12.5px"><span style="color:#6B6B68">Questão 15 · Concílios</span><span style="font-weight:600">✕ Errada</span></div>
+            <p style="margin:0;font-family:'Playfair Display',serif;font-size:17px;line-height:1.4">Em que ano se reuniu o Concílio de Niceia?</p>
+            <span style="font-size:13.5px">Sua resposta: 381</span>
+            <span style="font-size:13.5px;color:#8E2B22;font-weight:600">✓ Correta: 325</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { filtro: 0 };
+  renderVals() {
+    const T = [['Escrituras', 82], ['Doutrina de Deus', 68], ['Cristologia', 41], ['Espírito Santo', 30], ['Homem e pecado', 55], ['Salvação', 24], ['Igreja', 0], ['Sacramentos e ordenanças', 0], ['Últimas coisas', 0]];
+    const temas = T.map(([nome, p], i) => ({ n: i + 1, nome, pct: p + '%', lbl: p ? p + '%' : 'Não iniciado', on: i === 2, off: i !== 2 }));
+    const subs = [['Pessoa de Cristo', 60, 9], ['Duas naturezas', 45, 8], ['Encarnação', 50, 6], ['Ofícios: profeta, sacerdote, rei', 20, 10], ['Estados de humilhação e exaltação', 15, 5]].map(([nome, p, q]) => ({ nome, pct: p + '%', q }));
+    const P = [
+      [1, 'Qual é o fim principal do homem?', 'd'], [2, 'Que regra deu Deus para nos dirigir na maneira de glorificá-lo e gozá-lo?', 'd'],
+      [3, 'Qual é a coisa principal que as Escrituras nos ensinam?', 'd'], [4, 'Quem é Deus?', 'd'],
+      [5, 'Há mais de um Deus?', 'e'], [6, 'Quantas pessoas há na Divindade?', 'e'], [7, 'Que são os decretos de Deus?', 'e'], [8, 'Como executa Deus os seus decretos?', 'e'],
+      [9, 'Qual é a obra da criação?', 'n'], [10, 'Como criou Deus o homem?', 'n']
+    ];
+    const S = { d: ['●', 'Dominada'], e: ['◐', 'Em estudo'], n: ['○', 'Nova'] };
+    const f = this.state.filtro, keys = [null, 'n', 'e', 'd'];
+    const perguntas = P.filter(p => !keys[f] || p[2] === keys[f]).map(([n, t, s]) => ({ n, t, ic: S[s][0], st: S[s][1] }));
+    const filtros = ['Todas', 'Novas', 'Em estudo', 'Dominadas'].map((n, i) => ({ n, on: i === f, off: i !== f, go: () => this.setState({ filtro: i }) }));
+    const catecismos = [['Catecismo Menor de Westminster', '1647 · 107 perguntas', 7], ['Catecismo Batista (de Keach)', '1693 · 118 perguntas', 0], ['Catecismo de Heidelberg', '1563 · 129 perguntas', 12], ['Catecismo Maior de Westminster', '1648 · 196 perguntas', 0]].map(([n, info, p]) => ({ n, info, pct: p + '%' }));
+    const grade = Array.from({ length: 20 }, (_, i) => {
+      const n = i + 1, cur = n === 8, resp = n < 8 || n === 10, marc = n === 5;
+      return { n: marc ? n + '◇' : n, b: cur ? '1.5px solid #8E2B22' : '1px solid ' + (resp ? '#1A1A1A' : '#CFC7B7'), bg: resp && !cur ? '#1A1A1A' : 'transparent', c: resp && !cur ? '#F7F4EC' : '#1A1A1A' };
+    });
+    return { temas, subs, perguntas, filtros, catecismos, grade };
+  }
+}
+</script>
+</body>
+</html>

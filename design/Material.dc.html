@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap"><style>body{margin:0;background:#E9E4D8;-webkit-font-smoothing:antialiased}a{color:#8E2B22}a:hover{color:#6E1F18}</style></helmet>
+
+<section data-screen-label="11 Notas e biblioteca" style="padding:64px 64px 32px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">11 · Notas e biblioteca</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · filtros por passagem, tema, teólogo e etiqueta</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Notas e biblioteca" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <dc-import name="Topo Desktop" hint-size="100%,60px"></dc-import>
+          <main style="flex:1;overflow:auto;padding:36px 48px;display:flex;flex-direction:column;gap:20px">
+            <div style="display:flex;align-items:flex-end;gap:16px"><h2 style="margin:0;flex:1;font-family:'Playfair Display',serif;font-weight:600;font-size:32px">Notas e biblioteca</h2><div style="display:flex;border:1px solid #CFC7B7;border-radius:6px;overflow:hidden"><span style="height:32px;display:flex;align-items:center;padding:0 14px;font-size:13px;background:#1A1A1A;color:#F7F4EC">Notas · 42</span><span style="height:32px;display:flex;align-items:center;padding:0 14px;font-size:13px">Documentos · 9</span></div></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+              <div style="height:36px;flex:0 1 320px;display:flex;align-items:center;padding:0 12px;border:1px solid #E4DED1;border-radius:6px;background:#FCFAF5;font-size:13.5px;color:#6B6B68">Buscar nas notas</div>
+              <span style="height:32px;display:flex;align-items:center;gap:6px;padding:0 10px 0 12px;border:1px solid #1A1A1A;border-radius:4px;font-size:13px">Passagem: Romanos 8 <span style="color:#6B6B68">×</span></span>
+              <span style="height:32px;display:flex;align-items:center;padding:0 12px;border:1px solid #CFC7B7;border-radius:4px;font-size:13px">Tema ▾</span>
+              <span style="height:32px;display:flex;align-items:center;padding:0 12px;border:1px solid #CFC7B7;border-radius:4px;font-size:13px">Teólogo ▾</span>
+              <span style="height:32px;display:flex;align-items:center;padding:0 12px;border:1px solid #CFC7B7;border-radius:4px;font-size:13px">Etiqueta ▾</span>
+              <span style="height:32px;display:flex;align-items:center;padding:0 12px;border:1px solid #CFC7B7;border-radius:4px;font-size:13px">Origem ▾</span>
+            </div>
+            <div style="display:flex;flex-direction:column;border-top:1px solid #E4DED1;max-width:880px">
+              <sc-for list="{{ notas }}" as="n" hint-placeholder-count="5">
+                <a href="#" style="display:grid;grid-template-columns:120px 1fr 160px;gap:20px;padding:18px 0;border-bottom:1px solid #E4DED1;text-decoration:none;color:#1A1A1A" style-hover="background:#EFEADF">
+                  <span style="font-size:13px;font-weight:600;color:#8E2B22">{{ n.ref }}</span>
+                  <span style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Playfair Display',serif;font-size:16px;line-height:1.5">{{ n.t }}</span><span style="font-size:12px;color:#6B6B68">{{ n.tags }}</span></span>
+                  <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;font-size:12px"><span style="font-weight:500">{{ n.orig }}</span><span style="color:#6B6B68">{{ n.d }}</span></span>
+                </a>
+              </sc-for>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · lista com filtros em linha</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 12px 0 20px"><span style="flex:1;font-family:'Playfair Display',serif;font-size:24px;font-weight:600">Notas</span><a href="#" aria-label="Nova nota" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A;font-size:24px;text-decoration:none">+</a></div>
+        <div style="padding:0 20px 10px;display:flex;flex-direction:column;gap:10px">
+          <div style="height:44px;display:flex;align-items:center;padding:0 12px;border:1px solid #E4DED1;border-radius:6px;background:#FCFAF5;font-size:14px;color:#6B6B68">Buscar nas notas</div>
+          <div style="display:flex;gap:8px;overflow:hidden"><span style="flex:none;height:36px;display:flex;align-items:center;padding:0 12px;border:1px solid #1A1A1A;border-radius:4px;font-size:13px">Romanos 8 ×</span><span style="flex:none;height:36px;display:flex;align-items:center;padding:0 12px;border:1px solid #CFC7B7;border-radius:4px;font-size:13px">Tema</span><span style="flex:none;height:36px;display:flex;align-items:center;padding:0 12px;border:1px solid #CFC7B7;border-radius:4px;font-size:13px">Teólogo</span><span style="flex:none;height:36px;display:flex;align-items:center;padding:0 12px;border:1px solid #CFC7B7;border-radius:4px;font-size:13px">Etiqueta</span></div>
+        </div>
+        <div style="flex:1;overflow:auto;padding:0 20px">
+          <sc-for list="{{ notas }}" as="n" hint-placeholder-count="5">
+            <a href="#" style="display:flex;flex-direction:column;gap:6px;padding:14px 0;border-bottom:1px solid #E4DED1;text-decoration:none;color:#1A1A1A"><div style="display:flex;justify-content:space-between;font-size:12.5px"><b style="font-weight:600;color:#8E2B22">{{ n.ref }}</b><span style="font-weight:500">{{ n.orig }}</span></div><span style="font-family:'Playfair Display',serif;font-size:15.5px;line-height:1.5">{{ n.t }}</span></a>
+          </sc-for>
+        </div>
+        <dc-import name="Barra Celular" ativo="Mais" hint-size="100%,84px"></dc-import>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="12 Chat de estudo" style="padding:32px 64px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">12 · Chat de estudo</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · cada afirmação com chip de fonte</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Chat de estudo" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <dc-import name="Topo Desktop" hint-size="100%,60px"></dc-import>
+          <main style="flex:1;overflow:auto;padding:36px 48px;display:flex;justify-content:center">
+            <div style="width:100%;max-width:680px;display:flex;flex-direction:column;gap:28px">
+              <div style="align-self:flex-end;max-width:480px;padding:12px 16px;border:1px solid #E4DED1;border-radius:8px;background:#EFEADF;font-size:15px;line-height:1.55">Como a Confissão de 1689 difere de Westminster sobre os sujeitos do batismo?</div>
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <div style="display:flex;align-items:center;gap:8px"><span style="font-size:9.5px;font-weight:600;border:1px solid #1A1A1A;border-radius:3px;padding:0 3px;line-height:14px">IA</span><span style="font-size:12px;font-weight:500">Fala da IA (com fontes)</span></div>
+                <p style="margin:0;font-family:'Playfair Display',serif;font-size:17px;line-height:1.7">A Confissão de 1689 limita o batismo aos que professam arrependimento e fé. <a href="#" style="display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 7px;border:1px solid #CFC7B7;border-radius:4px;font-family:'Inter',sans-serif;font-size:11.5px;color:#1A1A1A;text-decoration:none;vertical-align:2px;background:#FCFAF5">✓ 1689, 29.2</a></p>
+                <p style="margin:0;font-family:'Playfair Display',serif;font-size:17px;line-height:1.7">Westminster inclui também os filhos de pais crentes. <a href="#" style="display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 7px;border:1px solid #CFC7B7;border-radius:4px;font-family:'Inter',sans-serif;font-size:11.5px;color:#1A1A1A;text-decoration:none;vertical-align:2px;background:#FCFAF5">✓ Westminster, 28.4</a></p>
+                <p style="margin:0;font-family:'Playfair Display',serif;font-size:17px;line-height:1.7">A redação da 1689 acompanha de perto a de Westminster em boa parte do capítulo. <a href="#" style="display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 7px;border:1px dashed #8A8378;border-radius:4px;font-family:'Inter',sans-serif;font-size:11.5px;color:#1A1A1A;text-decoration:none;vertical-align:2px">○ sem fonte verificada</a></p>
+                <div style="display:flex;gap:8px;align-items:center;border-top:1px solid #E4DED1;padding-top:14px">
+                  <button style="height:34px;padding:0 12px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#1A1A1A">Salvar como nota</button>
+                  <button style="height:34px;padding:0 12px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#1A1A1A">Abrir no comparador</button>
+                  <span style="flex:1"></span><span style="font-size:12px;color:#6B6B68">2 de 3 afirmações verificadas</span>
+                </div>
+              </div>
+            </div>
+          </main>
+          <div style="padding:16px 48px 24px;display:flex;justify-content:center"><div style="width:100%;max-width:680px;display:flex;align-items:center;gap:10px;min-height:48px;padding:0 8px 0 16px;border:1px solid #CFC7B7;border-radius:8px;background:#FCFAF5"><span style="flex:1;font-size:14.5px;color:#6B6B68">Pergunte sobre um texto, tema ou teólogo…</span><span style="font-size:12px;color:#6B6B68">Usa: sua base + fontes públicas</span><button style="height:36px;padding:0 14px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:13.5px">Enviar</button></div></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · toque no chip para ver a fonte</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column;position:relative">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 8px;border-bottom:1px solid #E4DED1"><a href="#" aria-label="Voltar" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></a><span style="font-size:15px;font-weight:600">Chat de estudo</span></div>
+        <div style="flex:1;padding:20px;display:flex;flex-direction:column;gap:18px">
+          <div style="align-self:flex-end;max-width:280px;padding:10px 14px;border-radius:8px;background:#EFEADF;font-size:14.5px;line-height:1.5">1689 e Westminster: sujeitos do batismo?</div>
+          <span style="font-size:12px;font-weight:500">IA · Fala da IA (com fontes)</span>
+          <p style="margin:0;font-family:'Playfair Display',serif;font-size:16.5px;line-height:1.65">A Confissão de 1689 limita o batismo aos que professam fé. <span style="display:inline-flex;align-items:center;height:24px;padding:0 7px;border:1.5px solid #1A1A1A;border-radius:4px;font-family:'Inter',sans-serif;font-size:11.5px;vertical-align:2px">✓ 1689, 29.2</span></p>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;background:#FCFAF5;border-top:1px solid #8A8378;border-radius:16px 16px 0 0;padding:10px 20px 34px;display:flex;flex-direction:column;gap:10px">
+          <div style="width:36px;height:4px;border-radius:2px;background:#CFC7B7;align-self:center"></div>
+          <div style="display:flex;justify-content:space-between;font-size:13px"><b style="font-weight:600">Confissão de 1689 · 29.2</b><span>✓ verificada</span></div>
+          <p style="margin:0;font-family:'Playfair Display',serif;font-size:15.5px;line-height:1.6">[Trecho do documento na sua base, exibido aqui para conferência.]</p>
+          <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500">Da sua base</span>
+          <button style="height:48px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:14.5px;color:#1A1A1A">Abrir documento</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="13 Fila de aprovação" style="padding:32px 64px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">13 · Fila de aprovação</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · um rascunho por vez (A aprovar · E editar · D descartar)</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="" fila="{{ restantes }}" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <dc-import name="Topo Desktop" hint-size="100%,60px"></dc-import>
+          <main style="flex:1;overflow:auto;padding:48px;display:flex;justify-content:center">
+            <div style="width:100%;max-width:640px;display:flex;flex-direction:column;gap:20px">
+              <div style="display:flex;align-items:baseline;gap:12px"><h2 style="margin:0;flex:1;font-family:'Playfair Display',serif;font-weight:600;font-size:30px">Fila de aprovação</h2><span style="font-size:13.5px;color:#6B6B68">{{ posicao }}</span></div>
+              <sc-if value="{{ temItem }}" hint-placeholder-val="{{ true }}">
+                <div style="border:1px dashed #8A8378;border-radius:8px;padding:28px;display:flex;flex-direction:column;gap:16px;background:repeating-linear-gradient(135deg,transparent 0 10px,rgba(26,26,26,0.025) 10px 11px)">
+                  <div style="display:flex;align-items:center;gap:10px"><span style="font-size:10.5px;letter-spacing:0.14em;font-weight:600;text-transform:uppercase;border:1px solid #1A1A1A;border-radius:3px;padding:2px 6px">Rascunho</span><span style="font-size:13px;color:#6B6B68">{{ item.tipo }} · gerado a partir de {{ item.de }}</span></div>
+                  <p style="margin:0;font-family:'Playfair Display',serif;font-weight:500;font-size:24px;line-height:1.35">{{ item.q }}</p>
+                  <div style="border-top:1px solid #E4DED1;padding-top:14px;font-family:'Playfair Display',serif;font-size:17px;line-height:1.6">{{ item.a }}</div>
+                  <span style="font-size:12px;color:#6B6B68">✓ {{ item.fonte }} · verificada</span>
+                </div>
+                <div style="display:flex;gap:10px">
+                  <button onClick="{{ avancar }}" style="height:44px;padding:0 22px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:14.5px;font-weight:500;cursor:pointer">Aprovar <span style="opacity:.75;font-size:11.5px;margin-left:4px">A</span></button>
+                  <button style="height:44px;padding:0 20px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:14.5px;color:#1A1A1A">Editar <span style="color:#6B6B68;font-size:11.5px;margin-left:4px">E</span></button>
+                  <button onClick="{{ avancar }}" style="height:44px;padding:0 16px;border:0;background:transparent;font-family:'Inter',sans-serif;font-size:14.5px;color:#6B6B68;cursor:pointer">Descartar <span style="font-size:11.5px;margin-left:4px">D</span></button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ vazio }}" hint-placeholder-val="{{ false }}">
+                <div style="border-top:1px solid #E4DED1;border-bottom:1px solid #E4DED1;padding:28px 0;display:flex;flex-direction:column;gap:8px"><p style="margin:0;font-family:'Playfair Display',serif;font-size:22px">Nenhum rascunho aguardando.</p><p style="margin:0;font-size:14px;color:#4A4A47">Tudo o que a IA gerou já foi revisado. <a href="#" onClick="{{ reiniciar }}">Reiniciar demonstração</a></p></div>
+              </sc-if>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="14 Ajustes" style="padding:32px 64px 64px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">14 · Ajustes</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · a prévia reage ao tamanho e ao tema</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:{{ aj.bg }};color:{{ aj.fg }};display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 20px"><span style="font-family:'Playfair Display',serif;font-size:24px;font-weight:600">Ajustes</span></div>
+        <div style="flex:1;padding:8px 20px;display:flex;flex-direction:column;gap:26px">
+          <div style="border:1px solid {{ aj.ln }};border-radius:8px;padding:16px"><p style="margin:0;font-family:'Playfair Display',serif;font-size:{{ aj.fs }};line-height:1.75"><sup style="font-family:'Inter',sans-serif;font-size:10.5px;color:{{ aj.mu }};margin-right:3px">31</sup>Que diremos pois a estas coisas? Se Deus é por nós, quem será contra nós?</p></div>
+          <div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:{{ aj.mu }}">Tamanho da fonte</span>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);border:1px solid {{ aj.ln }};border-radius:6px;overflow:hidden">
+              <sc-for list="{{ tamanhos }}" as="t" hint-placeholder-count="4"><button onClick="{{ t.go }}" style="height:44px;border:0;background:{{ t.bg }};color:{{ t.c }};font-family:'Playfair Display',serif;font-size:{{ t.fs }};cursor:pointer">A</button></sc-for>
+            </div></div>
+          <div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:{{ aj.mu }}">Tema</span>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);border:1px solid {{ aj.ln }};border-radius:6px;overflow:hidden">
+              <sc-for list="{{ temas }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.go }}" style="height:44px;border:0;background:{{ t.bg }};color:{{ t.c }};font-family:'Inter',sans-serif;font-size:14px;cursor:pointer">{{ t.n }}</button></sc-for>
+            </div></div>
+          <div style="display:flex;align-items:center;min-height:52px;border-top:1px solid {{ aj.ln }};border-bottom:1px solid {{ aj.ln }}"><span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px">Lembrete diário</span><span style="font-size:12.5px;color:{{ aj.mu }}">Uma notificação discreta, sem som</span></span><span style="height:36px;display:flex;align-items:center;padding:0 12px;border:1px solid {{ aj.ln }};border-radius:6px;font-size:15px;font-variant-numeric:tabular-nums">07:30</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { i: 0, fs: 1, tema: 0 };
+  renderVals() {
+    const notas = [
+      ['Rm 8:28', '[Nota de exemplo] “Todas as coisas” inclui o sofrimento dos vv. 18–23.', 'providência · sofrimento', 'Da sua base', 'há 2 dias'],
+      ['Rm 8:29–30', '[Nota de exemplo] A “corrente de ouro” e sua ordem.', 'salvação · Calvino', 'Da sua base', 'há 2 dias'],
+      ['Rm 8:33–34', 'Linguagem de tribunal: acusação, justificação e condenação.', 'justificação', 'Fala da IA (com fontes)', 'há 5 dias'],
+      ['Rm 8:35', '[Nota de exemplo] Sete ameaças concretas antes dos poderes cósmicos.', 'célula · semana 4', 'Da sua base', 'há 1 semana'],
+      ['Rm 8:1', '[Nota de exemplo] “Nenhuma condenação” retoma 5:1.', 'justificação', 'Da sua base', 'há 3 semanas']
+    ].map(([ref, t, tags, orig, d]) => ({ ref, t, tags, orig, d }));
+    const F = [
+      { tipo: 'Questão', de: 'Rm 8:29', q: 'Segundo Rm 8:29, a que os predestinados são conformados?', a: 'À imagem do Filho, para que ele seja o primogênito entre muitos irmãos.', fonte: 'Rm 8:29' },
+      { tipo: 'Card', de: 'Catecismo Menor, P. 4', q: 'Quem é Deus? (Catecismo Menor, P. 4)', a: 'Deus é espírito, infinito, eterno e imutável em seu ser, sabedoria, poder, santidade, justiça, bondade e verdade.', fonte: 'Catecismo Menor, P. 4' },
+      { tipo: 'Questão', de: 'Definição de Calcedônia', q: 'Quais são as quatro negações da Definição de Calcedônia?', a: 'Sem confusão, sem mudança, sem divisão, sem separação.', fonte: 'Definição de Calcedônia' }
+    ];
+    const i = this.state.i, tem = i < F.length;
+    const S = ['16px', '18px', '20px', '23px'];
+    const TH = [{ n: 'Claro', bg: '#F7F4EC', fg: '#1A1A1A', mu: '#6B6B68', ln: '#E4DED1' }, { n: 'Escuro', bg: '#1E1B18', fg: '#ECE6DA', mu: '#A69E92', ln: '#3A342E' }, { n: 'Sistema', bg: '#F7F4EC', fg: '#1A1A1A', mu: '#6B6B68', ln: '#E4DED1' }];
+    const th = TH[this.state.tema];
+    const inv = th.n === 'Escuro' ? { bg: '#ECE6DA', c: '#1E1B18' } : { bg: '#1A1A1A', c: '#F7F4EC' };
+    const tamanhos = S.map((fs, k) => ({ fs, go: () => this.setState({ fs: k }), bg: k === this.state.fs ? inv.bg : 'transparent', c: k === this.state.fs ? inv.c : th.fg }));
+    const temas = TH.map((t, k) => ({ n: t.n, go: () => this.setState({ tema: k }), bg: k === this.state.tema ? inv.bg : 'transparent', c: k === this.state.tema ? inv.c : th.fg }));
+    return {
+      notas, item: F[Math.min(i, F.length - 1)], temItem: tem, vazio: !tem, restantes: F.length - i,
+      posicao: tem ? `${i + 1} de ${F.length}` : 'Concluída',
+      avancar: () => this.setState(s => ({ i: s.i + 1 })), reiniciar: e => { e.preventDefault(); this.setState({ i: 0 }); },
+      aj: { ...th, fs: S[this.state.fs] }, tamanhos, temas
+    };
+  }
+}
+</script>
+</body>
+</html>

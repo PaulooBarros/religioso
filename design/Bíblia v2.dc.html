@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap"><style>body{margin:0;background:#E9E4D8;-webkit-font-smoothing:antialiased}a{color:#8E2B22}a:hover{color:#6E1F18}@keyframes pulso{0%,100%{opacity:1}50%{opacity:.55}}</style></helmet>
+
+<section data-screen-label="B1 Leitor com comentários e marcadores" style="padding:64px 64px 32px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">Bíblia · leitor com marcadores e comentários</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · clique num versículo com ponto; troque as abas do painel e o modo de leitura</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Bíblia" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <dc-import name="Topo Desktop" hint-size="100%,60px"></dc-import>
+          <div style="height:48px;display:flex;align-items:flex-end;gap:4px;padding:0 32px;border-bottom:1px solid #E4DED1">
+            <a href="#" style="height:46px;display:flex;align-items:center;padding:0 14px;border-bottom:2px solid #8E2B22;font-size:14px;font-weight:600;color:#1A1A1A;text-decoration:none">Ler</a>
+            <a href="#" style="height:46px;display:flex;align-items:center;padding:0 14px;border-bottom:2px solid transparent;font-size:14px;color:#6B6B68;text-decoration:none">Marcadores</a>
+            <a href="#" style="height:46px;display:flex;align-items:center;padding:0 14px;border-bottom:2px solid transparent;font-size:14px;color:#6B6B68;text-decoration:none">Devocionais</a>
+          </div>
+          <div style="flex:1;display:flex;min-height:0">
+            <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+              <div style="height:52px;display:flex;align-items:center;gap:10px;padding:0 32px;font-size:13.5px">
+                <button style="height:34px;padding:0 12px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;color:#1A1A1A;white-space:nowrap">Romanos 8 ▾</button>
+                <div style="flex:1"></div>
+                <div role="radiogroup" aria-label="Modo de leitura" style="display:flex;border:1px solid #CFC7B7;border-radius:6px;overflow:hidden">
+                  <sc-for list="{{ modos }}" as="m" hint-placeholder-count="2">
+                    <sc-if value="{{ m.on }}"><button role="radio" aria-checked="true" onClick="{{ m.go }}" style="height:32px;padding:0 12px;border:0;background:#1A1A1A;color:#F7F4EC;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:500;cursor:pointer;white-space:nowrap">{{ m.n }}</button></sc-if>
+                    <sc-if value="{{ m.off }}"><button role="radio" aria-checked="false" onClick="{{ m.go }}" style="height:32px;padding:0 12px;border:0;background:transparent;color:#1A1A1A;font-family:'Inter',sans-serif;font-size:12.5px;cursor:pointer;white-space:nowrap">{{ m.n }}</button></sc-if>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="flex:1;overflow:auto;padding:16px 40px 48px;display:flex;justify-content:center">
+                <article style="max-width:600px;width:100%;position:relative">
+                  <h2 style="margin:0 0 20px;font-family:'Playfair Display',serif;font-weight:600;font-size:30px">Romanos 8</h2>
+                  <div style="display:flex;flex-direction:column">
+                    <sc-for list="{{ versos }}" as="v" hint-placeholder-count="6">
+                      <div onClick="{{ v.go }}" style="position:relative;display:grid;grid-template-columns:34px 1fr;cursor:pointer;border-radius:4px;background:{{ v.bg }}">
+                        <sc-if value="{{ v.fit }}"><span aria-label="{{ v.fitLbl }}" style="position:absolute;left:-26px;top:9px;width:9px;height:13px"><svg width="9" height="13" viewBox="0 0 9 13" fill="{{ v.fitCor }}"><path d="M0 0h9v13L4.5 9.5 0 13z"></path></svg></span></sc-if>
+                        <span style="font-size:11px;color:{{ v.nCor }};font-weight:{{ v.nPeso }};padding-top:9px;text-align:right;padding-right:10px">{{ v.n }}<sc-if value="{{ v.dot }}"><span aria-label="tem comentário" style="display:inline-block;width:4px;height:4px;border-radius:50%;background:#8A8378;margin-left:3px;vertical-align:3px"></span></sc-if></span>
+                        <p style="margin:0;padding:2px 6px 2px 0;font-family:'Playfair Display',serif;font-size:19px;line-height:1.8;text-wrap:pretty">{{ v.t }}</p>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <p style="margin:24px 0 0;font-size:12px;color:#6B6B68">Ponto pequeno ao lado do número: há comentário. Fitilho na margem: marcador (bordô = “Onde parei”).</p>
+                </article>
+              </div>
+            </div>
+            <aside style="width:360px;border-left:1px solid #E4DED1;background:#FCFAF5;display:flex;flex-direction:column;min-height:0">
+              <div style="padding:14px 20px 0;display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;align-items:center;gap:8px"><b style="flex:1;font-size:14px;font-weight:600">Rm 8:{{ selN }}</b>
+                  <button style="height:30px;padding:0 10px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:12.5px;color:#1A1A1A;display:flex;align-items:center;gap:6px"><svg width="8" height="11" viewBox="0 0 9 13" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M.7.7h7.6v11L4.5 8.8.7 11.7z"></path></svg>Marcar</button>
+                  <button style="height:30px;padding:0 10px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:12.5px;color:#1A1A1A">Nova nota</button>
+                </div>
+                <div role="tablist" style="display:flex;border-bottom:1px solid #E4DED1;margin:0 -20px;padding:0 12px">
+                  <sc-for list="{{ camadas }}" as="c" hint-placeholder-count="3">
+                    <sc-if value="{{ c.on }}"><button role="tab" aria-selected="true" onClick="{{ c.go }}" style="flex:1;height:42px;border:0;border-bottom:2px solid #8E2B22;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;color:#1A1A1A;cursor:pointer">{{ c.n }} <span style="font-weight:400;color:#6B6B68">{{ c.q }}</span></button></sc-if>
+                    <sc-if value="{{ c.off }}"><button role="tab" onClick="{{ c.go }}" style="flex:1;height:42px;border:0;border-bottom:2px solid transparent;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;color:#6B6B68;cursor:pointer">{{ c.n }} <span>{{ c.q }}</span></button></sc-if>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="flex:1;overflow:auto;padding:16px 20px 20px;display:flex;flex-direction:column;gap:14px">
+                <sc-if value="{{ vClass }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#6B6B68"><span style="flex:1">Ordem cronológica</span><span style="height:28px;display:flex;align-items:center;padding:0 10px;border:1px solid #CFC7B7;border-radius:4px;color:#1A1A1A">Todos os autores ▾</span></div>
+                  <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Sobre o versículo</span>
+                  <sc-for list="{{ classicos }}" as="k" hint-placeholder-count="3">
+                    <div style="border:1px solid #E4DED1;border-radius:8px;background:#F7F4EC;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+                      <div style="display:flex;flex-direction:column;gap:1px"><b style="font-family:'Playfair Display',serif;font-size:16px;font-weight:600">{{ k.autor }}</b><span style="font-size:12px;color:#6B6B68">{{ k.obra }} · {{ k.ano }}</span></div>
+                      <p style="margin:0;font-family:'Playfair Display',serif;font-size:14.5px;line-height:1.6">{{ k.t }}</p>
+                      <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+                        <a href="#" style="display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border:1px solid #CFC7B7;border-radius:4px;font-size:11.5px;color:#1A1A1A;text-decoration:none">✓ {{ k.fonte }}</a>
+                        <sc-if value="{{ k.trad }}"><a href="#" style="display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border:1px dashed #8A8378;border-radius:4px;font-size:11.5px;color:#1A1A1A;text-decoration:none">Tradução automática do original · ver {{ k.lingua }}</a></sc-if>
+                      </div>
+                    </div>
+                  </sc-for>
+                  <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68;margin-top:4px">Sobre a seção · Rm 8:31–39</span>
+                  <div style="border:1px solid #E4DED1;border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px"><b style="font-family:'Playfair Display',serif;font-size:15px;font-weight:600">João Calvino</b><p style="margin:0;font-family:'Playfair Display',serif;font-size:14.5px;line-height:1.6">[Resumo de exemplo do comentário à seção inteira.]</p></div>
+                </sc-if>
+                <sc-if value="{{ vNotas }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:8px"><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500">Da sua base · Minhas notas</span><p style="margin:0;font-family:'Playfair Display',serif;font-size:15px;line-height:1.6">[Nota de exemplo] “Se Deus é por nós” resume tudo o que veio desde 8:1.</p><span style="font-size:11.5px;color:#6B6B68">há 2 dias · etiqueta: segurança</span></div>
+                  <button style="height:38px;border:1px dashed #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#6B6B68">+ Nova nota neste versículo</button>
+                </sc-if>
+                <sc-if value="{{ vIA }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:10px;border:1px dashed #8A8378;border-radius:8px;padding:14px 16px">
+                    <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500"><span style="font-size:9.5px;font-weight:600;border:1px solid #1A1A1A;border-radius:3px;padding:0 3px;line-height:14px">IA</span>Fala da IA (com fontes)</span>
+                    <p style="margin:0;font-size:12.5px;line-height:1.5;color:#4A4A47;border-bottom:1px solid #E4DED1;padding-bottom:10px">Isto não é comentário de nenhum autor. É uma síntese gerada pela IA a partir das fontes abaixo.</p>
+                    <p style="margin:0;font-size:14px;line-height:1.6">O versículo abre uma série de perguntas retóricas (vv. 31–35) que retomam o argumento desde 8:1.</p>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px"><a href="#" style="display:inline-flex;align-items:center;height:24px;padding:0 8px;border:1px solid #CFC7B7;border-radius:4px;font-size:11.5px;color:#1A1A1A;text-decoration:none">✓ Rm 8:31–35 · verificada</a><a href="#" style="display:inline-flex;align-items:center;height:24px;padding:0 8px;border:1px dashed #8A8378;border-radius:4px;font-size:11.5px;color:#1A1A1A;text-decoration:none">○ Rm 8:1 · sem fonte verificada</a></div>
+                  </div>
+                </sc-if>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · Marcadores</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Bíblia" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0;position:relative">
+          <dc-import name="Topo Desktop" hint-size="100%,60px"></dc-import>
+          <div style="height:48px;display:flex;align-items:flex-end;gap:4px;padding:0 32px;border-bottom:1px solid #E4DED1">
+            <a href="#" style="height:46px;display:flex;align-items:center;padding:0 14px;border-bottom:2px solid transparent;font-size:14px;color:#6B6B68;text-decoration:none">Ler</a>
+            <a href="#" style="height:46px;display:flex;align-items:center;padding:0 14px;border-bottom:2px solid #8E2B22;font-size:14px;font-weight:600;color:#1A1A1A;text-decoration:none">Marcadores</a>
+            <a href="#" style="height:46px;display:flex;align-items:center;padding:0 14px;border-bottom:2px solid transparent;font-size:14px;color:#6B6B68;text-decoration:none">Devocionais</a>
+          </div>
+          <main style="flex:1;overflow:auto;padding:32px 48px;display:flex;flex-direction:column;gap:18px">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <h2 style="margin:0 12px 0 0;font-family:'Playfair Display',serif;font-weight:600;font-size:28px">Marcadores</h2>
+              <sc-for list="{{ etiquetas }}" as="e" hint-placeholder-count="4">
+                <sc-if value="{{ e.on }}"><button onClick="{{ e.go }}" style="height:30px;padding:0 12px;border-radius:4px;border:1px solid #1A1A1A;background:#1A1A1A;color:#F7F4EC;font-family:'Inter',sans-serif;font-size:12.5px;cursor:pointer">{{ e.n }}</button></sc-if>
+                <sc-if value="{{ e.off }}"><button onClick="{{ e.go }}" style="height:30px;padding:0 12px;border-radius:4px;border:1px solid #CFC7B7;background:transparent;color:#1A1A1A;font-family:'Inter',sans-serif;font-size:12.5px;cursor:pointer">{{ e.n }}</button></sc-if>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;border-top:1px solid #E4DED1;max-width:900px">
+              <sc-for list="{{ marcadores }}" as="m" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:18px 130px 1fr 150px 90px;gap:16px;align-items:start;padding:16px 0;border-bottom:1px solid #E4DED1">
+                  <svg width="9" height="13" viewBox="0 0 9 13" fill="{{ m.cor }}" style="margin-top:3px"><path d="M0 0h9v13L4.5 9.5 0 13z"></path></svg>
+                  <a href="#" style="font-size:13.5px;font-weight:600;text-decoration:none">{{ m.ref }}</a>
+                  <span style="display:flex;flex-direction:column;gap:4px"><span style="font-size:14px;font-weight:500">{{ m.nome }}</span><span style="font-family:'Playfair Display',serif;font-size:14.5px;line-height:1.5;color:#4A4A47">{{ m.prev }}</span></span>
+                  <span style="display:flex;flex-direction:column;gap:4px;font-size:12px;color:#6B6B68"><span style="color:#1A1A1A">{{ m.tag }}</span><span>{{ m.d }}</span></span>
+                  <span style="display:flex;gap:10px;justify-content:flex-end;font-size:13px"><a href="#">Abrir</a><sc-if value="{{ m.rem }}"><a href="#" onClick="{{ m.del }}" style="color:#6B6B68">Remover</a></sc-if></span>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ vazioMarc }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:14px;color:#4A4A47">Nenhum marcador com essa etiqueta.</p></sc-if>
+          </main>
+          <sc-if value="{{ desfazer }}" hint-placeholder-val="{{ false }}">
+            <div role="status" style="position:absolute;left:50%;bottom:24px;transform:translateX(-50%);display:flex;align-items:center;gap:16px;padding:10px 12px 10px 18px;border-radius:8px;background:#1A1A1A;color:#F7F4EC;font-size:13.5px">Marcador removido<button onClick="{{ restaurar }}" style="height:30px;padding:0 10px;border:1px solid #6B6B68;border-radius:5px;background:transparent;color:#F7F4EC;font-family:'Inter',sans-serif;font-size:13px;cursor:pointer">Desfazer</button></div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="B2 Bíblia celular" style="padding:32px 64px 64px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:28px">Celular</h2>
+  <div style="display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap">
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Leitor · gaveta de comentários</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column;position:relative">
+        <div style="height:44px"></div>
+        <div style="display:flex;padding:0 12px;border-bottom:1px solid #E4DED1"><span style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;border-bottom:2px solid #8E2B22;font-size:14px;font-weight:600">Ler</span><span style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#6B6B68">Marcadores</span><span style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#6B6B68">Devocionais</span></div>
+        <div style="padding:22px 24px 0 34px;position:relative">
+          <p style="margin:0;font-family:'Playfair Display',serif;font-size:18.5px;line-height:1.8"><sup style="font-family:'Inter',sans-serif;font-size:10.5px;color:#6B6B68;margin-right:3px">30</sup>E aos que predestinou a estes também chamou…</p>
+          <p style="margin:0;font-family:'Playfair Display',serif;font-size:18.5px;line-height:1.8;background:#F3E7E2;box-shadow:0 1.5px 0 #8E2B22"><sup style="font-family:'Inter',sans-serif;font-size:10.5px;color:#8E2B22;font-weight:600;margin-right:3px">31</sup>Que diremos pois a estas coisas? Se Deus é por nós, quem será contra nós?</p>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;top:300px;background:#FCFAF5;border-top:1px solid #8A8378;border-radius:16px 16px 0 0;display:flex;flex-direction:column">
+          <div style="width:36px;height:4px;border-radius:2px;background:#CFC7B7;align-self:center;margin:10px 0 2px"></div>
+          <div style="display:flex;align-items:center;padding:4px 12px 4px 20px"><b style="flex:1;font-size:15px;font-weight:600">Romanos 8:31</b><button aria-label="Marcar" style="width:44px;height:44px;border:0;background:transparent;display:flex;align-items:center;justify-content:center"><svg width="12" height="17" viewBox="0 0 9 13" fill="none" stroke="#1A1A1A" stroke-width="1.1"><path d="M.7.7h7.6v11L4.5 8.8.7 11.7z"></path></svg></button></div>
+          <div style="display:flex;border-bottom:1px solid #E4DED1;padding:0 12px"><span style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;border-bottom:2px solid #8E2B22;font-size:14px;font-weight:600">Clássicos 3</span><span style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#6B6B68">Minhas notas 1</span><span style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#6B6B68">IA</span></div>
+          <div style="flex:1;overflow:auto;padding:14px 20px 34px;display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ classicos }}" as="k" hint-placeholder-count="3">
+              <div style="border:1px solid #E4DED1;border-radius:8px;background:#F7F4EC;padding:14px;display:flex;flex-direction:column;gap:6px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><b style="font-family:'Playfair Display',serif;font-size:16px;font-weight:600">{{ k.autor }}</b><span style="font-size:11.5px;color:#6B6B68">{{ k.ano }}</span></div>
+                <span style="font-size:12px;color:#6B6B68">{{ k.obra }}</span>
+                <p style="margin:0;font-family:'Playfair Display',serif;font-size:15px;line-height:1.6">{{ k.t }}</p>
+                <sc-if value="{{ k.trad }}"><span style="font-size:11.5px;color:#1A1A1A">Tradução automática do original · <a href="#">ver {{ k.lingua }}</a></span></sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Marcar versículo</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column;position:relative">
+        <div style="height:44px"></div>
+        <div style="padding:22px 24px;opacity:0.4"><p style="margin:0;font-family:'Playfair Display',serif;font-size:18.5px;line-height:1.8"><sup style="font-family:'Inter',sans-serif;font-size:10.5px;margin-right:3px">31</sup>Que diremos pois a estas coisas? Se Deus é por nós, quem será contra nós?</p></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;background:#FCFAF5;border-top:1px solid #8A8378;border-radius:16px 16px 0 0;padding:10px 20px 34px;display:flex;flex-direction:column;gap:16px">
+          <div style="width:36px;height:4px;border-radius:2px;background:#CFC7B7;align-self:center"></div>
+          <div style="display:flex;align-items:center;gap:10px"><svg width="10" height="15" viewBox="0 0 9 13" fill="#1A1A1A"><path d="M0 0h9v13L4.5 9.5 0 13z"></path></svg><b style="font-size:16px;font-weight:600">Marcar Romanos 8:31</b></div>
+          <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px">Nome <span style="color:#6B6B68">(opcional)</span></span><span style="height:48px;display:flex;align-items:center;padding:0 14px;border:1.5px solid #1A1A1A;border-radius:6px;background:#F7F4EC;font-size:15px">Se Deus é por nós<span style="width:1px;height:20px;background:#1A1A1A;margin-left:1px"></span></span></label>
+          <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px">Etiqueta <span style="color:#6B6B68">(opcional)</span></span><div style="display:flex;gap:8px;flex-wrap:wrap"><span style="height:36px;display:flex;align-items:center;padding:0 12px;border-radius:4px;background:#1A1A1A;color:#F7F4EC;font-size:13.5px">segurança</span><span style="height:36px;display:flex;align-items:center;padding:0 12px;border-radius:4px;border:1px solid #CFC7B7;font-size:13.5px">célula</span><span style="height:36px;display:flex;align-items:center;padding:0 12px;border-radius:4px;border:1px solid #CFC7B7;font-size:13.5px">memorizar</span><span style="height:36px;display:flex;align-items:center;padding:0 12px;border-radius:4px;border:1px dashed #CFC7B7;font-size:13.5px;color:#6B6B68">+ nova</span></div></label>
+          <div style="display:flex;gap:10px"><button style="flex:1;height:48px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:15px;color:#1A1A1A">Cancelar</button><button style="flex:1;height:48px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:15px;font-weight:500">Salvar marcador</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Marcadores · após remover (desfazer)</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column;position:relative">
+        <div style="height:44px"></div>
+        <div style="display:flex;padding:0 12px;border-bottom:1px solid #E4DED1"><span style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#6B6B68">Ler</span><span style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;border-bottom:2px solid #8E2B22;font-size:14px;font-weight:600">Marcadores</span><span style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#6B6B68">Devocionais</span></div>
+        <div style="display:flex;gap:8px;padding:12px 20px"><span style="height:36px;display:flex;align-items:center;padding:0 12px;border-radius:4px;background:#1A1A1A;color:#F7F4EC;font-size:13px">Todas</span><span style="height:36px;display:flex;align-items:center;padding:0 12px;border-radius:4px;border:1px solid #CFC7B7;font-size:13px">segurança</span><span style="height:36px;display:flex;align-items:center;padding:0 12px;border-radius:4px;border:1px solid #CFC7B7;font-size:13px">célula</span></div>
+        <div style="flex:1;overflow:auto;padding:0 20px">
+          <sc-for list="{{ marcMob }}" as="m" hint-placeholder-count="3">
+            <a href="#" style="display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #E4DED1;text-decoration:none;color:#1A1A1A"><svg width="9" height="13" viewBox="0 0 9 13" fill="{{ m.cor }}" style="flex:none;margin-top:3px"><path d="M0 0h9v13L4.5 9.5 0 13z"></path></svg><span style="flex:1;display:flex;flex-direction:column;gap:4px"><span style="display:flex;justify-content:space-between;font-size:13px"><b style="font-weight:600;color:#8E2B22">{{ m.ref }}</b><span style="color:#6B6B68">{{ m.d }}</span></span><span style="font-size:14.5px;font-weight:500">{{ m.nome }}</span><span style="font-family:'Playfair Display',serif;font-size:14.5px;line-height:1.5;color:#4A4A47">{{ m.prev }}</span><span style="font-size:12px;color:#6B6B68">{{ m.tag }}</span></span></a>
+          </sc-for>
+        </div>
+        <div role="status" style="position:absolute;left:16px;right:16px;bottom:100px;display:flex;align-items:center;gap:12px;padding:8px 8px 8px 16px;border-radius:8px;background:#1A1A1A;color:#F7F4EC;font-size:14px"><span style="flex:1">Marcador removido</span><button style="height:40px;padding:0 14px;border:1px solid #6B6B68;border-radius:6px;background:transparent;color:#F7F4EC;font-family:'Inter',sans-serif;font-size:14px">Desfazer</button></div>
+        <dc-import name="Barra Celular" ativo="Bíblia" hint-size="100%,84px"></dc-import>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Estados · sem comentário, carregando, fonte que não abriu</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#FCFAF5;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="padding:8px 20px 24px;display:flex;flex-direction:column;gap:22px">
+          <div style="display:flex;flex-direction:column;gap:8px;padding-bottom:20px;border-bottom:1px solid #E4DED1">
+            <span style="font-size:12px;color:#6B6B68">Rm 16:14 · Clássicos</span>
+            <p style="margin:0;font-family:'Playfair Display',serif;font-size:19px">Nenhum comentário clássico para este versículo.</p>
+            <p style="margin:0;font-size:13.5px;line-height:1.55;color:#4A4A47">Veja o comentário da seção ou peça uma síntese à IA, que chegará marcada como rascunho.</p>
+            <div style="display:flex;gap:8px"><button style="height:44px;padding:0 14px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#1A1A1A">Ver seção</button><button style="height:44px;padding:0 14px;border:0;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#8E2B22">Pedir à IA</button></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;padding-bottom:20px;border-bottom:1px solid #E4DED1" aria-label="Carregando comentários">
+            <span style="font-size:12px;color:#6B6B68">Carregando comentários…</span>
+            <div style="border:1px solid #E4DED1;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:8px"><div style="height:13px;width:40%;background:#E4DED1;border-radius:3px;animation:pulso 2.4s ease-in-out infinite"></div><div style="height:11px;width:90%;background:#E4DED1;border-radius:3px;animation:pulso 2.4s ease-in-out infinite"></div><div style="height:11px;width:70%;background:#E4DED1;border-radius:3px;animation:pulso 2.4s ease-in-out infinite"></div></div>
+          </div>
+          <div style="border:1px solid #E4DED1;border-radius:8px;background:#F7F4EC;padding:14px;display:flex;flex-direction:column;gap:6px">
+            <b style="font-family:'Playfair Display',serif;font-size:16px;font-weight:600">John Gill</b><span style="font-size:12px;color:#6B6B68">Exposition of the New Testament · 1746–1748</span>
+            <p style="margin:0;font-family:'Playfair Display',serif;font-size:15px;line-height:1.6">[Resumo de exemplo guardado na sua base.]</p>
+            <span style="align-self:flex-start;display:inline-flex;align-items:center;height:26px;padding:0 9px;border:1px dashed #8A8378;border-radius:4px;font-size:12px">○ Original · sem fonte verificada</span>
+            <span style="font-size:12.5px;color:#4A4A47">O original não abriu agora. O resumo continua visível. <a href="#">Tentar de novo</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { sel: 31, camada: 0, modo: 1, tag: 0, removidos: [], ultimo: null };
+  renderVals() {
+    const T = {
+      28: 'E sabemos que todas as coisas contribuem juntamente para o bem daqueles que amam a Deus, daqueles que são chamados por seu decreto.',
+      29: 'Porque os que dantes conheceu também os predestinou para serem conformes à imagem de seu Filho, a fim de que ele seja o primogênito entre muitos irmãos.',
+      30: 'E aos que predestinou a estes também chamou; e aos que chamou a estes também justificou; e aos que justificou a estes também glorificou.',
+      31: 'Que diremos pois a estas coisas? Se Deus é por nós, quem será contra nós?',
+      32: 'Aquele que nem mesmo a seu próprio Filho poupou, antes o entregou por todos nós, como nos não dará também com ele todas as coisas?',
+      33: 'Quem intentará acusação contra os escolhidos de Deus? É Deus quem os justifica.'
+    };
+    const com = [28, 29, 31, 33], fit = { 28: 'onde', 31: 'marc' };
+    const { sel, camada, modo } = this.state, comOn = modo === 1;
+    const versos = Object.keys(T).map(Number).map(n => {
+      const s = n === sel && comOn, f = fit[n];
+      return { n, t: T[n], go: () => this.setState({ sel: n }), bg: s ? '#F3E7E2' : 'transparent', nCor: s ? '#8E2B22' : '#6B6B68', nPeso: s ? 600 : 400,
+        dot: comOn && com.includes(n), fit: !!f, fitCor: f === 'onde' ? '#8E2B22' : '#8A8378', fitLbl: f === 'onde' ? 'Onde parei' : 'Marcador' };
+    });
+    const modos = ['Somente texto', 'Com comentários'].map((n, i) => ({ n, on: i === modo, off: i !== modo, go: () => this.setState({ modo: i }) }));
+    const camadas = [['Clássicos', '3'], ['Minhas notas', '1'], ['IA', '']].map(([n, q], i) => ({ n, q, on: i === camada, off: i !== camada, go: () => this.setState({ camada: i }) }));
+    const classicos = [
+      { autor: 'João Calvino', obra: 'Comentário à Epístola aos Romanos', ano: '1540', t: '[Resumo de exemplo do comentário a este versículo.]', fonte: 'Comentário, Rm 8', trad: true, lingua: 'latim' },
+      { autor: 'Matthew Henry', obra: 'Comentário de toda a Bíblia', ano: '1706–1721', t: '[Resumo de exemplo do comentário a este versículo.]', fonte: 'Comentário, Rm 8', trad: true, lingua: 'inglês' },
+      { autor: 'John Gill', obra: 'Exposition of the New Testament', ano: '1746–1748', t: '[Resumo de exemplo do comentário a este versículo.]', fonte: 'Exposition, Rm 8', trad: true, lingua: 'inglês' }
+    ];
+    const M = [
+      { id: 1, ref: 'Rm 8:28', nome: 'Onde parei', prev: 'E sabemos que todas as coisas contribuem…', tag: 'automático', d: 'ontem', cor: '#8E2B22', rem: false },
+      { id: 2, ref: 'Rm 8:31', nome: 'Se Deus é por nós', prev: 'Que diremos pois a estas coisas?…', tag: 'segurança', d: 'há 2 dias', cor: '#8A8378', rem: true },
+      { id: 3, ref: 'Sl 23:1', nome: 'Sem nome', prev: 'O Senhor é o meu pastor, nada me faltará.', tag: 'memorizar', d: 'há 1 semana', cor: '#8A8378', rem: true },
+      { id: 4, ref: 'Jo 15:5', nome: 'Célula semana 2', prev: 'Eu sou a videira, vós as varas…', tag: 'célula', d: 'há 3 semanas', cor: '#8A8378', rem: true }
+    ];
+    const tags = ['Todas', 'segurança', 'memorizar', 'célula'];
+    const t = this.state.tag;
+    const vis = M.filter(m => !this.state.removidos.includes(m.id) && (t === 0 || m.tag === tags[t] || m.nome === 'Onde parei'));
+    const marcadores = vis.map(m => ({ ...m, del: e => { e.preventDefault(); this.setState(s => ({ removidos: [...s.removidos, m.id], ultimo: m.id })); } }));
+    const etiquetas = tags.map((n, i) => ({ n, on: i === t, off: i !== t, go: () => this.setState({ tag: i }) }));
+    return { versos, modos, camadas, selN: sel, vClass: camada === 0, vNotas: camada === 1, vIA: camada === 2, classicos,
+      marcadores, etiquetas, vazioMarc: vis.length === 0, desfazer: this.state.ultimo !== null,
+      restaurar: () => this.setState(s => ({ removidos: s.removidos.filter(x => x !== s.ultimo), ultimo: null })),
+      marcMob: M.filter(m => m.id !== 3) };
+  }
+}
+</script>
+</body>
+</html>

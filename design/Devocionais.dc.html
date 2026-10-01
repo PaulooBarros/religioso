@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap"><style>body{margin:0;background:#E9E4D8;-webkit-font-smoothing:antialiased}a{color:#8E2B22}a:hover{color:#6E1F18}</style></helmet>
+
+<section data-screen-label="D1 Devocional do dia e série" style="padding:64px 64px 32px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">Devocionais</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · devocional do dia (foco na leitura; clique na passagem para expandir)</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Bíblia" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <div style="height:60px;border-bottom:1px solid #E4DED1;display:flex;align-items:center;gap:12px;padding:0 28px;font-size:13.5px">
+            <a href="#" style="color:#6B6B68;text-decoration:none">Devocionais</a><span style="color:#8A8378">/</span><a href="#" style="color:#6B6B68;text-decoration:none">Salmos de confiança</a><span style="color:#8A8378">/</span><b style="font-weight:600">Dia 5</b>
+            <div style="flex:1"></div>
+            <button style="height:34px;padding:0 12px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#1A1A1A">Compartilhar</button>
+          </div>
+          <main style="flex:1;overflow:auto;padding:40px 48px 48px;display:flex;justify-content:center">
+            <article style="width:100%;max-width:620px;display:flex;flex-direction:column;gap:26px">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:12.5px;color:#6B6B68">Dia 5 de 21 · quarta-feira, 30 de setembro</span>
+                <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:36px;line-height:1.15">O pastor que não falta</h2>
+                <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500"><span style="font-size:9.5px;font-weight:600;border:1px solid #1A1A1A;border-radius:3px;padding:0 3px;line-height:14px">IA</span>Fala da IA (com fontes) · <span style="font-weight:400;color:#6B6B68">aprovado por você em 22/09</span></span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;border-top:1px solid #E4DED1;padding-top:18px">
+                <button onClick="{{ togglePass }}" style="display:flex;align-items:center;gap:10px;border:0;background:transparent;padding:0;font-family:'Inter',sans-serif;color:#1A1A1A;cursor:pointer;text-align:left"><span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68;flex:1">Passagem · Salmo 23:1–4</span><span style="font-size:12.5px;color:#8E2B22">{{ passLbl }}</span></button>
+                <p style="margin:0;font-family:'Playfair Display',serif;font-size:19px;line-height:1.8"><sup style="font-family:'Inter',sans-serif;font-size:11px;color:#6B6B68;margin-right:4px">1</sup>O Senhor é o meu pastor, nada me faltará. <sup style="font-family:'Inter',sans-serif;font-size:11px;color:#6B6B68;margin:0 4px">2</sup>Deitar-me faz em verdes pastos, guia-me mansamente a águas tranquilas.</p>
+                <sc-if value="{{ passAberta }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-family:'Playfair Display',serif;font-size:19px;line-height:1.8"><sup style="font-family:'Inter',sans-serif;font-size:11px;color:#6B6B68;margin-right:4px">3</sup>Refrigera a minha alma; guia-me pelas veredas da justiça, por amor do seu nome. <sup style="font-family:'Inter',sans-serif;font-size:11px;color:#6B6B68;margin:0 4px">4</sup>Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo; a tua vara e o teu cajado me consolam.</p></sc-if>
+                <span style="font-size:12px;color:#6B6B68">Da sua base · Almeida (domínio público)</span>
+              </div>
+              <sc-for list="{{ blocos }}" as="b" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">{{ b.r }}</span>
+                  <p style="margin:0;font-family:'Playfair Display',serif;font-size:18px;line-height:1.75;text-wrap:pretty">{{ b.t }}</p>
+                </div>
+              </sc-for>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Minha anotação</span>
+                <div contenteditable="true" style="min-height:84px;padding:14px 16px;border:1px solid #CFC7B7;border-radius:8px;background:#FCFAF5;font-family:'Playfair Display',serif;font-size:16px;line-height:1.6;color:#6B6B68;outline:none">Escreva o que ficou para você hoje…</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;border-top:1px solid #E4DED1;padding-top:20px">
+                <a href="#" style="height:40px;display:flex;align-items:center;padding:0 12px;font-size:13.5px;color:#1A1A1A;text-decoration:none">← Dia 4</a>
+                <div style="flex:1"></div>
+                <button style="height:40px;padding:0 14px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;color:#1A1A1A">Criar card</button>
+                <sc-if value="{{ naoLido }}" hint-placeholder-val="{{ true }}"><button onClick="{{ marcarLido }}" style="height:40px;padding:0 18px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;cursor:pointer">Marcar como lido</button></sc-if>
+                <sc-if value="{{ lido }}" hint-placeholder-val="{{ false }}"><button onClick="{{ marcarLido }}" style="height:40px;padding:0 16px;border-radius:6px;border:1px solid #1A1A1A;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;color:#1A1A1A;cursor:pointer">✓ Lido hoje</button></sc-if>
+                <div style="flex:1"></div>
+                <a href="#" style="height:40px;display:flex;align-items:center;padding:0 12px;font-size:13.5px;color:#1A1A1A;text-decoration:none">Dia 6 →</a>
+              </div>
+            </article>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · devocional do dia</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 8px;border-bottom:1px solid #E4DED1"><a href="#" aria-label="Voltar" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></a><span style="flex:1;display:flex;flex-direction:column"><span style="font-size:14.5px;font-weight:600">Salmos de confiança</span><span style="font-size:11.5px;color:#6B6B68">Dia 5 de 21</span></span><span style="width:44px;text-align:center;font-family:'Playfair Display',serif;font-size:17px">Aa</span></div>
+        <div style="flex:1;overflow:auto;padding:24px 24px 16px;display:flex;flex-direction:column;gap:20px">
+          <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:28px;line-height:1.2">O pastor que não falta</h2>
+          <span style="font-size:11.5px;font-weight:500">IA · Fala da IA (com fontes) · aprovado</span>
+          <div style="display:flex;flex-direction:column;gap:6px;border-left:2px solid #CFC7B7;padding-left:14px"><span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Passagem · Sl 23:1–4 ▾</span><p style="margin:0;font-family:'Playfair Display',serif;font-size:17.5px;line-height:1.75">O Senhor é o meu pastor, nada me faltará…</p></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Observação</span><p style="margin:0;font-family:'Playfair Display',serif;font-size:17.5px;line-height:1.75">{{ b0 }}</p></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Reflexão</span><p style="margin:0;font-family:'Playfair Display',serif;font-size:17.5px;line-height:1.75">{{ b1 }}</p></div>
+        </div>
+        <div style="display:grid;grid-template-columns:44px 1fr 44px;gap:8px;align-items:center;padding:10px 12px 34px;border-top:1px solid #E4DED1">
+          <a href="#" aria-label="Dia anterior" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A;font-size:18px;text-decoration:none">←</a>
+          <button style="height:48px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:15px;font-weight:500">Marcar como lido</button>
+          <a href="#" aria-label="Próximo dia" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A;font-size:18px;text-decoration:none">→</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · página da série (troque o estado)</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Bíblia" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <dc-import name="Topo Desktop" hint-size="100%,60px"></dc-import>
+          <main style="flex:1;overflow:auto;padding:36px 56px">
+            <div style="max-width:820px;display:flex;flex-direction:column;gap:26px">
+              <div style="display:flex;gap:24px;align-items:flex-start">
+                <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+                  <div style="display:flex;align-items:center;gap:10px"><span style="font-size:12.5px;color:#6B6B68">Série · Salmos</span><span style="font-size:10.5px;letter-spacing:0.14em;font-weight:600;text-transform:uppercase;border:{{ est.borda }};border-radius:3px;padding:2px 6px">{{ est.n }}</span></div>
+                  <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">Salmos de confiança</h2>
+                  <p style="margin:0;font-size:15px;line-height:1.6;color:#4A4A47;max-width:560px">[Descrição de exemplo] Vinte e um dias em salmos que falam de refúgio, pastoreio e esperança.</p>
+                  <span style="font-size:13px;color:#6B6B68">Diário · 21 dias · dia 5 de 21 · começou em 26/09</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;align-items:stretch;width:180px">
+                  <sc-for list="{{ acoes }}" as="a" hint-placeholder-count="4"><button style="height:36px;padding:0 12px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#1A1A1A;text-align:left">{{ a }}</button></sc-for>
+                </div>
+              </div>
+              <div style="display:flex;gap:6px;align-items:center;font-size:12.5px;color:#6B6B68"><span style="margin-right:6px">Ver estado:</span>
+                <sc-for list="{{ estados }}" as="e" hint-placeholder-count="5">
+                  <sc-if value="{{ e.on }}"><button onClick="{{ e.go }}" style="height:28px;padding:0 10px;border-radius:4px;border:1px solid #1A1A1A;background:#1A1A1A;color:#F7F4EC;font-family:'Inter',sans-serif;font-size:12px;cursor:pointer">{{ e.n }}</button></sc-if>
+                  <sc-if value="{{ e.off }}"><button onClick="{{ e.go }}" style="height:28px;padding:0 10px;border-radius:4px;border:1px solid #CFC7B7;background:transparent;color:#1A1A1A;font-family:'Inter',sans-serif;font-size:12px;cursor:pointer">{{ e.n }}</button></sc-if>
+                </sc-for>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;align-items:baseline;gap:16px"><span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68;flex:1">Dias</span><span style="font-size:12px;color:#6B6B68">✓ lido · ◆ hoje · ○ futuro · – pulado</span></div>
+                <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px">
+                  <sc-for list="{{ dias }}" as="d" hint-placeholder-count="21">
+                    <a href="#" style="display:flex;flex-direction:column;gap:4px;padding:10px 10px 12px;border:{{ d.borda }};border-radius:6px;background:{{ d.bg }};text-decoration:none;color:#1A1A1A;opacity:{{ d.op }}">
+                      <span style="display:flex;justify-content:space-between;font-size:12px"><b style="font-weight:600">{{ d.n }}</b><span>{{ d.ic }}</span></span>
+                      <span style="font-family:'Playfair Display',serif;font-size:13.5px">{{ d.ref }}</span>
+                    </a>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · página da série (lista)</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 8px"><a href="#" aria-label="Voltar" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></a><span style="flex:1;font-size:15px;font-weight:600">Devocionais</span><a href="#" aria-label="Mais ações" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A;text-decoration:none;font-size:18px">⋯</a></div>
+        <div style="padding:4px 20px 14px;display:flex;flex-direction:column;gap:6px">
+          <span style="align-self:flex-start;font-size:10px;letter-spacing:0.14em;font-weight:600;text-transform:uppercase;border:1px solid #1A1A1A;border-radius:3px;padding:2px 6px">Ativa</span>
+          <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:26px">Salmos de confiança</h2>
+          <span style="font-size:13px;color:#6B6B68">Diário · dia 5 de 21</span>
+          <div style="height:3px;background:#E4DED1;border-radius:2px;margin-top:6px"><div style="height:3px;width:19%;background:#1A1A1A;border-radius:2px"></div></div>
+        </div>
+        <div style="flex:1;overflow:auto;padding:0 20px">
+          <sc-for list="{{ diasMob }}" as="d" hint-placeholder-count="7">
+            <a href="#" style="display:flex;align-items:center;gap:14px;min-height:56px;border-bottom:1px solid #E4DED1;text-decoration:none;color:#1A1A1A">
+              <span style="width:22px;font-size:14px;text-align:center">{{ d.ic }}</span>
+              <span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:14.5px;font-weight:{{ d.peso }}">Dia {{ d.n }} · {{ d.ref }}</span><span style="font-size:12px;color:#6B6B68">{{ d.st }}</span></span>
+            </a>
+          </sc-for>
+        </div>
+        <dc-import name="Barra Celular" ativo="Bíblia" hint-size="100%,84px"></dc-import>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="D2 Lista, criar e compartilhar" style="padding:32px 64px 64px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:28px">Lista de séries, criar série e compartilhar</h2>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · criar série (avance e volte pelos passos)</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Bíblia" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <div style="height:60px;border-bottom:1px solid #E4DED1;display:flex;align-items:center;padding:0 28px;gap:16px"><b style="font-size:14px;font-weight:600;flex:1">Nova série de devocionais</b><a href="#" style="font-size:13.5px;color:#6B6B68;text-decoration:none">Cancelar</a></div>
+          <div style="display:flex;gap:0;padding:20px 56px 0">
+            <sc-for list="{{ passos }}" as="p" hint-placeholder-count="5">
+              <div style="flex:1;display:flex;flex-direction:column;gap:8px;padding-right:12px"><div style="height:2px;background:{{ p.cor }}"></div><span style="font-size:12.5px;color:{{ p.txt }};font-weight:{{ p.peso }}">{{ p.i }}. {{ p.n }}</span></div>
+            </sc-for>
+          </div>
+          <main style="flex:1;overflow:auto;padding:32px 56px">
+            <div style="max-width:640px;display:flex;flex-direction:column;gap:22px">
+              <sc-if value="{{ p0 }}" hint-placeholder-val="{{ true }}">
+                <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:28px">Sobre o que será a série?</h2>
+                <div style="display:flex;border:1px solid #CFC7B7;border-radius:6px;overflow:hidden;align-self:flex-start"><span style="height:34px;display:flex;align-items:center;padding:0 14px;font-size:13.5px;background:#1A1A1A;color:#F7F4EC">Livro</span><span style="height:34px;display:flex;align-items:center;padding:0 14px;font-size:13.5px">Tema</span></div>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px"><span style="height:44px;display:flex;align-items:center;justify-content:center;border:1.5px solid #1A1A1A;border-radius:6px;font-size:14px;font-weight:500">Salmos</span><span style="height:44px;display:flex;align-items:center;justify-content:center;border:1px solid #CFC7B7;border-radius:6px;font-size:14px">Filipenses</span><span style="height:44px;display:flex;align-items:center;justify-content:center;border:1px solid #CFC7B7;border-radius:6px;font-size:14px">João</span><span style="height:44px;display:flex;align-items:center;justify-content:center;border:1px solid #CFC7B7;border-radius:6px;font-size:14px">Outro…</span></div>
+                <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px">Título da série</span><span style="height:44px;display:flex;align-items:center;padding:0 14px;border:1px solid #CFC7B7;border-radius:6px;background:#FCFAF5;font-size:15px">Salmos de confiança</span></label>
+              </sc-if>
+              <sc-if value="{{ p1 }}" hint-placeholder-val="{{ false }}">
+                <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:28px">Ritmo e duração</h2>
+                <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13px">Ritmo</span><div style="display:flex;border:1px solid #CFC7B7;border-radius:6px;overflow:hidden;align-self:flex-start"><span style="height:40px;display:flex;align-items:center;padding:0 16px;font-size:14px;background:#1A1A1A;color:#F7F4EC">Diário</span><span style="height:40px;display:flex;align-items:center;padding:0 16px;font-size:14px">Dias escolhidos</span></div></div>
+                <div style="display:flex;gap:6px"><span style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#1A1A1A;color:#F7F4EC;font-size:13px">S</span><span style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#1A1A1A;color:#F7F4EC;font-size:13px">T</span><span style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#1A1A1A;color:#F7F4EC;font-size:13px">Q</span><span style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#1A1A1A;color:#F7F4EC;font-size:13px">Q</span><span style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#1A1A1A;color:#F7F4EC;font-size:13px">S</span><span style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid #CFC7B7;font-size:13px">S</span><span style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid #CFC7B7;font-size:13px">D</span></div>
+                <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:13px">Duração</span><div style="display:flex;border:1px solid #CFC7B7;border-radius:6px;overflow:hidden;align-self:flex-start"><span style="height:40px;display:flex;align-items:center;padding:0 16px;font-size:14px">7 dias</span><span style="height:40px;display:flex;align-items:center;padding:0 16px;font-size:14px;background:#1A1A1A;color:#F7F4EC">21 dias</span><span style="height:40px;display:flex;align-items:center;padding:0 16px;font-size:14px">40 dias</span></div></div>
+              </sc-if>
+              <sc-if value="{{ p2 }}" hint-placeholder-val="{{ false }}">
+                <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:28px">Modelo do devocional</h2>
+                <sc-for list="{{ modelosDev }}" as="m" hint-placeholder-count="3">
+                  <div style="display:flex;gap:12px;padding:16px;border:{{ m.borda }};border-radius:8px;background:#FCFAF5"><span style="display:flex;flex-direction:column;gap:3px"><b style="font-size:15px;font-weight:600">{{ m.n }}</b><span style="font-size:13px;color:#6B6B68">{{ m.d }}</span></span></div>
+                </sc-for>
+              </sc-if>
+              <sc-if value="{{ p3 }}" hint-placeholder-val="{{ false }}">
+                <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:28px">Como escrever os 21 dias?</h2>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                  <div style="padding:18px;border:1.5px solid #1A1A1A;border-radius:8px;background:#FCFAF5;display:flex;flex-direction:column;gap:6px"><b style="font-size:15px;font-weight:600">Gerar rascunhos com a IA</b><span style="font-size:13px;color:#6B6B68;line-height:1.5">Cada dia chega como rascunho e passa pela fila de aprovação.</span></div>
+                  <div style="padding:18px;border:1px solid #CFC7B7;border-radius:8px;display:flex;flex-direction:column;gap:6px"><b style="font-size:15px;font-weight:600">Escrever à mão</b><span style="font-size:13px;color:#6B6B68;line-height:1.5">Os dias ficam com a estrutura do modelo, em branco.</span></div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ p4 }}" hint-placeholder-val="{{ false }}">
+                <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:28px">Revisar e ativar</h2>
+                <span style="font-size:14px;color:#4A4A47">14 de 21 dias aprovados. A série pode ser ativada; os dias restantes ficam na fila.</span>
+                <div style="display:flex;flex-direction:column;border-top:1px solid #E4DED1">
+                  <sc-for list="{{ revisao }}" as="r" hint-placeholder-count="4">
+                    <div style="display:flex;align-items:center;gap:12px;min-height:52px;border-bottom:1px solid #E4DED1;font-size:14px"><span style="width:52px;color:#6B6B68">Dia {{ r.n }}</span><span style="flex:1;font-family:'Playfair Display',serif;font-size:15.5px">{{ r.t }}</span><sc-if value="{{ r.rasc }}"><span style="font-size:10px;letter-spacing:0.14em;font-weight:600;text-transform:uppercase;border:1px dashed #1A1A1A;border-radius:3px;padding:2px 6px">Rascunho</span><a href="#" style="font-size:13px">Revisar</a></sc-if><sc-if value="{{ r.ok }}"><span style="font-size:12.5px">✓ Aprovado</span></sc-if></div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <div style="display:flex;gap:10px;padding-top:10px">
+                <sc-if value="{{ temVoltar }}" hint-placeholder-val="{{ false }}"><button onClick="{{ voltar }}" style="height:42px;padding:0 18px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#1A1A1A;cursor:pointer">← Voltar</button></sc-if>
+                <button onClick="{{ avancar }}" style="height:42px;padding:0 20px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;cursor:pointer">{{ avLbl }}</button>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · lista de séries</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="display:flex;padding:0 12px;border-bottom:1px solid #E4DED1"><span style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#6B6B68">Ler</span><span style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#6B6B68">Marcadores</span><span style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;border-bottom:2px solid #8E2B22;font-size:14px;font-weight:600">Devocionais</span></div>
+        <div style="flex:1;overflow:auto;padding:12px 20px 20px;display:flex;flex-direction:column;gap:18px">
+          <button style="height:44px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:14.5px;color:#1A1A1A">+ Nova série</button>
+          <sc-for list="{{ grupos }}" as="g" hint-placeholder-count="3">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">{{ g.n }}</span>
+              <sc-for list="{{ g.s }}" as="s" hint-placeholder-count="1">
+                <a href="#" style="border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5;padding:14px 16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:#1A1A1A">
+                  <span style="font-family:'Playfair Display',serif;font-size:17px;font-weight:500">{{ s.t }}</span>
+                  <span style="font-size:12.5px;color:#6B6B68">{{ s.sub }}</span>
+                  <div style="display:flex;align-items:center;gap:10px"><div style="flex:1;height:3px;background:#E4DED1;border-radius:2px"><div style="height:3px;width:{{ s.pct }};background:#1A1A1A;border-radius:2px"></div></div><span style="font-size:12px">{{ s.prog }}</span></div>
+                </a>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+        <dc-import name="Barra Celular" ativo="Bíblia" hint-size="100%,84px"></dc-import>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · compartilhar</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 20px"><span style="flex:1;font-size:15px;font-weight:600">Compartilhar dia 5</span><a href="#" style="font-size:14px;color:#6B6B68;text-decoration:none">Fechar</a></div>
+        <div style="flex:1;overflow:auto;padding:8px 20px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;border:1px solid #CFC7B7;border-radius:6px;overflow:hidden"><span style="flex:1;height:40px;display:flex;align-items:center;justify-content:center;font-size:13.5px;background:#1A1A1A;color:#F7F4EC">Mensagem</span><span style="flex:1;height:40px;display:flex;align-items:center;justify-content:center;font-size:13.5px">PDF</span></div>
+          <span style="font-size:12px;color:#6B6B68">Pré-visualização · formato de mensagem</span>
+          <div style="border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5;padding:16px;font-size:14px;line-height:1.55;white-space:pre-line;font-family:'Inter',sans-serif">*O pastor que não falta*
+Salmos de confiança · dia 5
+
+_“O Senhor é o meu pastor, nada me faltará.”_ (Sl 23:1)
+
+{{ b1 }}
+
+*Para orar:* {{ b3 }}</div>
+          <label style="display:flex;align-items:center;gap:10px;font-size:13.5px"><span style="width:20px;height:20px;border-radius:4px;background:#1A1A1A;color:#F7F4EC;display:flex;align-items:center;justify-content:center;font-size:12px">✓</span>Incluir referência da passagem</label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:13.5px"><span style="width:20px;height:20px;border-radius:4px;border:1.5px solid #8A8378;box-sizing:border-box"></span>Incluir minha anotação</label>
+        </div>
+        <div style="padding:12px 20px 36px;display:flex;flex-direction:column;gap:8px"><button onClick="{{ copiar }}" style="height:52px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:15.5px;font-weight:500;cursor:pointer">{{ copiarLbl }}</button><button style="height:48px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:15px;color:#1A1A1A">Exportar PDF</button></div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Estados · nenhuma série e erro ao gerar</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="padding:24px;display:flex;flex-direction:column;gap:28px">
+          <div style="display:flex;flex-direction:column;gap:10px;padding-bottom:24px;border-bottom:1px solid #E4DED1">
+            <p style="margin:0;font-family:'Playfair Display',serif;font-size:22px">Nenhuma série ainda.</p>
+            <p style="margin:0;font-size:14px;line-height:1.6;color:#4A4A47">Uma série é um conjunto de textos curtos, um por dia, sobre um livro ou tema.</p>
+            <button style="align-self:flex-start;height:44px;padding:0 18px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:14.5px">Criar a primeira série</button>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;border:1px solid #1A1A1A;border-radius:8px;padding:16px">
+            <b style="font-size:14.5px;font-weight:600">Não foi possível gerar os dias 15 a 21.</b>
+            <p style="margin:0;font-size:13.5px;line-height:1.55;color:#4A4A47">Os 14 primeiros rascunhos foram salvos. Você pode tentar de novo ou escrever os restantes à mão.</p>
+            <div style="display:flex;gap:8px"><button style="height:44px;padding:0 14px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#1A1A1A">Tentar de novo</button><button style="height:44px;padding:0 14px;border:0;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#8E2B22">Escrever à mão</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { pass: false, lido: false, est: 1, passo: 4, copiado: false };
+  renderVals() {
+    const B = [
+      ['Observação', '[Texto de exemplo] Davi fala de Deus em primeira pessoa: “o meu pastor”. A confiança nasce de uma relação, não de uma circunstância.'],
+      ['Reflexão', '[Texto de exemplo] O verso 4 não promete ausência do vale, mas presença no vale.'],
+      ['Aplicação', '[Texto de exemplo] Qual “vale” você está atravessando hoje? Nomeie-o diante de Deus.'],
+      ['Oração', '[Texto de exemplo] Senhor, pastoreia-me hoje; que eu descanse na tua presença.']
+    ];
+    const blocos = B.map(([r, t]) => ({ r, t }));
+    const E = [['Rascunho', '1px dashed #1A1A1A'], ['Ativa', '1px solid #1A1A1A'], ['Pausada', '1px solid #8A8378'], ['Concluída', '1px solid #1A1A1A'], ['Arquivada', '1px dotted #8A8378']];
+    const ACOES = { 0: ['Continuar editando', 'Ativar', 'Excluir rascunho'], 1: ['Pausar', 'Editar', 'Compartilhar', 'Arquivar'], 2: ['Retomar', 'Editar', 'Compartilhar', 'Arquivar'], 3: ['Recomeçar', 'Compartilhar', 'Arquivar'], 4: ['Restaurar', 'Excluir'] };
+    const est = this.state.est;
+    const refs = ['Sl 3', 'Sl 4', 'Sl 11', 'Sl 16', 'Sl 23', 'Sl 27', 'Sl 31', 'Sl 34', 'Sl 37', 'Sl 40', 'Sl 46', 'Sl 56', 'Sl 62', 'Sl 63', 'Sl 71', 'Sl 84', 'Sl 91', 'Sl 103', 'Sl 121', 'Sl 131', 'Sl 139'];
+    const hoje = est === 3 ? 99 : 5;
+    const dias = refs.map((ref, i) => {
+      const n = i + 1, lido = n < hoje && n !== 3, pul = n === 3 && est !== 3, h = n === hoje && est !== 0 && est !== 4;
+      return { n, ref, ic: lido ? '✓' : pul ? '–' : h ? '◆' : '○',
+        borda: h ? '1.5px solid #8E2B22' : lido ? '1px solid #CFC7B7' : '1px solid #E4DED1', bg: h ? '#F3E7E2' : lido ? '#FCFAF5' : 'transparent', op: est === 4 ? 0.55 : 1 };
+    });
+    const diasMob = refs.slice(0, 8).map((ref, i) => { const n = i + 1; const st = n < 5 && n !== 3 ? 'Lido' : n === 3 ? 'Pulado' : n === 5 ? 'Hoje' : 'Futuro'; return { n, ref, st, ic: { Lido: '✓', Pulado: '–', Hoje: '◆', Futuro: '○' }[st], peso: n === 5 ? 600 : 400 }; });
+    const P = ['Livro ou tema', 'Ritmo e duração', 'Modelo', 'Escrita', 'Revisar e ativar'];
+    const p = this.state.passo;
+    const passos = P.map((n, i) => ({ i: i + 1, n, cor: i <= p ? '#1A1A1A' : '#E4DED1', txt: i <= p ? '#1A1A1A' : '#6B6B68', peso: i === p ? 600 : 400 }));
+    const modelosDev = [['Passagem · Observação · Reflexão · Aplicação · Oração', 'Completo, ~5 min'], ['Passagem · Reflexão · Oração', 'Curto, ~2 min'], ['Passagem · Perguntas', 'Para grupos']].map(([n, d], i) => ({ n, d, borda: i === 0 ? '1.5px solid #1A1A1A' : '1px solid #CFC7B7' }));
+    const revisao = [[13, 'Aguardar em silêncio (Sl 62)', false], [14, 'Sede de Deus (Sl 63)', false], [15, 'Desde a mocidade (Sl 71)', true], [16, 'Quão amáveis (Sl 84)', true]].map(([n, t, r]) => ({ n, t, rasc: r, ok: !r }));
+    const grupos = [
+      { n: 'Em andamento', s: [{ t: 'Salmos de confiança', sub: 'Salmos · diário', prog: 'dia 5 de 21', pct: '24%' }] },
+      { n: 'Não iniciadas', s: [{ t: 'Filipenses em 4 semanas', sub: 'Filipenses · seg a sex', prog: 'começa 05/10', pct: '0%' }] },
+      { n: 'Concluídas', s: [{ t: 'O Sermão do Monte', sub: 'Mateus 5–7 · diário', prog: '21 de 21', pct: '100%' }] }
+    ];
+    return {
+      blocos, b0: B[0][1], b1: B[1][1], b3: B[3][1],
+      passAberta: this.state.pass, passLbl: this.state.pass ? 'Recolher' : 'Ver passagem inteira', togglePass: () => this.setState(s => ({ pass: !s.pass })),
+      lido: this.state.lido, naoLido: !this.state.lido, marcarLido: () => this.setState(s => ({ lido: !s.lido })),
+      est: { n: E[est][0], borda: E[est][1] }, acoes: ACOES[est], estados: E.map(([n], i) => ({ n, on: i === est, off: i !== est, go: () => this.setState({ est: i }) })),
+      dias, diasMob, passos, p0: p === 0, p1: p === 1, p2: p === 2, p3: p === 3, p4: p === 4, modelosDev, revisao,
+      temVoltar: p > 0, voltar: () => this.setState({ passo: p - 1 }), avancar: () => this.setState({ passo: p < 4 ? p + 1 : 0 }),
+      avLbl: p === 3 ? 'Gerar rascunhos' : p === 4 ? 'Ativar série' : 'Continuar',
+      grupos, copiarLbl: this.state.copiado ? '✓ Copiado' : 'Copiar mensagem', copiar: () => this.setState({ copiado: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

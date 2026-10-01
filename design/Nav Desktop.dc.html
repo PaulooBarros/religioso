@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap"></helmet>
+<nav aria-label="Navegação principal" style="width:232px;height:100%;background:#F1EDE3;border-right:1px solid #E4DED1;display:flex;flex-direction:column;padding:22px 12px 16px;box-sizing:border-box;font-family:'Inter',sans-serif;overflow:hidden">
+  <div style="padding:0 10px 18px;font-family:'Playfair Display',serif;font-size:19px;font-weight:600;color:#1A1A1A;letter-spacing:-0.01em">Estúdio Teológico</div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:14px;overflow:auto;scrollbar-width:none">
+    <sc-for list="{{ grupos }}" as="g" hint-placeholder-count="5">
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div style="padding:0 10px 6px;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">{{ g.nome }}</div>
+        <sc-for list="{{ g.itens }}" as="it" hint-placeholder-count="2">
+          <sc-if value="{{ it.on }}">
+            <a href="#" aria-current="page" style="display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:6px;background:#E6DFD0;color:#8E2B22;font-size:14px;font-weight:600;text-decoration:none">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ it.d }}"></path></svg>
+              <span>{{ it.n }}</span>
+            </a>
+          </sc-if>
+          <sc-if value="{{ it.off }}">
+            <a href="#" style="display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:6px;color:#1A1A1A;font-size:14px;font-weight:400;text-decoration:none" style-hover="background:#E9E3D6">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="color:#6B6B68"><path d="{{ it.d }}"></path></svg>
+              <span>{{ it.n }}</span>
+            </a>
+          </sc-if>
+        </sc-for>
+      </div>
+    </sc-for>
+  </div>
+  <div style="border-top:1px solid #E4DED1;padding-top:10px;display:flex;flex-direction:column;gap:2px">
+    <a href="#" style="display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:6px;color:#1A1A1A;font-size:14px;text-decoration:none" style-hover="background:#E9E3D6">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6B6B68" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h5l1 3h6l1-3h5M5 5h14l2 8v6H3v-6z"></path></svg>
+      <span style="flex:1">Fila de aprovação</span>
+      <span style="font-size:12px;font-weight:600;color:#1A1A1A;border:1px solid #CFC7B7;border-radius:10px;padding:1px 7px">{{ fila }}</span>
+    </a>
+    <a href="#" style="display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:6px;color:#1A1A1A;font-size:14px;text-decoration:none" style-hover="background:#E9E3D6">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#6B6B68" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8M16 5v4M10 15v4"></path></svg>
+      <span>Ajustes</span>
+    </a>
+    <button aria-label="Trocar perfil" style="display:flex;align-items:center;gap:10px;height:48px;margin-top:6px;padding:0 10px;border:0;border-top:1px solid #E4DED1;background:transparent;font-family:'Inter',sans-serif;color:#1A1A1A;cursor:pointer;text-align:left" style-hover="background:#E9E3D6">
+      <span style="width:28px;height:28px;border-radius:50%;border:1px solid #1A1A1A;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;letter-spacing:0.02em">{{ ini }}</span>
+      <span style="flex:1;font-size:13.5px">{{ perfil }}</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B6B68" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l4-4 4 4M8 15l4 4 4-4"></path></svg>
+    </button>
+  </div>
+</nav>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:232,&quot;height&quot;:820},&quot;ativo&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Hoje&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;fila&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:3,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const a = this.props.ativo ?? 'Hoje';
+    const I = {
+      hoje: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',
+      trilha: 'M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5',
+      cat: 'M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01',
+      sim: 'M9 3h6v3H9zM6 4.5h12V21H6zM9.5 13l2 2 3.5-4',
+      biblia: 'M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19',
+      hist: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2',
+      teo: 'M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0',
+      comp: 'M4 4h6v16H4zM14 4h6v16h-6z',
+      cel: 'M4 5h16v11H9l-5 4z',
+      notas: 'M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h5',
+      chat: 'M4 5h16v11H9l-5 4zM8 9h8M8 12h5'
+    };
+    const raw = [
+      ['Estudar', [['Hoje', I.hoje], ['Trilha de sistemática', I.trilha], ['Fé batista', 'M4 20h16M6 20V10M18 20V10M12 20v-6M3 10l9-6 9 6'], ['Catecismos', I.cat], ['Simulados', I.sim]]],
+      ['Ler', [['Bíblia', I.biblia], ['História e confissões', I.hist], ['Teólogos e movimentos', I.teo], ['Comparador', I.comp]]],
+      ['Ensinar', [['Célula', I.cel]]],
+      ['Meu material', [['Notas e biblioteca', I.notas]]],
+      ['Perguntar', [['Chat de estudo', I.chat]]]
+    ];
+    const grupos = raw.map(([nome, itens]) => ({ nome, itens: itens.map(([n, d]) => ({ n, d, on: n === a, off: n !== a })) }));
+    const perfil = this.props.perfil ?? 'Tiago';
+    const ini = perfil.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase();
+    return { grupos, fila: this.props.fila ?? 3, perfil, ini };
+  }
+}
+</script>
+</body>
+</html>

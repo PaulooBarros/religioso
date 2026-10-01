@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap"><style>body{margin:0;background:#E9E4D8;-webkit-font-smoothing:antialiased}a{color:#8E2B22}a:hover{color:#6E1F18}</style></helmet>
+
+<section data-screen-label="F1 Hub Fé batista" style="padding:64px 64px 32px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">Fé batista</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · mesmo padrão da trilha; seção “Distintivos batistas”</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Fé batista" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <dc-import name="Topo Desktop" hint-size="100%,60px"></dc-import>
+          <div style="flex:1;display:flex;min-height:0">
+            <div style="width:300px;border-right:1px solid #E4DED1;overflow:auto;padding:28px 0">
+              <h2 style="margin:0 24px 18px;font-family:'Playfair Display',serif;font-weight:600;font-size:24px">Fé batista</h2>
+              <sc-for list="{{ secoes }}" as="t" hint-placeholder-count="8">
+                <sc-if value="{{ t.on }}"><a href="#" style="display:flex;flex-direction:column;gap:7px;padding:12px 24px;background:#E6DFD0;text-decoration:none;color:#1A1A1A;border-left:2px solid #8E2B22"><div style="display:flex;justify-content:space-between;font-size:14px"><b style="font-weight:600">{{ t.nome }}</b><span style="color:#4A4A47">{{ t.lbl }}</span></div><div style="height:3px;background:#CFC7B7;border-radius:2px"><div style="height:3px;width:{{ t.pct }};background:#1A1A1A;border-radius:2px"></div></div></a></sc-if>
+                <sc-if value="{{ t.off }}"><a href="#" style="display:flex;flex-direction:column;gap:7px;padding:12px 24px;text-decoration:none;color:#1A1A1A;border-left:2px solid transparent" style-hover="background:#EFEADF"><div style="display:flex;justify-content:space-between;font-size:14px"><span>{{ t.nome }}</span><span style="color:#6B6B68">{{ t.lbl }}</span></div><div style="height:3px;background:#E4DED1;border-radius:2px"><div style="height:3px;width:{{ t.pct }};background:#1A1A1A;border-radius:2px"></div></div></a></sc-if>
+              </sc-for>
+            </div>
+            <main style="flex:1;overflow:auto;padding:32px 44px">
+              <div style="max-width:720px;display:flex;flex-direction:column;gap:24px">
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Seção 2</span>
+                  <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:32px">Distintivos batistas</h2>
+                  <div style="display:flex;align-items:center;gap:14px"><div style="flex:1;height:4px;background:#E4DED1;border-radius:2px"><div style="height:4px;width:35%;background:#1A1A1A;border-radius:2px"></div></div><span style="font-size:13px">35% · 24 questões</span></div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                  <sc-for list="{{ distintivos }}" as="d" hint-placeholder-count="4">
+                    <div style="border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5;padding:18px 20px;display:flex;flex-direction:column;gap:10px">
+                      <b style="font-family:'Playfair Display',serif;font-size:18px;font-weight:600;line-height:1.3">{{ d.n }}</b>
+                      <p style="margin:0;font-size:14px;line-height:1.55;color:#1A1A1A">{{ d.def }}</p>
+                      <div style="display:flex;flex-direction:column;gap:4px;border-top:1px solid #E4DED1;padding-top:10px;font-size:12.5px">
+                        <span><span style="color:#6B6B68">Texto de apoio · </span><a href="#" style="text-decoration:underline;text-underline-offset:3px">{{ d.ref }}</a></span>
+                        <span><span style="color:#6B6B68">Nas confissões · </span>{{ d.conf }}</span>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:10px">
+                  <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Na linha do tempo · mesmo componente de História</span>
+                  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid #1A1A1A">
+                    <sc-for list="{{ linha }}" as="l" hint-placeholder-count="4">
+                      <a href="#" style="border-left:1px solid #E4DED1;padding:10px 12px;display:flex;flex-direction:column;gap:2px;text-decoration:none;color:#1A1A1A"><span style="font-size:11.5px;color:#6B6B68">{{ l.a }}</span><span style="font-size:13.5px">{{ l.t }}</span></a>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · Estudar › Fé batista</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 20px"><span style="font-family:'Playfair Display',serif;font-size:26px;font-weight:600">Estudar</span></div>
+        <div style="display:flex;border-bottom:1px solid #E4DED1;padding:0 8px;overflow:hidden">
+          <span style="flex:none;height:44px;display:flex;align-items:center;padding:0 10px;font-size:14px;color:#6B6B68">Trilha</span>
+          <span style="flex:none;height:44px;display:flex;align-items:center;padding:0 10px;border-bottom:2px solid #8E2B22;font-size:14px;font-weight:600">Fé batista</span>
+          <span style="flex:none;height:44px;display:flex;align-items:center;padding:0 10px;font-size:14px;color:#6B6B68">Catecismos</span>
+          <span style="flex:none;height:44px;display:flex;align-items:center;padding:0 10px;font-size:14px;color:#6B6B68">Simulados</span>
+        </div>
+        <div style="flex:1;overflow:auto;padding:4px 20px 20px">
+          <sc-for list="{{ secoes }}" as="t" hint-placeholder-count="8">
+            <a href="#" style="display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:1px solid #E4DED1;text-decoration:none;color:#1A1A1A"><div style="display:flex;justify-content:space-between;font-size:15px"><span>{{ t.nome }}</span><span style="font-size:13px;color:#6B6B68">{{ t.lbl }}</span></div><div style="height:3px;background:#E4DED1;border-radius:2px"><div style="height:3px;width:{{ t.pct }};background:#1A1A1A;border-radius:2px"></div></div></a>
+          </sc-for>
+        </div>
+        <dc-import name="Barra Celular" ativo="Estudar" hint-size="100%,84px"></dc-import>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="F2 Confissões lado a lado e debates" style="padding:32px 64px 64px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:28px">Confissões lado a lado e debates atuais</h2>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · três documentos, mesmo peso, ordem cronológica</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Fé batista" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <dc-import name="Topo Desktop" hint-size="100%,60px"></dc-import>
+          <main style="flex:1;overflow:auto;padding:32px 40px;display:flex;flex-direction:column;gap:20px">
+            <div style="display:flex;align-items:flex-end;gap:16px">
+              <div style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Confissões lado a lado · tema</span><h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:30px">A igreja local</h2></div>
+              <button style="height:36px;padding:0 14px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;color:#1A1A1A">Trocar tema</button>
+              <button style="height:36px;padding:0 14px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;color:#1A1A1A">Trocar documentos</button>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5">
+              <sc-for list="{{ confs }}" as="c" hint-placeholder-count="3">
+                <div style="display:flex;flex-direction:column;border-left:1px solid #E4DED1;margin-left:-1px">
+                  <div style="padding:18px 22px 14px;border-bottom:1px solid #E4DED1;display:flex;flex-direction:column;gap:3px"><b style="font-family:'Playfair Display',serif;font-size:19px;font-weight:600">{{ c.n }}</b><span style="font-size:12px;color:#6B6B68">{{ c.a }} · {{ c.art }}</span></div>
+                  <div style="padding:18px 22px;display:flex;flex-direction:column;gap:12px;flex:1">
+                    <p style="margin:0;font-family:'Playfair Display',serif;font-size:16px;line-height:1.65;border-left:2px solid #CFC7B7;padding-left:14px">{{ c.cit }}</p>
+                    <p style="margin:0;font-size:13.5px;line-height:1.55;color:#4A4A47">{{ c.res }}</p>
+                  </div>
+                  <div style="padding:12px 22px 18px;display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+                    <span style="font-size:11.5px;font-weight:500">Da sua base</span>
+                    <a href="#" style="display:inline-flex;align-items:center;height:24px;padding:0 8px;border:1px solid #CFC7B7;border-radius:4px;font-size:11.5px;color:#1A1A1A;text-decoration:none">✓ {{ c.art }} · abrir documento</a>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px;border-top:1px solid #E4DED1;padding-top:22px">
+              <div style="display:flex;align-items:baseline;gap:12px"><span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Debates atuais</span><span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:600;flex:1">[Tema de exemplo] Participação na Ceia</span><span style="font-size:12px;color:#6B6B68">Posições em ordem alfabética · sem veredito</span></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <sc-for list="{{ debate }}" as="d" hint-placeholder-count="2">
+                  <div style="border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5;padding:16px 18px;display:flex;flex-direction:column;gap:8px"><b style="font-size:15px;font-weight:600">{{ d.n }}</b><p style="margin:0;font-size:14px;line-height:1.55">{{ d.t }}</p><span style="font-size:11.5px;color:#6B6B68">{{ d.f }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · confissões em abas (toque)</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 8px"><a href="#" aria-label="Voltar" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></a><span style="font-size:15px;font-weight:600">Confissões lado a lado</span></div>
+        <div style="padding:0 20px 12px"><h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:25px">A igreja local</h2><span style="font-size:12.5px;color:#6B6B68">3 documentos · ordem cronológica</span></div>
+        <div role="tablist" style="display:flex;border-bottom:1px solid #E4DED1;padding:0 12px">
+          <sc-for list="{{ abas }}" as="a" hint-placeholder-count="3">
+            <sc-if value="{{ a.on }}"><button role="tab" aria-selected="true" onClick="{{ a.go }}" style="flex:1;height:44px;border:0;border-bottom:2px solid #8E2B22;background:transparent;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#1A1A1A;cursor:pointer">{{ a.n }}</button></sc-if>
+            <sc-if value="{{ a.off }}"><button role="tab" onClick="{{ a.go }}" style="flex:1;height:44px;border:0;border-bottom:2px solid transparent;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#6B6B68;cursor:pointer">{{ a.n }}</button></sc-if>
+          </sc-for>
+        </div>
+        <div style="flex:1;overflow:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;flex-direction:column;gap:2px"><b style="font-family:'Playfair Display',serif;font-size:19px;font-weight:600">{{ confSel.n }}</b><span style="font-size:12px;color:#6B6B68">{{ confSel.a }} · {{ confSel.art }}</span></div>
+          <p style="margin:0;font-family:'Playfair Display',serif;font-size:17px;line-height:1.65;border-left:2px solid #CFC7B7;padding-left:14px">{{ confSel.cit }}</p>
+          <p style="margin:0;font-size:14px;line-height:1.55;color:#4A4A47">{{ confSel.res }}</p>
+          <a href="#" style="align-self:flex-start;display:inline-flex;align-items:center;height:32px;padding:0 10px;border:1px solid #CFC7B7;border-radius:4px;font-size:12.5px;color:#1A1A1A;text-decoration:none">✓ Abrir documento</a>
+          <span style="font-size:12px;color:#6B6B68;border-top:1px solid #E4DED1;padding-top:12px">Deslize para os lados para comparar os documentos.</span>
+        </div>
+        <dc-import name="Barra Celular" ativo="Estudar" hint-size="100%,84px"></dc-import>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · cartão de distintivo</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 8px"><a href="#" aria-label="Voltar" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></a><span style="font-size:15px;font-weight:600">Distintivos batistas</span></div>
+        <div style="flex:1;overflow:auto;padding:8px 20px 20px;display:flex;flex-direction:column;gap:18px">
+          <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Distintivo 2 de 6</span>
+          <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:28px;line-height:1.2">{{ d1.n }}</h2>
+          <p style="margin:0;font-family:'Playfair Display',serif;font-size:17px;line-height:1.7">{{ d1.def }}</p>
+          <div style="display:flex;flex-direction:column;border-top:1px solid #E4DED1">
+            <div style="display:flex;flex-direction:column;gap:4px;padding:14px 0;border-bottom:1px solid #E4DED1"><span style="font-size:12px;color:#6B6B68">Texto bíblico de apoio</span><a href="#" style="font-size:15px;text-decoration:underline;text-underline-offset:3px">{{ d1.ref }}</a></div>
+            <div style="display:flex;flex-direction:column;gap:4px;padding:14px 0;border-bottom:1px solid #E4DED1"><span style="font-size:12px;color:#6B6B68">Nas confissões</span><span style="font-size:15px">{{ d1.conf }}</span></div>
+          </div>
+          <span style="font-size:11.5px;font-weight:500">Da sua base</span>
+          <div style="display:flex;gap:8px"><button style="flex:1;height:48px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:14.5px;color:#1A1A1A">Criar card</button><button style="flex:1;height:48px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:14.5px">Questões (4)</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { aba: 1 };
+  renderVals() {
+    const S = [['Origens', 60], ['Distintivos batistas', 35], ['Confissões', 20], ['Igreja local', 10], ['Ordenanças', 45], ['Missões e cooperação', 0], ['Batistas no Brasil', 0], ['Debates atuais', 0]];
+    const secoes = S.map(([nome, p], i) => ({ nome, pct: p + '%', lbl: p ? p + '%' : 'Não iniciado', on: i === 1, off: i !== 1 }));
+    const distintivos = [
+      { n: 'Autoridade das Escrituras', def: '[Definição de exemplo] A Bíblia como regra suficiente de fé e prática.', ref: '2Tm 3:16–17', conf: '1689, cap. 1 · 1833, art. I' },
+      { n: 'Batismo de crentes', def: '[Definição de exemplo] O batismo é dado a quem professa fé em Cristo.', ref: 'At 2:41; Rm 6:3–4', conf: '1644, art. 39 · 1689, cap. 29' },
+      { n: 'Membresia regenerada', def: '[Definição de exemplo] A igreja local é composta de pessoas que professam fé.', ref: '1Co 1:2', conf: '1689, cap. 26' },
+      { n: 'Liberdade religiosa', def: '[Definição de exemplo] A consciência responde a Deus, não ao Estado.', ref: 'At 5:29', conf: '1689, cap. 21' }
+    ];
+    const linha = [['1609', 'Primeira igreja batista inglesa (Amsterdã)'], ['1644', 'Primeira Confissão de Londres'], ['1689', 'Segunda Confissão de Londres'], ['1882', 'Primeira igreja batista brasileira em Salvador']].map(([a, t]) => ({ a, t }));
+    const confs = [
+      { n: 'Primeira Confissão de Londres', a: '1644', art: 'art. 33', cit: '[Trecho de exemplo — inserir citação curta do artigo 33 a partir da sua base.]', res: '[Resumo de exemplo] Descreve a igreja visível como companhia de santos reunidos.' },
+      { n: 'Segunda Confissão de Londres', a: '1689', art: 'cap. 26', cit: '[Trecho de exemplo — inserir citação curta do capítulo 26 a partir da sua base.]', res: '[Resumo de exemplo] Trata da igreja universal e das igrejas locais, seus oficiais e poder.' },
+      { n: 'Confissão de New Hampshire', a: '1833', art: 'art. XIII', cit: '[Trecho de exemplo — inserir citação curta do artigo XIII a partir da sua base.]', res: '[Resumo de exemplo] Define a igreja visível como congregação de crentes batizados.' }
+    ];
+    const a = this.state.aba;
+    const abas = confs.map((c, i) => ({ n: c.a, on: i === a, off: i !== a, go: () => this.setState({ aba: i }) }));
+    const debate = [
+      { n: 'Posição A · comunhão aberta', t: '[Texto de exemplo] Resumo neutro da posição, com seus argumentos principais.', f: '✓ Fonte de exemplo · verificada' },
+      { n: 'Posição B · comunhão restrita', t: '[Texto de exemplo] Resumo neutro da posição, com seus argumentos principais.', f: '✓ Fonte de exemplo · verificada' }
+    ];
+    return { secoes, distintivos, linha, confs, abas, confSel: confs[a], debate, d1: distintivos[1] };
+  }
+}
+</script>
+</body>
+</html>

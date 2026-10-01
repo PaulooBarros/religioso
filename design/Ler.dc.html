@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap"><style>body{margin:0;background:#E9E4D8;-webkit-font-smoothing:antialiased}a{color:#8E2B22}a:hover{color:#6E1F18}</style></helmet>
+
+<section data-screen-label="07 História e confissões" style="padding:64px 64px 32px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">7 · História e confissões</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · linha do tempo horizontal (clique num evento)</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="História e confissões" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <dc-import name="Topo Desktop" hint-size="100%,60px"></dc-import>
+          <main style="flex:1;overflow:auto;padding:36px 48px;display:flex;flex-direction:column;gap:28px">
+            <div style="display:flex;align-items:flex-end;gap:16px"><h2 style="margin:0;flex:1;font-family:'Playfair Display',serif;font-weight:600;font-size:32px">Linha do tempo</h2><span style="font-size:13px;color:#6B6B68">Arraste ou use ← → para navegar</span></div>
+            <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid #1A1A1A">
+              <sc-for list="{{ periodos }}" as="p" hint-placeholder-count="5">
+                <div style="border-left:1px solid #E4DED1;padding:10px 14px 0;display:flex;flex-direction:column;gap:14px">
+                  <div style="display:flex;flex-direction:column;gap:2px"><b style="font-size:13px;font-weight:600">{{ p.n }}</b><span style="font-size:11.5px;color:#6B6B68">{{ p.d }}</span></div>
+                  <sc-for list="{{ p.ev }}" as="e" hint-placeholder-count="3">
+                    <sc-if value="{{ e.on }}"><button onClick="{{ e.go }}" style="text-align:left;display:flex;flex-direction:column;gap:2px;padding:8px 10px;border:1.5px solid #8E2B22;background:#F3E7E2;border-radius:6px;font-family:'Inter',sans-serif;color:#1A1A1A;cursor:pointer"><span style="font-size:11.5px;color:#4A4A47">{{ e.a }}</span><span style="font-size:13.5px;font-weight:500">{{ e.t }}</span></button></sc-if>
+                    <sc-if value="{{ e.off }}"><button onClick="{{ e.go }}" style="text-align:left;display:flex;flex-direction:column;gap:2px;padding:8px 10px;border:1px solid #E4DED1;background:#FCFAF5;border-radius:6px;font-family:'Inter',sans-serif;color:#1A1A1A;cursor:pointer" style-hover="border-color:#8A8378"><span style="font-size:11.5px;color:#6B6B68">{{ e.a }}</span><span style="font-size:13.5px">{{ e.t }}</span></button></sc-if>
+                  </sc-for>
+                </div>
+              </sc-for>
+            </div>
+            <div style="border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5;padding:24px 28px;display:grid;grid-template-columns:1fr 260px;gap:32px">
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <span style="font-size:12.5px;color:#6B6B68">{{ sel.a }} · {{ sel.p }}</span>
+                <h3 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:24px">{{ sel.t }}</h3>
+                <p style="margin:0;font-family:'Playfair Display',serif;font-size:16px;line-height:1.65;max-width:560px">{{ sel.d }}</p>
+                <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;margin-top:4px">Da sua base · <span style="font-weight:400;color:#6B6B68">resumo de exemplo</span></span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;border-left:1px solid #E4DED1;padding-left:24px">
+                <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Documento</span>
+                <a href="#" style="font-family:'Playfair Display',serif;font-size:16px;text-decoration:none;color:#1A1A1A">{{ sel.doc }}</a>
+                <a href="#" style="font-size:13.5px;font-weight:500">Abrir leitor →</a>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · linha do tempo vertical</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 20px"><span style="font-family:'Playfair Display',serif;font-size:24px;font-weight:600">História</span></div>
+        <div style="flex:1;overflow:auto;padding:8px 20px 24px">
+          <sc-for list="{{ periodos }}" as="p" hint-placeholder-count="5">
+            <div style="display:flex;flex-direction:column">
+              <div style="display:flex;align-items:baseline;gap:8px;padding:14px 0 8px"><b style="font-size:13px;font-weight:600;letter-spacing:0.04em">{{ p.n }}</b><span style="font-size:12px;color:#6B6B68">{{ p.d }}</span></div>
+              <div style="border-left:1px solid #CFC7B7;margin-left:5px;padding-left:18px;display:flex;flex-direction:column">
+                <sc-for list="{{ p.ev }}" as="e" hint-placeholder-count="2">
+                  <a href="#" style="display:flex;flex-direction:column;gap:2px;min-height:52px;justify-content:center;text-decoration:none;color:#1A1A1A;position:relative"><span style="position:absolute;left:-23px;top:50%;width:9px;height:9px;margin-top:-5px;border-radius:50%;background:#F7F4EC;border:1.5px solid #1A1A1A;box-sizing:border-box"></span><span style="font-size:12px;color:#6B6B68">{{ e.a }}</span><span style="font-size:15px">{{ e.t }}</span></a>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <dc-import name="Barra Celular" ativo="Mais" hint-size="100%,84px"></dc-import>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · leitor de confissão, questões ao fim do capítulo</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 8px;border-bottom:1px solid #E4DED1"><a href="#" aria-label="Voltar" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></a><span style="flex:1;display:flex;flex-direction:column"><span style="font-size:14.5px;font-weight:600">Confissão de 1689</span><span style="font-size:11.5px;color:#6B6B68">Cap. 1 de 32 · Das Escrituras</span></span><span style="width:44px;text-align:center;font-family:'Playfair Display',serif;font-size:17px">Aa</span></div>
+        <div style="flex:1;overflow:auto;padding:24px 24px">
+          <h2 style="margin:0 0 16px;font-family:'Playfair Display',serif;font-weight:600;font-size:24px">Capítulo 1 · Das Santas Escrituras</h2>
+          <p style="margin:0 0 20px;font-family:'Playfair Display',serif;font-size:18px;line-height:1.8"><b style="font-family:'Inter',sans-serif;font-size:12px;color:#6B6B68;margin-right:6px">§ 10</b>[Texto de exemplo do parágrafo final do capítulo, exibido na medida confortável de leitura, com referências bíblicas clicáveis como <a href="#" style="text-decoration:underline;text-underline-offset:3px">Mt 22:29</a> e <a href="#" style="text-decoration:underline;text-underline-offset:3px">At 28:23</a>.]</p>
+          <div style="border-top:1px solid #1A1A1A;padding-top:18px;display:flex;flex-direction:column;gap:12px">
+            <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#8E2B22">Fim do capítulo · 3 questões</span>
+            <p style="margin:0;font-family:'Playfair Display',serif;font-size:17px;line-height:1.45">Segundo o capítulo, qual é o juiz supremo em controvérsias religiosas?</p>
+            <button style="height:48px;border-radius:6px;border:1px solid #1A1A1A;background:transparent;font-family:'Inter',sans-serif;font-size:15px;font-weight:500;color:#1A1A1A">Responder as 3 questões</button>
+            <button style="height:44px;border:0;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#6B6B68">Pular para o capítulo 2</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="08 Teólogos e movimentos" style="padding:32px 64px 64px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">8 · Teólogos e movimentos</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · lista pesquisável + ficha</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Teólogos e movimentos" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <dc-import name="Topo Desktop" hint-size="100%,60px"></dc-import>
+          <div style="flex:1;display:flex;min-height:0">
+            <div style="width:300px;border-right:1px solid #E4DED1;display:flex;flex-direction:column">
+              <div style="padding:20px 20px 12px;display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;border:1px solid #CFC7B7;border-radius:6px;overflow:hidden"><span style="flex:1;height:32px;display:flex;align-items:center;justify-content:center;font-size:13px;background:#1A1A1A;color:#F7F4EC">Teólogos</span><span style="flex:1;height:32px;display:flex;align-items:center;justify-content:center;font-size:13px">Movimentos</span></div>
+                <div style="height:36px;display:flex;align-items:center;padding:0 12px;border:1px solid #E4DED1;border-radius:6px;background:#FCFAF5;font-size:13.5px;color:#6B6B68">Filtrar por nome ou época</div>
+              </div>
+              <div style="flex:1;overflow:auto">
+                <sc-for list="{{ teologos }}" as="t" hint-placeholder-count="7">
+                  <sc-if value="{{ t.on }}"><a href="#" style="display:flex;flex-direction:column;gap:2px;padding:12px 20px;background:#E6DFD0;border-left:2px solid #8E2B22;text-decoration:none;color:#1A1A1A"><b style="font-size:14.5px;font-weight:600">{{ t.n }}</b><span style="font-size:12px;color:#4A4A47">{{ t.e }}</span></a></sc-if>
+                  <sc-if value="{{ t.off }}"><a href="#" style="display:flex;flex-direction:column;gap:2px;padding:12px 20px;border-left:2px solid transparent;text-decoration:none;color:#1A1A1A" style-hover="background:#EFEADF"><span style="font-size:14.5px">{{ t.n }}</span><span style="font-size:12px;color:#6B6B68">{{ t.e }}</span></a></sc-if>
+                </sc-for>
+              </div>
+            </div>
+            <main style="flex:1;overflow:auto;padding:36px 48px">
+              <div style="max-width:680px;display:flex;flex-direction:column;gap:28px">
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:36px">João Calvino</h2>
+                  <span style="font-size:14px;color:#6B6B68">1509–1564 · Reforma · Genebra</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:10px">
+                  <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Obras principais</span>
+                  <span style="font-family:'Playfair Display',serif;font-size:16.5px;line-height:1.6"><i>Institutas da Religião Cristã</i> (1536; ed. final 1559) · Comentários bíblicos · <i>Catecismo de Genebra</i> (1542)</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:12px;border-top:1px solid #E4DED1;padding-top:20px">
+                  <div style="display:flex;align-items:center;gap:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19"></path></svg><b style="font-size:13px;font-weight:600">Preenchido por mim</b></div>
+                  <div style="display:grid;grid-template-columns:160px 1fr;gap:12px 20px;font-size:14.5px;line-height:1.55">
+                    <span style="color:#6B6B68">Ceia do Senhor</span><span><span style="font-family:'Playfair Display',serif;font-size:15.5px">[Nota de exemplo] Presença espiritual real de Cristo, recebida pela fé.</span><br><span style="font-size:12px;color:#6B6B68">Institutas IV.17 · verificada</span></span>
+                    <span style="color:#6B6B68">Escrituras</span><span><span style="font-family:'Playfair Display',serif;font-size:15.5px">[Nota de exemplo] Testemunho interno do Espírito.</span><br><span style="font-size:12px;color:#6B6B68">Institutas I.7 · verificada</span></span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:12px;border:1px dashed #8A8378;border-radius:8px;padding:18px 20px">
+                  <div style="display:flex;align-items:center;gap:8px"><span style="font-size:9.5px;font-weight:600;border:1px solid #1A1A1A;border-radius:3px;padding:0 3px;line-height:14px">IA</span><b style="font-size:13px;font-weight:600;flex:1">Fala da IA (com fontes)</b><span style="font-size:10px;letter-spacing:0.14em;font-weight:600;text-transform:uppercase;border:1px solid #1A1A1A;border-radius:3px;padding:1px 5px">Rascunho</span></div>
+                  <div style="display:grid;grid-template-columns:160px 1fr;gap:12px 20px;font-size:14.5px;line-height:1.55">
+                    <span style="color:#6B6B68">Batismo</span><span>Defendia o batismo infantil como sinal do pacto. <br><span style="font-size:12px;color:#6B6B68">✓ Institutas IV.16 · verificada</span></span>
+                    <span style="color:#6B6B68">Governo da igreja</span><span>Ofícios de pastor, doutor, presbítero e diácono. <br><span style="font-size:12px;color:#6B6B68">○ Ordenanças eclesiásticas (1541) · sem fonte verificada</span></span>
+                  </div>
+                  <div style="display:flex;gap:8px"><button style="height:32px;padding:0 12px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:13px">Aprovar</button><button style="height:32px;padding:0 12px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:13px">Editar</button></div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · ficha de movimento</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px"></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 8px"><a href="#" aria-label="Voltar" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></a><span style="font-size:15px;font-weight:600">Movimentos</span></div>
+        <div style="flex:1;overflow:auto;padding:4px 20px 24px;display:flex;flex-direction:column;gap:22px">
+          <div style="display:flex;flex-direction:column;gap:4px"><h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:28px">Puritanismo</h2><span style="font-size:13px;color:#6B6B68">séc. XVI–XVII · Inglaterra e Nova Inglaterra</span></div>
+          <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Figuras</span><div style="display:flex;flex-wrap:wrap;gap:8px"><a href="#" style="height:36px;display:flex;align-items:center;padding:0 12px;border:1px solid #CFC7B7;border-radius:4px;font-size:13.5px;color:#1A1A1A;text-decoration:none">John Owen</a><a href="#" style="height:36px;display:flex;align-items:center;padding:0 12px;border:1px solid #CFC7B7;border-radius:4px;font-size:13.5px;color:#1A1A1A;text-decoration:none">Richard Baxter</a><a href="#" style="height:36px;display:flex;align-items:center;padding:0 12px;border:1px solid #CFC7B7;border-radius:4px;font-size:13.5px;color:#1A1A1A;text-decoration:none">John Bunyan</a></div></div>
+          <div style="display:flex;flex-direction:column;gap:10px;border-top:1px solid #E4DED1;padding-top:16px"><b style="font-size:13px;font-weight:600">Preenchido por mim</b><p style="margin:0;font-family:'Playfair Display',serif;font-size:15.5px;line-height:1.6">[Nota de exemplo] Ênfase na piedade prática e na pregação expositiva.</p></div>
+          <div style="display:flex;flex-direction:column;gap:10px;border:1px dashed #8A8378;border-radius:8px;padding:16px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:9.5px;font-weight:600;border:1px solid #1A1A1A;border-radius:3px;padding:0 3px;line-height:14px">IA</span><b style="font-size:13px;font-weight:600;flex:1">Fala da IA (com fontes)</b></div><p style="margin:0;font-size:14.5px;line-height:1.6">[Texto de exemplo com resumo do movimento gerado pela IA.]</p><span style="font-size:12px;color:#6B6B68">2 fontes verificadas · 1 sem fonte verificada</span></div>
+        </div>
+        <dc-import name="Barra Celular" ativo="Mais" hint-size="100%,84px"></dc-import>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { ev: 'Calcedônia' };
+  renderVals() {
+    const P = [
+      ['Igreja antiga', '30–590', [['325', 'Concílio de Niceia', 'Credo Niceno'], ['451', 'Calcedônia', 'Definição de Calcedônia']]],
+      ['Idade Média', '590–1517', [['1054', 'Cisma Leste-Oeste', 'Bulas de 1054'], ['1215', 'IV Concílio de Latrão', 'Cânones de Latrão IV']]],
+      ['Reforma', '1517–1648', [['1517', 'As 95 teses', '95 teses de Lutero'], ['1530', 'Confissão de Augsburgo', 'Confissão de Augsburgo'], ['1563', 'Heidelberg', 'Catecismo de Heidelberg']]],
+      ['Pós-Reforma', '1648–1800', [['1647', 'Westminster', 'Confissão de Westminster'], ['1689', 'Confissão Batista', 'Confissão de Fé Batista de 1689']]],
+      ['Moderna', '1800–hoje', [['1910', 'Conferência de Edimburgo', 'Relatórios de 1910']]]
+    ];
+    const D = { 'Calcedônia': 'Concílio que confessou um só Cristo em duas naturezas, sem confusão, sem mudança, sem divisão e sem separação. [Resumo de exemplo]' };
+    let sel = null;
+    const periodos = P.map(([n, d, ev]) => ({ n, d, ev: ev.map(([a, t, doc]) => { const on = t === this.state.ev; if (on) sel = { a, t, doc, p: n, d: D[t] || '[Resumo de exemplo do evento, a partir da sua base.]' }; return { a, t, on, off: !on, go: () => this.setState({ ev: t }) }; }) }));
+    const teologos = [['Agostinho de Hipona', '354–430'], ['Anselmo de Cantuária', '1033–1109'], ['Tomás de Aquino', '1225–1274'], ['Martinho Lutero', '1483–1546'], ['João Calvino', '1509–1564'], ['John Owen', '1616–1683'], ['C. H. Spurgeon', '1834–1892']].map(([n, e]) => ({ n, e, on: n === 'João Calvino', off: n !== 'João Calvino' }));
+    return { periodos, sel: sel || {}, teologos };
+  }
+}
+</script>
+</body>
+</html>

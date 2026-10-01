@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap"><style>body{margin:0;background:#E9E4D8;-webkit-font-smoothing:antialiased}a{color:#8E2B22}a:hover{color:#6E1F18}</style></helmet>
+
+<section data-screen-label="01 Hoje" style="padding:64px 64px 32px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">1 · Hoje</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · 1280</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Hoje" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <dc-import name="Topo Desktop" hint-size="100%,60px"></dc-import>
+          <main style="flex:1;overflow:auto;padding:48px 64px">
+            <div style="max-width:860px;display:flex;flex-direction:column;gap:28px">
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <span style="font-size:13px;color:#6B6B68">Quarta-feira, 30 de setembro</span>
+                <h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:38px;line-height:1.1">Hoje</h2>
+              </div>
+
+              <div style="border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5;padding:32px 36px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end">
+                <div style="display:flex;flex-direction:column;gap:14px">
+                  <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#8E2B22">Revisão do dia</span>
+                  <div style="display:flex;align-items:baseline;gap:14px"><span style="font-family:'Playfair Display',serif;font-size:56px;font-weight:500;line-height:1">18</span><span style="font-size:17px">itens · cerca de 12 minutos</span></div>
+                  <span style="font-size:14px;color:#6B6B68">11 questões de sistemática · 5 perguntas de catecismo · 2 de múltipla escolha</span>
+                  <div style="display:flex;align-items:center;gap:14px;margin-top:8px">
+                    <button style="height:44px;padding:0 28px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:15px;font-weight:500;cursor:pointer" style-hover="background:#6E1F18">Começar</button>
+                    <span style="font-size:12.5px;color:#6B6B68">ou pressione <span style="border:1px solid #CFC7B7;border-radius:4px;padding:1px 6px">Enter</span></span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+                  <span style="font-size:13.5px"><b style="font-weight:600">23 dias</b> seguidos</span>
+                  <div style="display:grid;grid-template-columns:repeat(7,12px);gap:5px" aria-label="Últimos 14 dias: 13 estudados">
+                    <span style="width:12px;height:12px;border-radius:2px;background:#1A1A1A"></span><span style="width:12px;height:12px;border-radius:2px;background:#1A1A1A"></span><span style="width:12px;height:12px;border-radius:2px;background:#1A1A1A"></span><span style="width:12px;height:12px;border-radius:2px;border:1px solid #CFC7B7;box-sizing:border-box"></span><span style="width:12px;height:12px;border-radius:2px;background:#1A1A1A"></span><span style="width:12px;height:12px;border-radius:2px;background:#1A1A1A"></span><span style="width:12px;height:12px;border-radius:2px;background:#1A1A1A"></span>
+                    <span style="width:12px;height:12px;border-radius:2px;background:#1A1A1A"></span><span style="width:12px;height:12px;border-radius:2px;background:#1A1A1A"></span><span style="width:12px;height:12px;border-radius:2px;background:#1A1A1A"></span><span style="width:12px;height:12px;border-radius:2px;background:#1A1A1A"></span><span style="width:12px;height:12px;border-radius:2px;background:#1A1A1A"></span><span style="width:12px;height:12px;border-radius:2px;background:#1A1A1A"></span><span style="width:12px;height:12px;border-radius:2px;border:1.5px dashed #8A8378;box-sizing:border-box"></span>
+                  </div>
+                  <span style="font-size:12px;color:#6B6B68">Últimos 14 dias · hoje pendente</span>
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+                <a href="#" style="border:1px solid #E4DED1;border-radius:8px;padding:20px 22px;display:flex;flex-direction:column;gap:8px;text-decoration:none;color:#1A1A1A" style-hover="border-color:#CFC7B7;background:#FCFAF5">
+                  <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Próximo passo</span>
+                  <span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:500;line-height:1.3">Catecismo Menor de Westminster, perguntas 5 a 8</span>
+                  <span style="font-size:13.5px;color:#6B6B68">4 perguntas novas · sobre Deus e a Trindade</span>
+                  <span style="font-size:13.5px;color:#8E2B22;font-weight:500;margin-top:4px">Estudar agora →</span>
+                </a>
+                <a href="#" style="border:1px solid #E4DED1;border-radius:8px;padding:20px 22px;display:flex;flex-direction:column;gap:8px;text-decoration:none;color:#1A1A1A" style-hover="border-color:#CFC7B7;background:#FCFAF5">
+                  <span style="display:flex;align-items:center;gap:6px;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68"><svg width="9" height="13" viewBox="0 0 9 13" fill="#8E2B22"><path d="M0 0h9v13L4.5 9.5 0 13z"></path></svg>Continuar lendo</span>
+                  <span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:500">Romanos 8:28</span>
+                  <span style="font-family:'Playfair Display',serif;font-size:15px;line-height:1.6;color:#4A4A47;font-style:italic">“E sabemos que todas as coisas contribuem juntamente para o bem…”</span>
+                  <span style="font-size:12px;color:#6B6B68">Marcador “Onde parei” · ontem</span>
+                </a>
+                <a href="#" style="border:1px solid #E4DED1;border-radius:8px;padding:20px 22px;display:flex;flex-direction:column;gap:8px;text-decoration:none;color:#1A1A1A" style-hover="border-color:#CFC7B7;background:#FCFAF5">
+                  <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Devocional de hoje</span>
+                  <span style="font-family:'Playfair Display',serif;font-size:20px;font-weight:500;line-height:1.3">Salmos de confiança</span>
+                  <span style="font-size:13.5px;color:#6B6B68">Dia 5 de 21 · Salmo 23 · ~5 min</span>
+                  <span style="font-size:13.5px;color:#8E2B22;font-weight:500;margin-top:4px">Ler →</span>
+                </a>
+              </div>
+
+              <a href="#" style="display:flex;align-items:center;gap:14px;border:1px dashed #8A8378;border-radius:8px;padding:14px 20px;text-decoration:none;color:#1A1A1A" style-hover="background:#FCFAF5">
+                <span style="font-size:10.5px;letter-spacing:0.14em;font-weight:600;text-transform:uppercase;border:1px solid #1A1A1A;border-radius:3px;padding:2px 6px">Rascunho</span>
+                <span style="flex:1;font-size:14px">3 rascunhos da IA aguardam sua aprovação <span style="color:#6B6B68">· 2 questões, 1 esboço de mensagem</span></span>
+                <span style="font-size:13.5px;color:#8E2B22;font-weight:500">Revisar</span>
+              </a>
+
+              <div style="display:flex;align-items:center;gap:28px;border-top:1px solid #E4DED1;padding-top:20px;font-size:13px;color:#6B6B68">
+                <span style="font-weight:600;color:#1A1A1A">Esta semana</span>
+                <span>94 itens revisados</span><span>71% bom ou fácil</span><span>3 capítulos lidos</span>
+                <div style="flex:1"></div>
+                <div style="display:flex;align-items:flex-end;gap:4px;height:22px" aria-hidden="true"><span style="width:6px;height:14px;background:#8A8378"></span><span style="width:6px;height:20px;background:#8A8378"></span><span style="width:6px;height:9px;background:#8A8378"></span><span style="width:6px;height:18px;background:#8A8378"></span><span style="width:6px;height:2px;background:#CFC7B7"></span><span style="width:6px;height:2px;background:#CFC7B7"></span><span style="width:6px;height:2px;background:#CFC7B7"></span></div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · 390</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:14px;font-weight:600">9:41<span style="font-size:12px;font-weight:500">5G ▮▮▮</span></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 12px 0 20px;gap:4px">
+          <span style="flex:1;font-family:'Playfair Display',serif;font-size:17px;font-weight:600">Estúdio Teológico</span>
+          <a href="#" aria-label="Buscar" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg></a>
+          <a href="#" aria-label="Perguntar à IA" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4zM8 9h8M8 12h5"></path></svg></a>
+        </div>
+        <div style="flex:1;overflow:auto;padding:12px 20px 24px;display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:13px;color:#6B6B68">Quarta, 30 de setembro</span><h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:32px">Hoje</h2></div>
+          <div style="border:1px solid #E4DED1;border-radius:8px;background:#FCFAF5;padding:22px;display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#8E2B22">Revisão do dia</span><span style="font-size:12.5px"><b style="font-weight:600">23 dias</b> seguidos</span></div>
+            <div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:'Playfair Display',serif;font-size:48px;font-weight:500;line-height:1">18</span><span style="font-size:15px">itens · ~12 min</span></div>
+            <span style="font-size:13px;color:#6B6B68;line-height:1.5">11 de sistemática · 5 de catecismo · 2 de múltipla escolha</span>
+            <button style="height:48px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:15.5px;font-weight:500;margin-top:4px">Começar</button>
+          </div>
+          <a href="#" style="border:1px solid #E4DED1;border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:#1A1A1A">
+            <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Próximo passo</span>
+            <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:500;line-height:1.3">Catecismo Menor de Westminster, perguntas 5 a 8</span>
+            <span style="font-size:13px;color:#6B6B68">4 perguntas novas</span>
+          </a>
+          <a href="#" style="border:1px solid #E4DED1;border-radius:8px;padding:18px;display:flex;align-items:center;gap:12px;text-decoration:none;color:#1A1A1A;min-height:44px">
+            <div style="flex:1;display:flex;flex-direction:column;gap:4px"><span style="display:flex;align-items:center;gap:6px;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68"><svg width="8" height="12" viewBox="0 0 9 13" fill="#8E2B22"><path d="M0 0h9v13L4.5 9.5 0 13z"></path></svg>Continuar lendo</span><span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:500">Romanos 8:28</span></div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B6B68" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+          </a>
+          <a href="#" style="border:1px solid #E4DED1;border-radius:8px;padding:14px 18px;display:flex;align-items:center;gap:12px;text-decoration:none;color:#1A1A1A;min-height:44px">
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px"><span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Devocional de hoje</span><span style="font-size:14.5px">Salmos de confiança · dia 5 de 21</span></div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B6B68" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+          </a>
+          <a href="#" style="display:flex;align-items:center;gap:10px;border:1px dashed #8A8378;border-radius:8px;padding:12px 16px;text-decoration:none;color:#1A1A1A;min-height:44px">
+            <span style="font-size:10px;letter-spacing:0.14em;font-weight:600;text-transform:uppercase;border:1px solid #1A1A1A;border-radius:3px;padding:2px 5px">Rascunho</span>
+            <span style="flex:1;font-size:13.5px">3 aguardam aprovação</span>
+            <span style="font-size:13.5px;color:#8E2B22;font-weight:500">Revisar</span>
+          </a>
+          <div style="font-size:12.5px;color:#6B6B68;line-height:1.6;border-top:1px solid #E4DED1;padding-top:14px"><b style="font-weight:600;color:#1A1A1A">Esta semana</b> · 94 itens · 71% bom ou fácil · 3 capítulos</div>
+        </div>
+        <dc-import name="Barra Celular" ativo="Hoje" hint-size="100%,84px"></dc-import>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Estado vazio · nada vence hoje</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:14px;font-weight:600">9:41<span style="font-size:12px;font-weight:500">5G ▮▮▮</span></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 12px 0 20px"><span style="flex:1;font-family:'Playfair Display',serif;font-size:17px;font-weight:600">Estúdio Teológico</span></div>
+        <div style="flex:1;padding:12px 20px 24px;display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:13px;color:#6B6B68">Quarta, 30 de setembro</span><h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:32px">Hoje</h2></div>
+          <div style="border:1px solid #E4DED1;border-radius:8px;padding:24px 22px;display:flex;flex-direction:column;gap:10px">
+            <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Revisão do dia</span>
+            <p style="margin:0;font-family:'Playfair Display',serif;font-size:22px;line-height:1.35">Nada vence hoje.</p>
+            <p style="margin:0;font-size:14px;line-height:1.55;color:#4A4A47">Você revisou tudo o que estava agendado. A próxima revisão é amanhã, com 9 itens.</p>
+          </div>
+          <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68;margin-top:6px">Se quiser continuar</span>
+          <div style="display:flex;flex-direction:column;border-top:1px solid #E4DED1">
+            <a href="#" style="display:flex;align-items:center;gap:12px;min-height:60px;border-bottom:1px solid #E4DED1;text-decoration:none;color:#1A1A1A"><span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px">Aprender 4 perguntas novas</span><span style="font-size:12.5px;color:#6B6B68">Catecismo Menor, P. 5–8</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B6B68" stroke-width="1.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"></path></svg></a>
+            <a href="#" style="display:flex;align-items:center;gap:12px;min-height:60px;border-bottom:1px solid #E4DED1;text-decoration:none;color:#1A1A1A"><span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px">Continuar Romanos 8</span><span style="font-size:12.5px;color:#6B6B68">a partir do versículo 28</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B6B68" stroke-width="1.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"></path></svg></a>
+            <a href="#" style="display:flex;align-items:center;gap:12px;min-height:60px;border-bottom:1px solid #E4DED1;text-decoration:none;color:#1A1A1A"><span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px">Fazer um simulado curto</span><span style="font-size:12.5px;color:#6B6B68">10 questões do tema mais fraco</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B6B68" stroke-width="1.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"></path></svg></a>
+          </div>
+        </div>
+        <dc-import name="Barra Celular" ativo="Hoje" hint-size="100%,84px"></dc-import>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="02 Sessão de revisão" style="padding:32px 64px 64px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">2 · Sessão de revisão</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · pergunta e resposta (clique em “Revelar” ou use Espaço)</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:3px;background:#E4DED1"><div style="height:3px;width:39%;background:#1A1A1A"></div></div>
+        <header style="height:60px;display:flex;align-items:center;padding:0 28px;gap:16px;font-size:13.5px">
+          <a href="#" style="display:flex;align-items:center;gap:6px;color:#1A1A1A;text-decoration:none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>Encerrar</a>
+          <div style="flex:1;text-align:center;color:#6B6B68">Revisão do dia · 7 de 18</div>
+          <a href="#" style="display:flex;align-items:center;gap:6px;color:#1A1A1A;text-decoration:none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19"></path></svg>Ver fonte <span style="border:1px solid #CFC7B7;border-radius:4px;padding:0 5px;font-size:11.5px;color:#6B6B68">F</span></a>
+        </header>
+        <main style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 64px">
+          <div style="width:100%;max-width:680px;display:flex;flex-direction:column;gap:28px">
+            <span style="font-size:13px;color:#6B6B68">Catecismo Menor de Westminster · Pergunta 1</span>
+            <p style="margin:0;font-family:'Playfair Display',serif;font-weight:500;font-size:36px;line-height:1.25">Qual é o fim principal do homem?</p>
+            <sc-if value="{{ revelado }}" hint-placeholder-val="{{ true }}">
+              <div style="border-top:1px solid #E4DED1;padding-top:28px;display:flex;flex-direction:column;gap:18px">
+                <p style="margin:0;font-family:'Playfair Display',serif;font-size:24px;line-height:1.55">O fim principal do homem é glorificar a Deus e gozá-lo para sempre.</p>
+                <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+                  <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19"></path></svg>Da sua base</span>
+                  <a href="#" style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 9px;border:1px solid #CFC7B7;border-radius:4px;font-size:12px;color:#1A1A1A;text-decoration:none;background:#FCFAF5"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Catecismo Menor, P. 1 <span style="color:#6B6B68">· verificada</span></a>
+                  <span style="font-size:12.5px;color:#6B6B68">Textos: <a href="#" style="text-decoration:underline;text-underline-offset:3px">1Co 10:31</a>, <a href="#" style="text-decoration:underline;text-underline-offset:3px">Sl 73:25-26</a></span>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </main>
+        <footer style="padding:24px 64px 28px;display:flex;flex-direction:column;align-items:center;gap:16px">
+          <sc-if value="{{ revelado }}" hint-placeholder-val="{{ true }}">
+            <div style="width:100%;max-width:680px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">
+              <sc-for list="{{ niveis }}" as="n" hint-placeholder-count="4">
+                <button onClick="{{ n.go }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 4px;border:1px solid #CFC7B7;border-radius:6px;background:#FCFAF5;font-family:'Inter',sans-serif;color:#1A1A1A;cursor:pointer" style-hover="border-color:#1A1A1A"><span style="display:flex;align-items:center;gap:8px"><b style="font-size:15px;font-weight:500">{{ n.nome }}</b><span style="font-size:11px;color:#6B6B68;border:1px solid #E4DED1;border-radius:3px;padding:0 5px">{{ n.tecla }}</span></span><span style="font-size:12px;color:#6B6B68">{{ n.prox }}</span></button>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ oculto }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ revelar }}" style="height:48px;width:280px;border-radius:6px;border:1px solid #1A1A1A;background:transparent;font-family:'Inter',sans-serif;font-size:15px;font-weight:500;color:#1A1A1A;cursor:pointer" style-hover="background:#EFEADF">Revelar resposta <span style="font-size:11.5px;color:#6B6B68;margin-left:6px">Espaço</span></button>
+          </sc-if>
+          <span style="font-size:12px;color:#6B6B68">Espaço revelar · 1–4 avaliar · F ver fonte · Z desfazer · Esc encerrar</span>
+        </footer>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · múltipla escolha respondida</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:3px;background:#E4DED1"><div style="height:3px;width:61%;background:#1A1A1A"></div></div>
+        <header style="height:60px;display:flex;align-items:center;padding:0 28px;gap:16px;font-size:13.5px">
+          <a href="#" style="display:flex;align-items:center;gap:6px;color:#1A1A1A;text-decoration:none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>Encerrar</a>
+          <div style="flex:1;text-align:center;color:#6B6B68">Revisão do dia · 11 de 18</div>
+          <a href="#" style="display:flex;align-items:center;gap:6px;color:#1A1A1A;text-decoration:none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19"></path></svg>Ver fonte</a>
+        </header>
+        <main style="flex:1;display:flex;justify-content:center;padding:40px 64px 0;overflow:auto">
+          <div style="width:100%;max-width:680px;display:flex;flex-direction:column;gap:20px">
+            <span style="font-size:13px;color:#6B6B68">História da igreja · Concílios</span>
+            <p style="margin:0 0 6px;font-family:'Playfair Display',serif;font-weight:500;font-size:30px;line-height:1.3">Qual concílio formulou a definição de Cristo “em duas naturezas”?</p>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;align-items:center;gap:14px;min-height:52px;padding:0 18px;border:1px solid #E4DED1;border-radius:6px;font-size:15.5px;color:#6B6B68"><span style="width:18px">A</span>Niceia (325)</div>
+              <div style="display:flex;align-items:center;gap:14px;min-height:52px;padding:0 18px;border:1px solid #E4DED1;border-radius:6px;font-size:15.5px;color:#6B6B68"><span style="width:18px">B</span>Constantinopla (381)</div>
+              <div style="display:flex;align-items:center;gap:14px;min-height:52px;padding:0 18px;border:1.5px solid #1A1A1A;border-radius:6px;font-size:15.5px"><span style="width:18px;color:#6B6B68">C</span><span style="flex:1">Éfeso (431)</span><span style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>Sua resposta</span></div>
+              <div style="display:flex;align-items:center;gap:14px;min-height:52px;padding:0 18px;border:1.5px solid #8E2B22;background:#F3E7E2;border-radius:6px;font-size:15.5px"><span style="width:18px;color:#6B6B68">D</span><span style="flex:1">Calcedônia (451)</span><span style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#8E2B22"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Correta</span></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;padding-top:8px">
+              <p style="margin:0;font-family:'Playfair Display',serif;font-size:17px;line-height:1.65">A Definição de Calcedônia confessa um só Cristo “em duas naturezas, sem confusão, sem mudança, sem divisão, sem separação”. Éfeso (431) tratou antes da unidade da pessoa.</p>
+              <div style="display:flex;gap:12px;align-items:center"><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19"></path></svg>Da sua base</span><a href="#" style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 9px;border:1px solid #CFC7B7;border-radius:4px;font-size:12px;color:#1A1A1A;text-decoration:none;background:#FCFAF5"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Definição de Calcedônia, 451 <span style="color:#6B6B68">· verificada</span></a></div>
+            </div>
+          </div>
+        </main>
+        <footer style="padding:20px 64px 28px;display:flex;flex-direction:column;align-items:center;gap:14px">
+          <button style="height:48px;width:280px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:15px;font-weight:500">Continuar <span style="font-size:11.5px;opacity:0.8;margin-left:6px">Enter</span></button>
+          <span style="font-size:12px;color:#6B6B68">Registrado como “Errei” · volta em menos de 1 minuto</span>
+        </footer>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · pergunta</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:14px;font-weight:600">9:41<span style="font-size:12px;font-weight:500">5G ▮▮▮</span></div>
+        <div style="height:3px;background:#E4DED1;margin:0 20px;border-radius:2px"><div style="height:3px;width:39%;background:#1A1A1A;border-radius:2px"></div></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 8px;font-size:13.5px">
+          <a href="#" aria-label="Encerrar" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></a>
+          <span style="flex:1;text-align:center;color:#6B6B68">7 de 18</span>
+          <a href="#" style="height:44px;display:flex;align-items:center;padding:0 12px;color:#1A1A1A;text-decoration:none">Fonte</a>
+        </div>
+        <div style="flex:1;padding:32px 24px;display:flex;flex-direction:column;gap:20px">
+          <span style="font-size:12.5px;color:#6B6B68">Catecismo Menor de Westminster · P. 1</span>
+          <p style="margin:0;font-family:'Playfair Display',serif;font-weight:500;font-size:30px;line-height:1.25">Qual é o fim principal do homem?</p>
+        </div>
+        <div style="padding:0 20px 40px;display:flex;flex-direction:column;gap:12px;align-items:center">
+          <button style="height:52px;width:100%;border-radius:6px;border:1px solid #1A1A1A;background:transparent;font-family:'Inter',sans-serif;font-size:15.5px;font-weight:500;color:#1A1A1A">Revelar resposta</button>
+          <span style="font-size:12px;color:#6B6B68">ou toque em qualquer lugar do cartão</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · resposta e avaliação</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:14px;font-weight:600">9:41<span style="font-size:12px;font-weight:500">5G ▮▮▮</span></div>
+        <div style="height:3px;background:#E4DED1;margin:0 20px;border-radius:2px"><div style="height:3px;width:39%;background:#1A1A1A;border-radius:2px"></div></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 8px;font-size:13.5px">
+          <a href="#" aria-label="Encerrar" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></a>
+          <span style="flex:1;text-align:center;color:#6B6B68">7 de 18</span>
+          <a href="#" style="height:44px;display:flex;align-items:center;padding:0 12px;color:#1A1A1A;text-decoration:none">Fonte</a>
+        </div>
+        <div style="flex:1;padding:32px 24px;display:flex;flex-direction:column;gap:20px;overflow:auto">
+          <span style="font-size:12.5px;color:#6B6B68">Catecismo Menor de Westminster · P. 1</span>
+          <p style="margin:0;font-family:'Playfair Display',serif;font-weight:500;font-size:26px;line-height:1.25">Qual é o fim principal do homem?</p>
+          <div style="border-top:1px solid #E4DED1;padding-top:20px;display:flex;flex-direction:column;gap:14px">
+            <p style="margin:0;font-family:'Playfair Display',serif;font-size:20px;line-height:1.55">O fim principal do homem é glorificar a Deus e gozá-lo para sempre.</p>
+            <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19"></path></svg>Da sua base · <span style="font-weight:400;color:#6B6B68">Catecismo Menor, P. 1 · verificada</span></span>
+          </div>
+        </div>
+        <div style="padding:0 16px 36px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+            <button style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:60px;border:1px solid #CFC7B7;border-radius:6px;background:#FCFAF5;font-family:'Inter',sans-serif;color:#1A1A1A"><b style="font-size:14.5px;font-weight:500">Errei</b><span style="font-size:11.5px;color:#6B6B68">&lt;1 min</span></button>
+            <button style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:60px;border:1px solid #CFC7B7;border-radius:6px;background:#FCFAF5;font-family:'Inter',sans-serif;color:#1A1A1A"><b style="font-size:14.5px;font-weight:500">Difícil</b><span style="font-size:11.5px;color:#6B6B68">6 min</span></button>
+            <button style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:60px;border:1px solid #CFC7B7;border-radius:6px;background:#FCFAF5;font-family:'Inter',sans-serif;color:#1A1A1A"><b style="font-size:14.5px;font-weight:500">Bom</b><span style="font-size:11.5px;color:#6B6B68">1 dia</span></button>
+            <button style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:60px;border:1px solid #CFC7B7;border-radius:6px;background:#FCFAF5;font-family:'Inter',sans-serif;color:#1A1A1A"><b style="font-size:14.5px;font-weight:500">Fácil</b><span style="font-size:11.5px;color:#6B6B68">4 dias</span></button>
+          </div>
+          <span style="font-size:12px;color:#6B6B68;text-align:center">Deslize para a esquerda: Errei · para a direita: Bom</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · fim de sessão</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column">
+        <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:14px;font-weight:600">9:41<span style="font-size:12px;font-weight:500">5G ▮▮▮</span></div>
+        <div style="flex:1;padding:72px 28px 24px;display:flex;flex-direction:column;gap:28px">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;color:#6B6B68">Sessão concluída</span>
+            <p style="margin:0;font-family:'Playfair Display',serif;font-size:30px;line-height:1.25">18 itens revisados em 13 minutos.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;border-top:1px solid #E4DED1">
+            <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #E4DED1;font-size:15px"><span>Fácil</span><span>4</span></div>
+            <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #E4DED1;font-size:15px"><span>Bom</span><span>9</span></div>
+            <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #E4DED1;font-size:15px"><span>Difícil</span><span>3</span></div>
+            <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #E4DED1;font-size:15px"><span>Errei</span><span>2</span></div>
+          </div>
+          <p style="margin:0;font-size:14px;line-height:1.6;color:#4A4A47">Os dois itens errados foram sobre <b style="font-weight:600;color:#1A1A1A">concílios</b>. Eles voltam amanhã junto com mais 7 itens.</p>
+        </div>
+        <div style="padding:0 20px 40px;display:flex;flex-direction:column;gap:10px">
+          <button style="height:52px;border-radius:6px;border:0;background:#8E2B22;color:#FFF;font-family:'Inter',sans-serif;font-size:15.5px;font-weight:500">Voltar para Hoje</button>
+          <button style="height:48px;border-radius:6px;border:1px solid #CFC7B7;background:transparent;font-family:'Inter',sans-serif;font-size:15px;color:#1A1A1A">Ler sobre concílios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { revelado: true };
+  componentDidMount() {
+    this.onKey = e => {
+      if (e.code === 'Space' && !this.state.revelado) { e.preventDefault(); this.setState({ revelado: true }); }
+      else if (['Digit1','Digit2','Digit3','Digit4'].includes(e.code) && this.state.revelado) this.setState({ revelado: false });
+    };
+    window.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() { window.removeEventListener('keydown', this.onKey); }
+  renderVals() {
+    const reset = () => this.setState({ revelado: false });
+    const niveis = [['Errei','1','< 1 min'],['Difícil','2','6 min'],['Bom','3','1 dia'],['Fácil','4','4 dias']].map(([nome, tecla, prox]) => ({ nome, tecla, prox, go: reset }));
+    return { revelado: this.state.revelado, oculto: !this.state.revelado, revelar: () => this.setState({ revelado: true }), niveis };
+  }
+}
+</script>
+</body>
+</html>

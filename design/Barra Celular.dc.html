@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap"></helmet>
+<nav aria-label="Navegação" style="height:84px;border-top:1px solid #E4DED1;background:#F7F4EC;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:0 6px 22px;box-sizing:border-box;font-family:'Inter',sans-serif">
+  <sc-for list="{{ itens }}" as="it" hint-placeholder-count="5">
+    <sc-if value="{{ it.on }}">
+      <a href="#" aria-current="page" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:56px;color:#8E2B22;font-size:11.5px;font-weight:600;text-decoration:none">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ it.d }}"></path></svg>
+        <span>{{ it.n }}</span>
+      </a>
+    </sc-if>
+    <sc-if value="{{ it.off }}">
+      <a href="#" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:56px;color:#6B6B68;font-size:11.5px;font-weight:400;text-decoration:none">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="{{ it.d }}"></path></svg>
+        <span>{{ it.n }}</span>
+      </a>
+    </sc-if>
+  </sc-for>
+</nav>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:84},&quot;ativo&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Hoje&quot;,&quot;Bíblia&quot;,&quot;Estudar&quot;,&quot;Célula&quot;,&quot;Mais&quot;],&quot;default&quot;:&quot;Hoje&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const a = this.props.ativo ?? 'Hoje';
+    const itens = [
+      ['Hoje', 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4'],
+      ['Bíblia', 'M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19'],
+      ['Estudar', 'M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5'],
+      ['Célula', 'M4 5h16v11H9l-5 4z'],
+      ['Mais', 'M5 12h.5M12 12h.5M19 12h.5']
+    ].map(([n, d]) => ({ n, d, on: n === a, off: n !== a }));
+    return { itens };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap"><style>body{margin:0;background:#E9E4D8;-webkit-font-smoothing:antialiased}a{color:#8E2B22}a:hover{color:#6E1F18}</style></helmet>
+
+<section data-screen-label="03 Leitor da Bíblia" style="padding:64px;display:flex;flex-direction:column;gap:24px;font-family:'Inter',sans-serif;color:#1A1A1A">
+  <h1 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:34px">3 · Leitor da Bíblia</h1>
+  <div style="display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap">
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Desktop · clique nos versículos para selecionar</span>
+      <div style="width:1280px;height:820px;border:1px solid #CFC7B7;border-radius:10px;overflow:hidden;background:#F7F4EC;display:flex">
+        <dc-import name="Nav Desktop" ativo="Bíblia" hint-size="232px,100%"></dc-import>
+        <div style="flex:1;display:flex;flex-direction:column;min-width:0">
+          <dc-import name="Topo Desktop" hint-size="100%,60px"></dc-import>
+          <div style="flex:1;display:flex;min-height:0">
+            <div style="flex:1;display:flex;flex-direction:column;min-width:0;position:relative">
+              <div style="height:52px;display:flex;align-items:center;gap:10px;padding:0 32px;border-bottom:1px solid #E4DED1;font-size:13.5px">
+                <button style="display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;color:#1A1A1A">Romanos<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"></path></svg></button>
+                <button style="display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;color:#1A1A1A;white-space:nowrap">Capítulo 8<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"></path></svg></button>
+                <label style="display:flex;align-items:center;gap:8px;height:34px;padding:0 10px;border:1px solid #E4DED1;border-radius:6px;background:#FCFAF5;color:#6B6B68;width:150px;white-space:nowrap">Ir para… Rm 8:28</label>
+                <div style="flex:1"></div>
+                <span style="color:#6B6B68;white-space:nowrap">Almeida · dom. público</span>
+                <button aria-label="Tamanho do texto" style="height:34px;padding:0 10px;border:0;background:transparent;font-family:'Playfair Display',serif;font-size:16px;color:#1A1A1A">Aa</button>
+              </div>
+              <div style="flex:1;overflow:auto;padding:40px 48px 120px;display:flex;justify-content:center">
+                <article style="max-width:620px;width:100%">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px"><h2 style="margin:0;font-family:'Playfair Display',serif;font-weight:600;font-size:30px">Romanos 8</h2><span style="font-size:12.5px;color:#6B6B68">vv. 28–35</span></div>
+                  <p style="margin:0;font-family:'Playfair Display',serif;font-size:19.5px;line-height:1.85;color:#1A1A1A;text-wrap:pretty">
+                    <sc-for list="{{ versos }}" as="v" hint-placeholder-count="8">
+                      <sc-if value="{{ v.sel }}"><span onClick="{{ v.toggle }}" style="background:#F3E7E2;box-shadow:0 1.5px 0 #8E2B22;cursor:pointer"><sup style="font-family:'Inter',sans-serif;font-size:11px;color:#8E2B22;font-weight:600;margin:0 4px 0 2px">{{ v.n }}</sup>{{ v.t }} </span></sc-if>
+                      <sc-if value="{{ v.nota }}"><span onClick="{{ v.toggle }}" style="cursor:pointer;text-decoration:underline dotted #8A8378;text-decoration-thickness:1px;text-underline-offset:5px"><sup style="font-family:'Inter',sans-serif;font-size:11px;color:#6B6B68;margin:0 4px 0 2px">{{ v.n }}•</sup>{{ v.t }} </span></sc-if>
+                      <sc-if value="{{ v.plain }}"><span onClick="{{ v.toggle }}" style="cursor:pointer" style-hover="background:#EFEADF"><sup style="font-family:'Inter',sans-serif;font-size:11px;color:#6B6B68;margin:0 4px 0 2px">{{ v.n }}</sup>{{ v.t }} </span></sc-if>
+                    </sc-for>
+                  </p>
+                  <p style="margin:28px 0 0;font-size:12.5px;color:#6B6B68">Sublinhado pontilhado e “•” indicam versículos com nota.</p>
+                </article>
+              </div>
+              <sc-if value="{{ temSel }}" hint-placeholder-val="{{ true }}">
+                <div style="position:absolute;left:50%;bottom:24px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px 6px 6px 16px;border:1px solid #8A8378;border-radius:8px;background:#FCFAF5;font-size:13.5px;white-space:nowrap">
+                  <span style="font-weight:600;margin-right:8px">{{ selRef }}</span>
+                  <button style="height:34px;padding:0 12px;border:0;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;color:#1A1A1A;cursor:pointer" style-hover="background:#EFEADF">Nova nota</button>
+                  <button style="height:34px;padding:0 12px;border:0;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;color:#1A1A1A;cursor:pointer" style-hover="background:#EFEADF">Criar card</button>
+                  <button style="height:34px;padding:0 12px;border:0;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;color:#1A1A1A;cursor:pointer" style-hover="background:#EFEADF">Perguntar à IA</button>
+                  <button style="height:34px;padding:0 12px;border:0;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;color:#1A1A1A;cursor:pointer" style-hover="background:#EFEADF">Copiar</button>
+                  <button onClick="{{ limpar }}" aria-label="Limpar seleção" style="width:34px;height:34px;border:0;border-left:1px solid #E4DED1;background:transparent;color:#6B6B68;cursor:pointer;font-size:16px">×</button>
+                </div>
+              </sc-if>
+            </div>
+
+            <aside style="width:340px;border-left:1px solid #E4DED1;background:#FCFAF5;display:flex;flex-direction:column;min-height:0">
+              <div style="height:52px;display:flex;align-items:center;padding:0 20px;border-bottom:1px solid #E4DED1;gap:8px"><b style="flex:1;font-size:14px;font-weight:600">Notas · Romanos 8</b><span style="font-size:12.5px;color:#6B6B68">3</span><button aria-label="Fechar painel" style="width:30px;height:30px;border:0;background:transparent;color:#6B6B68;font-size:16px">×</button></div>
+              <div style="flex:1;overflow:auto;padding:18px 20px;display:flex;flex-direction:column;gap:22px">
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div style="display:flex;justify-content:space-between;align-items:center"><a href="#" style="font-size:12.5px;font-weight:600;text-decoration:none">Rm 8:28</a><span style="display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:500"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19"></path></svg>Da sua base</span></div>
+                  <p style="margin:0;font-family:'Playfair Display',serif;font-size:15px;line-height:1.6">[Nota de exemplo] “Todas as coisas” inclui o sofrimento dos vv. 18–23. O bem prometido é definido no v. 29: ser conforme a Cristo.</p>
+                  <span style="font-size:11.5px;color:#6B6B68">Etiquetas: providência, sofrimento</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;position:relative">
+                  <div style="display:flex;justify-content:space-between;align-items:center"><a href="#" style="font-size:12.5px;font-weight:600;text-decoration:none">Rm 8:29–30</a><span style="display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:500"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19"></path></svg>Da sua base</span></div>
+                  <p style="margin:0;font-family:'Playfair Display',serif;font-size:15px;line-height:1.6">[Nota de exemplo] A “corrente de ouro”: conheceu, predestinou, chamou, justificou, glorificou. Comparar com <a href="#" style="text-decoration:underline;text-underline-offset:3px">Ef 1:11</a>.</p>
+                  <div style="border:1px solid #8A8378;border-radius:8px;background:#F7F4EC;padding:14px;display:flex;flex-direction:column;gap:6px">
+                    <div style="display:flex;justify-content:space-between;font-size:12px"><b style="font-weight:600">Efésios 1:11</b><span style="color:#6B6B68">prévia</span></div>
+                    <p style="margin:0;font-family:'Playfair Display',serif;font-size:14px;line-height:1.55">Nele, digo, em quem também fomos feitos herança, havendo sido predestinados conforme o propósito daquele que faz todas as coisas, segundo o conselho da sua vontade.</p>
+                    <a href="#" style="font-size:12px">Abrir capítulo</a>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;border-top:1px solid #E4DED1;padding-top:18px">
+                  <div style="display:flex;justify-content:space-between;align-items:center"><a href="#" style="font-size:12.5px;font-weight:600;text-decoration:none">Rm 8:33–34</a><span style="display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:500"><span style="font-size:9px;font-weight:600;border:1px solid #1A1A1A;border-radius:3px;padding:0 3px;line-height:13px">IA</span>Fala da IA (com fontes)</span></div>
+                  <p style="margin:0;font-size:14px;line-height:1.6">Paulo usa linguagem de tribunal: acusação, justificação e condenação. A resposta a cada pergunta é uma obra de Deus ou de Cristo.</p>
+                  <div style="display:flex;gap:6px;flex-wrap:wrap">
+                    <a href="#" style="display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border:1px solid #CFC7B7;border-radius:4px;font-size:11.5px;color:#1A1A1A;text-decoration:none"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Rm 8:33–34 · verificada</a>
+                    <a href="#" style="display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border:1px solid #CFC7B7;border-radius:4px;font-size:11.5px;color:#1A1A1A;text-decoration:none"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Is 50:8–9 · verificada</a>
+                  </div>
+                </div>
+              </div>
+              <div style="padding:14px 20px;border-top:1px solid #E4DED1"><button style="width:100%;height:38px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;color:#1A1A1A">Nova nota neste capítulo</button></div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · versículo selecionado</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column;position:relative">
+        <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:14px;font-weight:600">9:41<span style="font-size:12px;font-weight:500">5G ▮▮▮</span></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 8px;gap:2px;border-bottom:1px solid #E4DED1">
+          <a href="#" aria-label="Buscar" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg></a>
+          <button style="flex:1;height:44px;border:0;background:transparent;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:#1A1A1A;display:flex;align-items:center;justify-content:center;gap:6px">Romanos 8<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"></path></svg></button>
+          <button aria-label="Tamanho do texto" style="width:44px;height:44px;border:0;background:transparent;font-family:'Playfair Display',serif;font-size:17px;color:#1A1A1A">Aa</button>
+        </div>
+        <div style="flex:1;overflow:hidden;padding:24px 24px 0">
+          <p style="margin:0;font-family:'Playfair Display',serif;font-size:19px;line-height:1.8">
+            <span style="text-decoration:underline dotted #8A8378;text-underline-offset:5px"><sup style="font-family:'Inter',sans-serif;font-size:10.5px;color:#6B6B68;margin-right:3px">28•</sup>E sabemos que todas as coisas contribuem juntamente para o bem daqueles que amam a Deus, daqueles que são chamados por seu decreto.</span>
+            <sup style="font-family:'Inter',sans-serif;font-size:10.5px;color:#6B6B68;margin:0 3px">29</sup>Porque os que dantes conheceu também os predestinou para serem conformes à imagem de seu Filho, a fim de que ele seja o primogênito entre muitos irmãos.
+            <sup style="font-family:'Inter',sans-serif;font-size:10.5px;color:#6B6B68;margin:0 3px">30</sup>E aos que predestinou a estes também chamou; e aos que chamou a estes também justificou; e aos que justificou a estes também glorificou.
+            <span style="background:#F3E7E2;box-shadow:0 1.5px 0 #8E2B22"><sup style="font-family:'Inter',sans-serif;font-size:10.5px;color:#8E2B22;font-weight:600;margin:0 3px">31</sup>Que diremos pois a estas coisas? Se Deus é por nós, quem será contra nós?</span>
+          </p>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;background:#FCFAF5;border-top:1px solid #8A8378;border-radius:16px 16px 0 0;padding:10px 20px 34px;display:flex;flex-direction:column;gap:6px">
+          <div style="width:36px;height:4px;border-radius:2px;background:#CFC7B7;align-self:center;margin-bottom:6px"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:14px;font-weight:600">Romanos 8:31</b><button style="height:44px;padding:0 4px;border:0;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;color:#6B6B68">Cancelar</button></div>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+            <button style="min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1px solid #CFC7B7;border-radius:8px;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h5"></path></svg>Nova nota</button>
+            <button style="min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1px solid #CFC7B7;border-radius:8px;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h13v13H4zM8 3h12v12"></path></svg>Criar card</button>
+            <button style="min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1px solid #CFC7B7;border-radius:8px;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:#1A1A1A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4zM8 9h8M8 12h5"></path></svg>Perguntar à IA</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · gaveta de notas</span>
+      <div style="width:390px;height:844px;border:1px solid #CFC7B7;border-radius:40px;overflow:hidden;background:#F7F4EC;display:flex;flex-direction:column;position:relative">
+        <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:14px;font-weight:600">9:41<span style="font-size:12px;font-weight:500">5G ▮▮▮</span></div>
+        <div style="height:52px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #E4DED1;font-size:15px;font-weight:600">Romanos 8</div>
+        <div style="padding:24px;opacity:0.45">
+          <p style="margin:0;font-family:'Playfair Display',serif;font-size:19px;line-height:1.8"><sup style="font-family:'Inter',sans-serif;font-size:10.5px;margin-right:3px">28</sup>E sabemos que todas as coisas contribuem juntamente para o bem daqueles que amam a Deus…</p>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;top:250px;background:#FCFAF5;border-top:1px solid #8A8378;border-radius:16px 16px 0 0;display:flex;flex-direction:column">
+          <div style="width:36px;height:4px;border-radius:2px;background:#CFC7B7;align-self:center;margin:10px 0 4px"></div>
+          <div style="display:flex;align-items:center;padding:6px 20px 12px;border-bottom:1px solid #E4DED1"><b style="flex:1;font-size:15px;font-weight:600">Notas · Romanos 8</b><span style="font-size:13px;color:#6B6B68">3</span></div>
+          <div style="flex:1;overflow:auto;padding:16px 20px;display:flex;flex-direction:column;gap:20px">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;justify-content:space-between"><a href="#" style="font-size:13px;font-weight:600;text-decoration:none">Rm 8:28</a><span style="font-size:11.5px;font-weight:500">Da sua base</span></div>
+              <p style="margin:0;font-family:'Playfair Display',serif;font-size:15.5px;line-height:1.6">[Nota de exemplo] “Todas as coisas” inclui o sofrimento dos vv. 18–23.</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;justify-content:space-between"><a href="#" style="font-size:13px;font-weight:600;text-decoration:none">Rm 8:29–30</a><span style="font-size:11.5px;font-weight:500">Da sua base</span></div>
+              <p style="margin:0;font-family:'Playfair Display',serif;font-size:15.5px;line-height:1.6">[Nota de exemplo] A “corrente de ouro”. Comparar com <a href="#" style="text-decoration:underline;text-underline-offset:3px">Ef 1:11</a>.</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;border-top:1px solid #E4DED1;padding-top:16px">
+              <div style="display:flex;justify-content:space-between"><a href="#" style="font-size:13px;font-weight:600;text-decoration:none">Rm 8:33–34</a><span style="display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:500"><span style="font-size:9px;font-weight:600;border:1px solid #1A1A1A;border-radius:3px;padding:0 3px;line-height:13px">IA</span>Fala da IA (com fontes)</span></div>
+              <p style="margin:0;font-size:14px;line-height:1.6">Paulo usa linguagem de tribunal: acusação, justificação e condenação.</p>
+              <span style="font-size:12px;color:#6B6B68">2 fontes verificadas</span>
+            </div>
+          </div>
+          <div style="padding:12px 20px 34px;border-top:1px solid #E4DED1"><button style="width:100%;height:48px;border:1px solid #CFC7B7;border-radius:6px;background:transparent;font-family:'Inter',sans-serif;font-size:14.5px;font-weight:500;color:#1A1A1A">Nova nota</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#6B6B68">Celular · modo escuro</span>
+      <div style="width:390px;height:844px;border:1px solid #3A342E;border-radius:40px;overflow:hidden;background:#1E1B18;color:#ECE6DA;display:flex;flex-direction:column">
+        <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:14px;font-weight:600">9:41<span style="font-size:12px;font-weight:500">5G ▮▮▮</span></div>
+        <div style="height:52px;display:flex;align-items:center;padding:0 8px;border-bottom:1px solid #3A342E">
+          <span style="width:44px;height:44px;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg></span>
+          <span style="flex:1;text-align:center;font-size:15px;font-weight:600">Romanos 8 ▾</span>
+          <span style="width:44px;text-align:center;font-family:'Playfair Display',serif;font-size:17px">Aa</span>
+        </div>
+        <div style="flex:1;overflow:hidden;padding:24px">
+          <p style="margin:0;font-family:'Playfair Display',serif;font-size:19px;line-height:1.8;color:#ECE6DA">
+            <sup style="font-family:'Inter',sans-serif;font-size:10.5px;color:#A69E92;margin-right:3px">31</sup>Que diremos pois a estas coisas? Se Deus é por nós, quem será contra nós?
+            <sup style="font-family:'Inter',sans-serif;font-size:10.5px;color:#A69E92;margin:0 3px">32</sup>Aquele que nem mesmo a seu próprio Filho poupou, antes o entregou por todos nós, como nos não dará também com ele todas as coisas?
+            <span style="text-decoration:underline dotted #7A7266;text-underline-offset:5px"><sup style="font-family:'Inter',sans-serif;font-size:10.5px;color:#A69E92;margin:0 3px">33•</sup>Quem intentará acusação contra os escolhidos de Deus? É Deus quem os justifica.</span>
+            <span style="text-decoration:underline dotted #7A7266;text-underline-offset:5px"><sup style="font-family:'Inter',sans-serif;font-size:10.5px;color:#A69E92;margin:0 3px">34•</sup>Quem os condenará? Pois é Cristo quem morreu, ou antes quem ressuscitou dentre os mortos, o qual está à direita de Deus, e também intercede por nós.</span>
+            <sup style="font-family:'Inter',sans-serif;font-size:10.5px;color:#A69E92;margin:0 3px">35</sup>Quem nos separará do amor de Cristo? A tribulação, ou a angústia, ou a perseguição, ou a fome, ou a nudez, ou o perigo, ou a espada?
+          </p>
+        </div>
+        <nav style="height:84px;border-top:1px solid #3A342E;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:0 6px 22px;box-sizing:border-box;font-size:11.5px;color:#A69E92">
+          <span style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"></path></svg>Hoje</span>
+          <span style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#D98B7E;font-weight:600"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19"></path></svg>Bíblia</span>
+          <span style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"></path></svg>Estudar</span>
+          <span style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"></path></svg>Célula</span>
+          <span style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h.5M12 12h.5M19 12h.5"></path></svg>Mais</span>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { sel: [28, 29] };
+  renderVals() {
+    const T = {
+      28: 'E sabemos que todas as coisas contribuem juntamente para o bem daqueles que amam a Deus, daqueles que são chamados por seu decreto.',
+      29: 'Porque os que dantes conheceu também os predestinou para serem conformes à imagem de seu Filho, a fim de que ele seja o primogênito entre muitos irmãos.',
+      30: 'E aos que predestinou a estes também chamou; e aos que chamou a estes também justificou; e aos que justificou a estes também glorificou.',
+      31: 'Que diremos pois a estas coisas? Se Deus é por nós, quem será contra nós?',
+      32: 'Aquele que nem mesmo a seu próprio Filho poupou, antes o entregou por todos nós, como nos não dará também com ele todas as coisas?',
+      33: 'Quem intentará acusação contra os escolhidos de Deus? É Deus quem os justifica.',
+      34: 'Quem os condenará? Pois é Cristo quem morreu, ou antes quem ressuscitou dentre os mortos, o qual está à direita de Deus, e também intercede por nós.',
+      35: 'Quem nos separará do amor de Cristo? A tribulação, ou a angústia, ou a perseguição, ou a fome, ou a nudez, ou o perigo, ou a espada?'
+    };
+    const notas = [28, 29, 30, 33, 34];
+    const sel = this.state.sel;
+    const toggle = n => () => this.setState(s => ({ sel: s.sel.includes(n) ? s.sel.filter(x => x !== n) : [...s.sel, n].sort((a, b) => a - b) }));
+    const versos = Object.keys(T).map(Number).map(n => {
+      const s = sel.includes(n), no = !s && notas.includes(n);
+      return { n, t: T[n], sel: s, nota: no, plain: !s && !no, toggle: toggle(n) };
+    });
+    let selRef = '';
+    if (sel.length) {
+      const contig = sel.every((v, i) => i === 0 || v === sel[i - 1] + 1);
+      selRef = 'Rm 8:' + (sel.length === 1 ? sel[0] : contig ? sel[0] + '–' + sel[sel.length - 1] : sel.join(', '));
+    }
+    return { versos, temSel: sel.length > 0, selRef, limpar: () => this.setState({ sel: [] }) };
+  }
+}
+</script>
+</body>
+</html>
