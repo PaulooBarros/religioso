@@ -5,7 +5,8 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { currentProfileId } from "@/lib/session";
 import { validateRefs } from "@/lib/bible/text";
-import { MAX_OPTIONS, type ItemKind } from "@/lib/study";
+import { linkOpens } from "@/lib/link-check";
+import { approvalBlocker, MAX_OPTIONS, type ItemKind, type StudyItem } from "@/lib/study";
 import type { ActionResult } from "@/lib/types";
 
 export type ItemFormState = { error?: string };
@@ -55,6 +56,17 @@ export async function saveStudyItem(_prev: ItemFormState, form: FormData): Promi
   if ("error" in refs) return { error: refs.error };
 
   const level = Math.min(3, Math.max(1, Number(form.get("level")) || 1));
+  const supabase = await createClient();
+
+  // Verify the source link when it is new or changed (principle 1).
+  let linkCheck: { source_ok: boolean | null; source_checked_at: string | null } | undefined;
+  const previous = id
+    ? (await supabase.from("study_items").select("source_url, source_ok").eq("id", id).maybeSingle()).data
+    : null;
+  if (!sourceUrl) linkCheck = { source_ok: null, source_checked_at: null };
+  else if (!previous || previous.source_url !== sourceUrl || previous.source_ok === null)
+    linkCheck = { source_ok: await linkOpens(sourceUrl), source_checked_at: new Date().toISOString() };
+
   const row = {
     kind,
     prompt,
@@ -67,9 +79,9 @@ export async function saveStudyItem(_prev: ItemFormState, form: FormData): Promi
     source_title: text(form, "source_title", 300),
     source_url: sourceUrl,
     bible_refs: refs.refs,
+    ...linkCheck,
   };
 
-  const supabase = await createClient();
   const { error } = id
     ? await supabase.from("study_items").update(row).eq("id", id).eq("profile_id", profileId)
     : await supabase.from("study_items").insert({ ...row, profile_id: profileId });
@@ -77,6 +89,37 @@ export async function saveStudyItem(_prev: ItemFormState, form: FormData): Promi
 
   revalidatePath("/estudar");
   redirect(form.get("another") === "1" ? `/estudar/novo?salvo=${Date.now()}` : "/estudar");
+}
+
+/** Moves a draft into the study bank. AI drafts need a verified source. */
+export async function approveStudyItem(id: string): Promise<ActionResult> {
+  const supabase = await createClient();
+  const { data: item } = await supabase
+    .from("study_items")
+    .select("origin, source_url, source_ok")
+    .eq("id", id)
+    .maybeSingle();
+  if (!item) return { ok: false, error: "Item não encontrado." };
+  const blocker = approvalBlocker(item as Pick<StudyItem, "origin" | "source_url" | "source_ok">);
+  if (blocker) return { ok: false, error: blocker };
+  const { error } = await supabase.from("study_items").update({ status: "approved" }).eq("id", id);
+  if (error) return { ok: false, error: "Não foi possível aprovar o item." };
+  revalidatePath("/estudar");
+  return { ok: true, data: undefined };
+}
+
+/** Checks the source link again (e.g. after a temporary failure). */
+export async function recheckSource(id: string): Promise<ActionResult<boolean>> {
+  const supabase = await createClient();
+  const { data: item } = await supabase.from("study_items").select("source_url").eq("id", id).maybeSingle();
+  if (!item?.source_url) return { ok: false, error: "Este item não tem link de fonte." };
+  const ok = await linkOpens(item.source_url);
+  await supabase
+    .from("study_items")
+    .update({ source_ok: ok, source_checked_at: new Date().toISOString() })
+    .eq("id", id);
+  revalidatePath("/estudar");
+  return { ok: true, data: ok };
 }
 
 export async function deleteStudyItem(id: string): Promise<ActionResult> {

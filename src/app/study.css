@@ -138,3 +138,37 @@
   border-color: var(--faint);
   background: transparent;
 }
+
+/* Drafts (design: Marca de rascunho) */
+.item-card.is-draft {
+  border: 1px dashed var(--faint);
+  background: repeating-linear-gradient(135deg, transparent 0 10px, color-mix(in srgb, var(--ink) 2.5%, transparent) 10px 11px);
+}
+.draft-badge {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  padding: 2px 6px;
+}
+.item-explanation summary {
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--accent);
+}
+.item-explanation p {
+  margin: 8px 0 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+.item-note {
+  margin: 0;
+  padding: 10px 12px;
+  border-left: 2px solid var(--accent);
+  background: var(--accent-soft);
+  font-size: 13.5px;
+  line-height: 1.5;
+}

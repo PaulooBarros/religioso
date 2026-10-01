@@ -32,11 +32,24 @@ export type StudyItem = {
   bible_refs: string[];
   origin: "manual" | "catecismo" | "ia";
   status: "draft" | "approved";
+  subtopic: string | null;
+  machine_translated: boolean;
+  review_note: string | null;
+  /** Last link check: true = opened, false = did not open, null = not checked. */
+  source_ok: boolean | null;
   created_at: string;
   updated_at: string;
 };
 
 export const STUDY_ITEM_COLUMNS =
-  "id, kind, prompt, answer, options, correct_option, explanation, theme_id, level, source_title, source_url, bible_refs, origin, status, created_at, updated_at";
+  "id, kind, prompt, answer, options, correct_option, explanation, theme_id, level, source_title, source_url, bible_refs, origin, status, subtopic, machine_translated, review_note, source_ok, created_at, updated_at";
+
+/** AI drafts need a verified source before they can be approved (principle 1). */
+export function approvalBlocker(item: Pick<StudyItem, "origin" | "source_url" | "source_ok">): string | null {
+  if (item.origin !== "ia") return null;
+  if (!item.source_url) return "Acrescente uma fonte com link antes de aprovar.";
+  if (item.source_ok !== true) return "O link da fonte não abriu. Corrija a fonte antes de aprovar.";
+  return null;
+}
 
 export const MAX_OPTIONS = 6;

@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "bible:build": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/build-bible.mts",
     "import:bible": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --env-file=.env.local scripts/import-bible.mts",
-    "db:migrate": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --env-file=.env.local scripts/db-migrate.mts"
+    "db:migrate": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --env-file=.env.local scripts/db-migrate.mts",
+    "import:items": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --env-file=.env.local scripts/import-items.mts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

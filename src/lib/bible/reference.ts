@@ -1,4 +1,4 @@
-import { type Book, bookById, findBook } from "./books";
+import { type Book, bookById, findBook } from "./books.ts";
 
 export type Reference = {
   book: Book;

@@ -4,7 +4,8 @@ import { bookById } from "@/lib/bible/books";
 import { chapterHref, parseReference } from "@/lib/bible/reference";
 import { getStudyItems, getThemes } from "@/lib/queries";
 import { currentProfileId } from "@/lib/session";
-import { KIND_LABEL, levelLabel, type StudyItem, type Theme } from "@/lib/study";
+import { approvalBlocker, KIND_LABEL, levelLabel, type StudyItem, type Theme } from "@/lib/study";
+import { DraftActions } from "./draft-actions";
 
 export const metadata = { title: "Estudar" };
 
@@ -29,14 +30,47 @@ function RefLinks({ refs }: { refs: string[] }) {
   );
 }
 
+function SourceChip({ item }: { item: StudyItem }) {
+  if (!item.source_title && !item.source_url) return <span className="source-chip unverified">sem fonte</span>;
+  const label = item.source_title ?? item.source_url;
+  const state = item.source_ok === true ? " · verificada" : item.source_ok === false ? " · sem fonte verificada" : "";
+  const icon =
+    item.source_ok === true ? <Icon name="check" size={12} stroke={2.2} /> : item.source_ok === false ? <span aria-hidden="true">○</span> : null;
+  const className = `source-chip${item.source_ok === false ? " unverified" : ""}`;
+  return item.source_url ? (
+    <a className={className} href={item.source_url} target="_blank" rel="noopener noreferrer">
+      {icon}
+      {label}
+      <span className="muted">{state}</span>
+    </a>
+  ) : (
+    <span className={className}>{label}</span>
+  );
+}
+
 function ItemCard({ item, themes }: { item: StudyItem; themes: Theme[] }) {
   const theme = themes.find((t) => t.id === item.theme_id);
+  const isDraft = item.status === "draft";
   return (
-    <li className="item-card">
+    <li className={`item-card${isDraft ? " is-draft" : ""}`}>
+      {isDraft && (
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+          <span className="draft-badge">Rascunho</span>
+          <span className="muted" style={{ fontSize: 12 }}>
+            {item.origin === "ia" ? "gerado pela IA · aguarda aprovação" : "aguarda aprovação"}
+          </span>
+        </div>
+      )}
       <div className="item-meta">
         <span>{KIND_LABEL[item.kind]}</span>
         <span>·</span>
         <span>{theme?.name ?? "Sem tema"}</span>
+        {item.subtopic && (
+          <>
+            <span>·</span>
+            <span>{item.subtopic}</span>
+          </>
+        )}
         <span>·</span>
         <span>{levelLabel(item.level)}</span>
       </div>
@@ -60,51 +94,70 @@ function ItemCard({ item, themes }: { item: StudyItem; themes: Theme[] }) {
           ))}
         </ol>
       )}
+      {item.explanation && (
+        <details className="item-explanation">
+          <summary>Explicação</summary>
+          <p>{item.explanation}</p>
+        </details>
+      )}
       <div className="item-foot">
-        <FromYourBase />
-        {item.source_title || item.source_url ? (
-          item.source_url ? (
-            <a className="source-chip" href={item.source_url} target="_blank" rel="noopener noreferrer">
-              {item.source_title ?? item.source_url}
-            </a>
-          ) : (
-            <span className="source-chip">{item.source_title}</span>
-          )
+        {item.origin === "ia" ? (
+          <span className="origin">
+            <span className="origin-ai-mark">IA</span>
+            Fala da IA (com fontes)
+          </span>
         ) : (
-          <span className="source-chip unverified">sem fonte</span>
+          <FromYourBase />
         )}
+        <SourceChip item={item} />
+        {item.machine_translated && <span className="source-chip unverified">Tradução automática do original</span>}
         <RefLinks refs={item.bible_refs} />
-        <span style={{ flex: 1 }} />
-        <Link href={`/estudar/${item.id}`} style={{ fontSize: 13 }}>
-          Editar
-        </Link>
+        {!isDraft && (
+          <>
+            <span style={{ flex: 1 }} />
+            <Link href={`/estudar/${item.id}`} style={{ fontSize: 13 }}>
+              Editar
+            </Link>
+          </>
+        )}
       </div>
+      {item.review_note && (
+        <p className="item-note">
+          <b>Observação:</b> {item.review_note}
+        </p>
+      )}
+      {isDraft && <DraftActions id={item.id} blocker={approvalBlocker(item)} canRecheck={Boolean(item.source_url)} />}
     </li>
   );
 }
 
 export default async function StudyPage({ searchParams }: PageProps<"/estudar">) {
-  const { tema, tipo } = await searchParams;
+  const { tema, tipo, estado } = await searchParams;
   const profileId = await currentProfileId();
   const [themes, items] = await Promise.all([getThemes(), profileId ? getStudyItems(profileId) : Promise.resolve([])]);
 
+  const drafts = items.filter((i) => i.status === "draft").length;
+  // Drafts first while there are any: they need a decision.
+  const stateFilter = estado === "rascunho" || estado === "aprovado" ? estado : drafts ? "rascunho" : "aprovado";
   const themeFilter = typeof tema === "string" ? tema : null;
   const kindFilter = tipo === "card" || tipo === "mcq" ? tipo : null;
-  const visible = items.filter(
+  const inState = items.filter((i) => (stateFilter === "rascunho" ? i.status === "draft" : i.status === "approved"));
+  const visible = inState.filter(
     (i) =>
       (!themeFilter || (themeFilter === "sem" ? !i.theme_id : i.theme_id === themeFilter)) &&
       (!kindFilter || i.kind === kindFilter),
   );
 
-  const href = (t: string | null, k: string | null) => {
+  const href = (t: string | null, k: string | null, s: string = stateFilter) => {
     const q = new URLSearchParams();
+    q.set("estado", s);
     if (t) q.set("tema", t);
     if (k) q.set("tipo", k);
-    const s = q.toString();
-    return s ? `/estudar?${s}` : "/estudar";
+    return `/estudar?${q.toString()}`;
   };
 
-  const usedThemes = themes.filter((t) => items.some((i) => i.theme_id === t.id));
+  const usedThemes = themes.filter((t) => inState.some((i) => i.theme_id === t.id));
+  const approved = items.length - drafts;
 
   return (
     <main className="page">
@@ -124,9 +177,23 @@ export default async function StudyPage({ searchParams }: PageProps<"/estudar">)
 
         {items.length > 0 && (
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <nav className="tabs" style={{ padding: 0 }} aria-label="Situação">
+              <Link href={href(null, null, "rascunho")} className="tab" aria-current={stateFilter === "rascunho" ? "page" : undefined}>
+                Rascunhos · {drafts}
+              </Link>
+              <Link href={href(null, null, "aprovado")} className="tab" aria-current={stateFilter === "aprovado" ? "page" : undefined}>
+                Aprovados · {approved}
+              </Link>
+            </nav>
+            {stateFilter === "rascunho" && drafts > 0 && (
+              <p className="lead" style={{ fontSize: 13.5 }}>
+                Rascunhos não entram na revisão. Leia cada um, confira a fonte e aprove, edite ou descarte. Itens gerados
+                pela IA só podem ser aprovados com a fonte verificada.
+              </p>
+            )}
             <nav className="segmented" aria-label="Filtrar por tipo">
               <Link href={href(themeFilter, null)} aria-current={!kindFilter ? "page" : undefined}>
-                Todos · {items.length}
+                Todos · {inState.length}
               </Link>
               <Link href={href(themeFilter, "card")} aria-current={kindFilter === "card" ? "page" : undefined}>
                 Cards
@@ -145,7 +212,7 @@ export default async function StudyPage({ searchParams }: PageProps<"/estudar">)
                     {t.name}
                   </Link>
                 ))}
-                {items.some((i) => !i.theme_id) && (
+                {inState.some((i) => !i.theme_id) && (
                   <Link href={href("sem", kindFilter)} className={`chip${themeFilter === "sem" ? " on" : ""}`}>
                     Sem tema
                   </Link>
@@ -177,7 +244,13 @@ export default async function StudyPage({ searchParams }: PageProps<"/estudar">)
           </div>
         ) : visible.length === 0 ? (
           <div className="empty">
-            <p className="empty-title">Nenhum item com esse filtro.</p>
+            <p className="empty-title">
+              {inState.length === 0
+                ? stateFilter === "rascunho"
+                  ? "Nenhum rascunho aguardando."
+                  : "Nenhum item aprovado ainda."
+                : "Nenhum item com esse filtro."}
+            </p>
           </div>
         ) : (
           <ul className="item-list">

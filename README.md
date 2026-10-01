@@ -30,6 +30,23 @@ Sem o Supabase configurado, o app abre em **modo de leitura local**. Dá para le
    O script cadastra primeiro a fonte e a licença, e depois os 31.102 versículos.
 5. Em *Authentication > Providers > Email*, deixe "Confirm email" como preferir. Depois de criar a sua conta, desative novos cadastros em *Authentication > Sign In / Providers*: o app é de uso pessoal.
 
+## Lotes de questões
+
+Lotes em JSON (como [data/lotes/lote1questoes.json](data/lotes/lote1questoes.json)) entram como **rascunho** e só vão para a revisão depois de aprovados na tela Estudar.
+
+```bash
+npm run import:items -- data/lotes/lote1questoes.json --dry-run   # só confere
+npm run import:items -- data/lotes/lote1questoes.json             # grava
+```
+
+O script:
+- mapeia tema, nível e tipo para o modelo do app;
+- confere as referências bíblicas contra a base;
+- verifica cada link de fonte;
+- reimporta sem duplicar, usando o `id` de cada item. Um item reimportado volta para rascunho.
+
+Com mais de um perfil, use `--profile "Nome"`.
+
 ## Texto bíblico
 
 - Bíblia Livre (BLIVRE), © 2018 Diego Santos, Mario Sérgio e Marco Teles, sob licença CC BY 4.0 Brasil. Arquivo original em https://eBible.org/Scriptures/porbr2018_vpl.zip.
