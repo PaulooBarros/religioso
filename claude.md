@@ -146,8 +146,8 @@ O design segue o `BRIEFING-DESIGN.md` e os acréscimos do `PROMPT-DESIGN-2.md` (
 
 Trabalho por tasks: cada task termina com commit, e a próxima só começa depois de confirmada.
 
-### Etapa 1 (em andamento)
+### Etapa 1 (concluída em 2026-10-01)
 
 - [x] **Task 1: base do app, sem banco.** Next.js 16 + design do Claude Design (`design/`); leitor da Bíblia Livre lendo do arquivo local (`data/bible/blivre.json`, 66 livros, 31.102 versículos); busca por referência; "Ler em outra versão" (só link externo); páginas Hoje, Marcadores, Notas, Fontes e licenças, Mais, Perfis e Entrar; migração SQL com tabelas e RLS; script de importação. Decisão tomada pelo design: **vários perfis dentro da mesma conta** ("Quem está estudando?"). Login provisório: e-mail e senha.
 - [x] **Task 2: conectar o Supabase** (projeto `religioso`). Chave publishable e `DATABASE_URL` em `.env.local`; migração aplicada com `npm run db:migrate`; Bíblia importada com `npm run import:bible` (fonte cadastrada, 31.102 versículos); leitura pública e bloqueio de escrita conferidos pela API; isolamento entre contas testado por SQL (9 de 9 verificações).
-- [ ] **Task 3: testar o fluxo completo**: criar a conta e o primeiro perfil, ler, salvar nota e marcador, conferir o "onde parei" no celular e no desktop, e fechar a Etapa 1.
+- [x] **Task 3: testar o fluxo completo.** Conta e perfil criados; leitura, nota, marcador e "onde parei" testados manualmente pelo dono. Testes automáticos com Playwright ficam para a Etapa 10.
