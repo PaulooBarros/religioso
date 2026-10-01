@@ -158,5 +158,6 @@ Trabalho por tasks: cada task termina com commit, e a próxima só começa depoi
 Decisão do dono: catecismos entram pelo **texto original em domínio público com tradução automática rotulada** ("tradução automática do original", com link para o original).
 
 - [x] Task 1: cards e questões. Tabelas `themes` (8 temas da sistemática, subtemas na Etapa 3) e `study_items` (card ou múltipla escolha de 2 a 6 alternativas, tema, nível, explicação, fonte com link opcional, referências bíblicas conferidas contra a base), RLS por perfil. Telas em Estudar: lista com filtros por tipo e tema, criar, editar e apagar; "Criar card" no leitor já traz a referência. Na barra do celular, "Estudar" entrou no lugar de "Fontes" (que está em Mais).
+- [x] Ajuste (pedido do dono): barra lateral redimensionável (arrastar a borda, 200 a 360 px; clique duplo volta ao padrão; setas do teclado) e recolhível numa faixa só de ícones. Preferência salva em cookie.
 - [ ] Task 2: revisão espaçada SM-2, revisão do dia, sequência de dias, "revisar erros".
 - [ ] Task 3: catecismos (Westminster Breve, Heidelberg, Spurgeon) com fonte e licença.

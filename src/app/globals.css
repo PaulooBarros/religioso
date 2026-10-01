@@ -362,7 +362,7 @@ select {
   min-height: 100dvh;
 }
 .nav {
-  width: 232px;
+  width: var(--nav-w, 232px);
   flex: none;
   position: sticky;
   top: 0;
@@ -372,15 +372,120 @@ select {
   display: flex;
   flex-direction: column;
   padding: 22px 12px 16px;
+  transition: width 0.15s ease;
+}
+.nav.dragging {
+  transition: none;
+  user-select: none;
+}
+.nav-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding-bottom: 18px;
 }
 .nav-brand {
-  padding: 0 10px 18px;
+  flex: 1;
+  min-width: 0;
+  padding: 0 10px;
   font-family: var(--font-serif), serif;
   font-size: 19px;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--ink);
   text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.nav-toggle {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  margin-top: -3px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.nav-toggle:hover {
+  background: var(--nav-hover);
+  color: var(--ink);
+}
+.nav-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.nav-resize {
+  position: absolute;
+  top: 0;
+  right: -4px;
+  bottom: 0;
+  width: 8px;
+  cursor: col-resize;
+  z-index: 5;
+}
+.nav-resize::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 3px;
+  width: 2px;
+  background: transparent;
+  transition: background 0.15s;
+}
+.nav-resize:hover::after,
+.nav-resize:focus-visible::after,
+.nav.dragging .nav-resize::after {
+  background: var(--accent);
+}
+.nav-resize:focus-visible {
+  outline: none;
+}
+
+/* Collapsed: a strip of icons */
+.nav.collapsed {
+  padding: 22px 8px 16px;
+}
+.nav.collapsed .nav-head {
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.nav.collapsed .nav-brand {
+  flex: none;
+  padding: 0;
+  font-size: 17px;
+}
+.nav.collapsed .nav-label,
+.nav.collapsed .nav-soon {
+  display: none;
+}
+.nav.collapsed .nav-group-title {
+  height: 1px;
+  padding: 0;
+  margin: 0 8px 6px;
+  overflow: hidden;
+  background: var(--line);
+  color: transparent;
+}
+.nav.collapsed .nav-group:first-child .nav-group-title {
+  display: none;
+}
+.nav.collapsed .nav-item,
+.nav.collapsed .nav-profile {
+  justify-content: center;
+  padding: 0;
+}
+.nav.collapsed .nav-item {
+  height: 38px;
 }
 .nav-groups {
   flex: 1;
@@ -388,7 +493,8 @@ select {
   flex-direction: column;
   gap: 14px;
   overflow: auto;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
 }
 .nav-group {
   display: flex;

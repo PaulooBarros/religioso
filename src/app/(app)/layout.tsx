@@ -1,4 +1,12 @@
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import {
+  clampNavWidth,
+  NAV_COLLAPSED_COOKIE,
+  NAV_COLLAPSED_WIDTH,
+  NAV_DEFAULT_WIDTH,
+  NAV_WIDTH_COOKIE,
+} from "@/lib/nav-prefs";
 import { MobileBar, NavDesktop, TopBar } from "@/components/nav";
 import { getSession, initials } from "@/lib/session";
 
@@ -8,10 +16,18 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
   if (session.mode === "user" && !session.profile) redirect("/perfis");
 
   const profileName = session.mode === "user" ? session.profile!.name : null;
+  const jar = await cookies();
+  const navWidth = clampNavWidth(jar.get(NAV_WIDTH_COOKIE)?.value ?? NAV_DEFAULT_WIDTH);
+  const navCollapsed = jar.get(NAV_COLLAPSED_COOKIE)?.value === "1";
 
   return (
-    <div className="shell">
-      <NavDesktop profileName={profileName} profileInitials={profileName ? initials(profileName) : ""} />
+    <div className="shell" style={{ "--nav-w": `${navCollapsed ? NAV_COLLAPSED_WIDTH : navWidth}px` } as React.CSSProperties}>
+      <NavDesktop
+        profileName={profileName}
+        profileInitials={profileName ? initials(profileName) : ""}
+        initialWidth={navWidth}
+        initialCollapsed={navCollapsed}
+      />
       <div className="main-col">
         <TopBar />
         {session.mode === "local" && (

@@ -220,7 +220,7 @@
 /* Selection actions: floating bar on desktop, bottom sheet on mobile */
 .action-bar {
   position: fixed;
-  left: calc((100vw + 232px - 340px) / 2);
+  left: calc((100vw + var(--nav-w, 232px) - 340px) / 2);
   bottom: 24px;
   transform: translateX(-50%);
   z-index: 35;
@@ -235,7 +235,7 @@
   white-space: nowrap;
 }
 .action-bar.no-panel {
-  left: calc((100vw + 232px) / 2);
+  left: calc((100vw + var(--nav-w, 232px)) / 2);
 }
 .action-bar-head,
 .action-grid {
@@ -372,7 +372,7 @@
     width: 300px;
   }
   .action-bar {
-    left: calc((100vw + 232px - 300px) / 2);
+    left: calc((100vw + var(--nav-w, 232px) - 300px) / 2);
   }
 }
 
