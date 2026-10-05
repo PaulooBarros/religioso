@@ -153,3 +153,19 @@ export function dayState(read: boolean, date: string | null, scheduled: boolean,
 
 export const DAY_ICON: Record<DayState, string> = { lido: "✓", hoje: "◆", futuro: "○", pulado: "–", "sem-data": "○" };
 export const DAY_LABEL: Record<DayState, string> = { lido: "Lido", hoje: "Hoje", futuro: "Futuro", pulado: "Pulado", "sem-data": "Sem data" };
+
+/**
+ * What an active series offers today: the day scheduled for today; without
+ * one, the oldest skipped day; and when everything is caught up, the day
+ * that was read today (if any).
+ */
+export function pickToday<T extends { id: string; state: DayState; date: string | null }>(
+  days: T[],
+  today: string,
+): { day: T; skipped: number; readToday: boolean } | null {
+  const skipped = days.filter((d) => d.state === "pulado");
+  const current = days.find((d) => d.state === "hoje") ?? skipped[0];
+  if (current) return { day: current, skipped: skipped.filter((d) => d.id !== current.id).length, readToday: false };
+  const done = days.find((d) => d.date === today && d.state === "lido");
+  return done ? { day: done, skipped: 0, readToday: true } : null;
+}

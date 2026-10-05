@@ -7,6 +7,7 @@ import {
   isWritten,
   nextRhythmDay,
   parseDevotionalBlocks,
+  pickToday,
   rhythmLabel,
   scheduleDates,
   weekdayOf,
@@ -55,6 +56,18 @@ eq("one filled block counts as written", isWritten([{ ...blocks[0], text: "Davi 
 eq("valid blocks parse", parseDevotionalBlocks(blocks)?.length, 4);
 eq("duplicate ids rejected", parseDevotionalBlocks([blocks[0], blocks[0]]), null);
 eq("non-array rejected", parseDevotionalBlocks({}), null);
+
+const T = "2026-10-07";
+const d = (id: string, state: "lido" | "hoje" | "futuro" | "pulado", date: string | null) => ({ id, state, date });
+eq("today wins, earlier skipped days are counted", pickToday([d("1", "pulado", "2026-10-05"), d("2", "lido", "2026-10-06"), d("3", "hoje", T), d("4", "futuro", "2026-10-08")], T), {
+  day: d("3", "hoje", T),
+  skipped: 1,
+  readToday: false,
+});
+eq("no day today: oldest skipped one", pickToday([d("1", "pulado", null), d("2", "pulado", "2026-10-06"), d("3", "futuro", "2026-10-09")], T)?.day.id, "1");
+eq("today already read and nothing skipped", pickToday([d("1", "lido", "2026-10-06"), d("2", "lido", T), d("3", "futuro", "2026-10-08")], T), { day: d("2", "lido", T), skipped: 0, readToday: true });
+eq("today read but a skipped day remains: offer it", pickToday([d("1", "pulado", "2026-10-06"), d("2", "lido", T)], T)?.day.id, "1");
+eq("rest day with everything read: nothing", pickToday([d("1", "lido", "2026-10-06"), d("2", "futuro", "2026-10-08")], T), null);
 
 console.log(fail ? `${fail} FAILED` : "all passed");
 process.exit(fail ? 1 : 0);

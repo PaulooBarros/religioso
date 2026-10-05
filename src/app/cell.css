@@ -442,3 +442,23 @@
 .dev-day-icon.hoje {
   color: var(--accent);
 }
+.dev-foot {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+.dev-foot > :last-child {
+  justify-self: end;
+}
+@media (max-width: 899px) {
+  .dev-foot {
+    grid-template-columns: 1fr 1fr;
+  }
+  .dev-foot > .inline-form {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+}

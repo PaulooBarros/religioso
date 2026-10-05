@@ -222,3 +222,44 @@ export async function saveDevotional(
   revalidatePath(BASE, "layout");
   return { ok: true, data: undefined };
 }
+
+/**
+ * Marks a day as read (or not). Reading the last unread day concludes the
+ * series; unmarking a day of a concluded series pauses it, to be resumed.
+ */
+export async function setDevotionalRead(dayId: string, read: boolean): Promise<ActionResult> {
+  const supabase = await createClient();
+  const { data: day, error } = await supabase
+    .from("devotionals")
+    .update({ read_at: read ? new Date().toISOString() : null })
+    .eq("id", dayId)
+    .select("series_id")
+    .maybeSingle();
+  if (error || !day) return { ok: false, error: "Não foi possível atualizar." };
+
+  const [{ data: series }, { data: days }] = await Promise.all([
+    supabase.from("devotional_series").select("status").eq("id", day.series_id).maybeSingle(),
+    supabase.from("devotionals").select("read_at").eq("series_id", day.series_id),
+  ]);
+  const allRead = (days ?? []).length > 0 && (days ?? []).every((d) => d.read_at);
+  if (series?.status === "active" && allRead) {
+    await supabase.from("devotional_series").update({ status: "done" }).eq("id", day.series_id);
+  } else if (series?.status === "done" && !allRead) {
+    await supabase.from("devotional_series").update({ status: "paused" }).eq("id", day.series_id);
+  }
+  revalidatePath(BASE, "layout");
+  revalidatePath("/hoje");
+  return { ok: true, data: undefined };
+}
+
+export async function saveDevotionalNote(dayId: string, note: string): Promise<ActionResult> {
+  if (typeof note !== "string" || note.length > 5000) return { ok: false, error: "A anotação passa de 5.000 caracteres." };
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("devotionals")
+    .update({ note: note.trim() || null })
+    .eq("id", dayId)
+    .select("id");
+  if (error || !data?.length) return { ok: false, error: "Não foi possível salvar a anotação." };
+  return { ok: true, data: undefined };
+}

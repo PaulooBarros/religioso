@@ -3,6 +3,7 @@ import { Ribbon } from "@/components/icons";
 import { bookById } from "@/lib/bible/books";
 import { chapterHref, formatRef } from "@/lib/bible/reference";
 import { getVerseText } from "@/lib/bible/text";
+import { getTodayDevotionals } from "@/lib/devotionals";
 import { getLastRead } from "@/lib/queries";
 import { getOverview, type ReviewOverview } from "@/lib/review";
 import { currentProfileId } from "@/lib/session";
@@ -130,7 +131,9 @@ function ReviewCard({ o }: { o: ReviewOverview }) {
 
 export default async function TodayPage() {
   const profileId = await currentProfileId();
-  const [last, overview] = profileId ? await Promise.all([getLastRead(profileId), getOverview(profileId)]) : [null, null];
+  const [last, overview, devotionals] = profileId
+    ? await Promise.all([getLastRead(profileId), getOverview(profileId), getTodayDevotionals(profileId)])
+    : [null, null, []];
   const lastBook = last ? bookById(last.book_id) : undefined;
   const preview = last?.verse ? await getVerseText(last.book_id, last.chapter, last.verse) : null;
 
@@ -143,6 +146,33 @@ export default async function TodayPage() {
         </div>
 
         {overview && <ReviewCard o={overview} />}
+
+        {devotionals.map((d) => (
+          <Link key={d.seriesId} href={`/biblia/devocionais/${d.seriesId}/${d.day.id}`} className="card-link">
+            <span className="label">
+              Devocional de hoje · {d.seriesTitle} · dia {d.day.number} de {d.total}
+            </span>
+            <span className="serif" style={{ fontSize: 22, fontWeight: 500 }}>
+              {d.day.title}
+            </span>
+            <span style={{ fontSize: 13.5, color: "var(--muted)" }}>
+              {formatRef(d.day.book_id, d.day.chapter, d.day.verse_start, d.day.verse_end, true)}
+              {d.readToday
+                ? " · ✓ lido hoje"
+                : d.day.state === "pulado"
+                  ? ` · atrasado${d.skipped > 0 ? `, mais ${d.skipped} ${d.skipped === 1 ? "dia pulado" : "dias pulados"}` : ""}`
+                  : d.skipped > 0
+                    ? ` · ${d.skipped} ${d.skipped === 1 ? "dia pulado" : "dias pulados"} antes deste`
+                    : ""}
+              {!d.day.written && " · ainda em branco"}
+            </span>
+            {!d.readToday && (
+              <span style={{ fontSize: 13.5, color: "var(--accent)", fontWeight: 500, marginTop: 4 }}>
+                {d.day.written ? "Ler →" : "Escrever →"}
+              </span>
+            )}
+          </Link>
+        ))}
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 }}>
           {last && lastBook ? (

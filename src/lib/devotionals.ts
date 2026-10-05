@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import {
   dayState,
   isWritten,
+  pickToday,
   parseDevotionalBlocks,
   scheduleDates,
   type DayState,
@@ -90,4 +91,41 @@ export async function getDevotionalSeries(profileId: string, id: string): Promis
   if (!series) return null;
   const s = series as DevotionalSeries;
   return { series: s, days: scheduleDays(s, ((rows ?? []) as DayRow[]).map(toDay)) };
+}
+
+export type TodayDevotional = {
+  seriesId: string;
+  seriesTitle: string;
+  total: number;
+  day: ScheduledDay;
+  /** Unread days whose date has passed. */
+  skipped: number;
+  /** All caught up: today's day was already read. */
+  readToday: boolean;
+};
+
+/** The devotional of the day of each active series. */
+export async function getTodayDevotionals(profileId: string): Promise<TodayDevotional[]> {
+  const supabase = await createClient();
+  const { data: series } = await supabase
+    .from("devotional_series")
+    .select(SERIES_COLUMNS)
+    .eq("profile_id", profileId)
+    .eq("status", "active")
+    .order("updated_at", { ascending: false });
+  if (!series?.length) return [];
+  const { data: rows } = await supabase
+    .from("devotionals")
+    .select(DAY_COLUMNS)
+    .eq("profile_id", profileId)
+    .in("series_id", series.map((s) => s.id))
+    .order("position")
+    .order("created_at");
+  const out: TodayDevotional[] = [];
+  for (const s of series as DevotionalSeries[]) {
+    const days = scheduleDays(s, ((rows ?? []) as DayRow[]).filter((r) => r.series_id === s.id).map(toDay));
+    const picked = pickToday(days, dayKey(new Date()));
+    if (picked) out.push({ seriesId: s.id, seriesTitle: s.title, total: days.length, ...picked });
+  }
+  return out;
 }
