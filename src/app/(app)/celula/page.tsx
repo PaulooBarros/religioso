@@ -23,7 +23,8 @@ export default async function CellPage() {
     );
   }
   const messages = await getMessages(profileId);
-  const preparing = messages.filter((m) => !m.taught_on);
+  const preparing = messages.filter((m) => !m.taught_on && !m.ready_at);
+  const ready = messages.filter((m) => !m.taught_on && m.ready_at);
   const taught = messages.filter((m) => m.taught_on);
 
   return (
@@ -49,6 +50,7 @@ export default async function CellPage() {
         ) : (
           [
             ["Em preparo", preparing] as const,
+            ["Prontas", ready] as const,
             ["Ensinadas", taught] as const,
           ].map(
             ([title, list]) =>

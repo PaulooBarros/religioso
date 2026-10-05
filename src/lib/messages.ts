@@ -17,11 +17,13 @@ export type Message = {
   blocks: MessageBlock[];
   version: number;
   taught_on: string | null;
+  checks: string[];
+  ready_at: string | null;
   created_at: string;
   updated_at: string;
 };
 
-export type MessageSummary = Omit<Message, "blocks" | "audience" | "created_at">;
+export type MessageSummary = Omit<Message, "blocks" | "audience" | "created_at" | "checks">;
 
 export type MessageVersion = {
   version: number;
@@ -32,8 +34,8 @@ export type MessageVersion = {
 };
 
 const SUMMARY_COLUMNS =
-  "id, title, book_id, chapter, verse_start, verse_end, template, duration_min, topic, version, taught_on, updated_at";
-const MESSAGE_COLUMNS = `${SUMMARY_COLUMNS}, audience, blocks, created_at`;
+  "id, title, book_id, chapter, verse_start, verse_end, template, duration_min, topic, version, taught_on, ready_at, updated_at";
+const MESSAGE_COLUMNS = `${SUMMARY_COLUMNS}, audience, blocks, checks, created_at`;
 
 export async function getMessages(profileId: string): Promise<MessageSummary[]> {
   const supabase = await createClient();

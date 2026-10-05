@@ -212,3 +212,120 @@
     height: 34px;
   }
 }
+
+/* Checklist ("Conferência") */
+.msg-check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+.msg-check.manual {
+  cursor: pointer;
+}
+.msg-check input {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin: 2px 0 0;
+  accent-color: var(--ink);
+}
+.msg-check-mark {
+  flex: none;
+  width: 16px;
+  text-align: center;
+  font-weight: 600;
+}
+.msg-check.fail .msg-check-mark,
+.msg-check.fail .msg-check-detail {
+  color: var(--accent);
+}
+.msg-check-detail {
+  display: block;
+  font-size: 12.5px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+/* Print version */
+.print-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--line);
+  background: var(--sheet);
+  font-size: 13.5px;
+}
+.print-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.print-page h1 {
+  margin: 0;
+  font-family: var(--font-serif), serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.print-page h2 {
+  margin: 0 0 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.print-page section {
+  break-inside: avoid-page;
+}
+.print-page p {
+  margin: 0;
+  font-family: var(--font-serif), serif;
+  font-size: 16px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+.print-page .print-passage {
+  padding-left: 14px;
+  border-left: 2px solid var(--ink);
+  margin-bottom: 8px;
+  white-space: normal;
+}
+.print-page sup {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 10px;
+}
+.print-foot {
+  border-top: 1px solid var(--line-strong);
+  padding-top: 12px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+@page {
+  margin: 18mm;
+}
+@media print {
+  .print-bar {
+    display: none;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  .print-page {
+    max-width: none;
+    padding: 0;
+  }
+  .print-page,
+  .print-page * {
+    color: #000 !important;
+    border-color: #000 !important;
+  }
+}

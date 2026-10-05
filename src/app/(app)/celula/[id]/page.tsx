@@ -5,7 +5,7 @@ import { Editor } from "./editor";
 import { RestoreVersion } from "./restore-version";
 import { bookById } from "@/lib/bible/books";
 import { chapterHref, formatRef } from "@/lib/bible/reference";
-import { getChapter } from "@/lib/bible/text";
+import { getChapter, verseCounts } from "@/lib/bible/text";
 import { templateOf } from "@/lib/message-templates";
 import { getMessage, getMessageVersion, getMessageVersions, notesForPassage } from "@/lib/messages";
 import { getChapterNotes } from "@/lib/queries";
@@ -78,7 +78,8 @@ export default async function MessagePage({ params, searchParams }: PageProps<"/
   }
 
   // ---------- Editor ----------
-  const [chapter, chapterNotes, versions] = await Promise.all([
+  const [counts, chapter, chapterNotes, versions] = await Promise.all([
+    verseCounts(),
     getChapter(book, message.chapter),
     getChapterNotes(profileId, message.book_id, message.chapter),
     getMessageVersions(message.id),
@@ -98,6 +99,8 @@ export default async function MessagePage({ params, searchParams }: PageProps<"/
         message={message}
         passage={passage}
         passageShort={formatRef(message.book_id, message.chapter, message.verse_start, message.verse_end)}
+        passageRef={{ bookId: message.book_id, chapter: message.chapter, start: message.verse_start, end: message.verse_end }}
+        counts={counts}
         readerHref={chapterHref(book, message.chapter, message.verse_start ?? undefined)}
         verses={verses}
         notes={notes}

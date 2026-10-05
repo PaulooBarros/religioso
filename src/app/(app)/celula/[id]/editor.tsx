@@ -7,10 +7,14 @@ import {
   deleteMessage,
   keepVersion,
   saveMessage,
+  setChecks,
   setPassage,
+  setReady,
   setTaught,
   type MessageContent,
 } from "@/lib/actions/messages";
+import type { Passage, VerseCounts } from "@/lib/bible/extract";
+import { buildChecklist, liveChecks } from "@/lib/message-checks";
 import {
   countWords,
   hintFor,
@@ -35,6 +39,8 @@ export type EditorMessage = {
   blocks: MessageBlock[];
   version: number;
   taught_on: string | null;
+  checks: string[];
+  ready_at: string | null;
 };
 
 export type PassageNote = { id: string; body: string; ref: string };
@@ -43,6 +49,8 @@ export function Editor({
   message,
   passage,
   passageShort,
+  passageRef,
+  counts,
   readerHref,
   verses,
   notes,
@@ -52,6 +60,8 @@ export function Editor({
   message: EditorMessage;
   passage: string;
   passageShort: string;
+  passageRef: Passage;
+  counts: VerseCounts;
   readerHref: string;
   verses: { n: number; text: string }[];
   notes: PassageNote[];
@@ -70,6 +80,8 @@ export function Editor({
   const [busy, startAction] = useTransition();
   const [editingPassage, setEditingPassage] = useState(false);
   const [passageInput, setPassageInput] = useState(passageShort);
+  const [checked, setChecked] = useState<string[]>(message.checks);
+  const [ready, setReadyState] = useState(Boolean(message.ready_at));
 
   const content: MessageContent = { title, template, duration, audience, topic, blocks };
   const latest = useRef({ content, pending: false });
@@ -77,7 +89,11 @@ export function Editor({
     latest.current = { content, pending: status === "dirty" || status === "error" };
   });
 
-  const dirty = () => setStatus("dirty");
+  // Any change to the outline sends it back to "being prepared" (the server does the same on save).
+  const dirty = () => {
+    setStatus("dirty");
+    setReadyState(false);
+  };
 
   // Autosave shortly after the last change.
   useEffect(() => {
@@ -153,7 +169,42 @@ export function Editor({
     });
   }
 
-  const words = blocks.reduce((sum, b) => sum + countWords(b.text), 0) + verses.reduce((sum, v) => sum + countWords(v.text), 0);
+  const passageWords = verses.reduce((sum, v) => sum + countWords(v.text), 0);
+  const words = blocks.reduce((sum, b) => sum + countWords(b.text), 0) + passageWords;
+  const checklist = buildChecklist({ blocks, passage: passageRef, passageLabel: passageShort, passageWords, duration, counts, checked });
+
+  function toggleCheck(key: string) {
+    const next = checked.includes(key) ? checked.filter((k) => k !== key) : [...checked, key];
+    setChecked(next);
+    setError(null);
+    startAction(async () => {
+      const r = await setChecks(message.id, next);
+      if (!r.ok) return setError(r.error);
+      if (ready) {
+        setReadyState(false);
+        await setReady(message.id, false);
+        router.refresh();
+      }
+    });
+  }
+
+  function markReady() {
+    setError(null);
+    startAction(async () => {
+      // The server checks what is saved, so save the outline and the ticks first.
+      const saved = await saveMessage(message.id, content);
+      if (!saved.ok) return setError(saved.error);
+      setStatus("saved");
+      const live = liveChecks(checklist);
+      const ticks = await setChecks(message.id, live);
+      if (!ticks.ok) return setError(ticks.error);
+      setChecked(live);
+      const r = await setReady(message.id, true);
+      if (!r.ok) return setError(r.error);
+      setReadyState(true);
+      router.refresh();
+    });
+  }
   const minutes = Math.max(1, Math.round(words / WORDS_PER_MINUTE));
   const missing = templateOf(template).blocks.filter((t) => !blocks.some((b) => b.kind === t.kind));
   const statusText = { saved: "Salvo", dirty: "Alterações não salvas…", saving: "Salvando…", error: "Não foi salvo" }[status];
@@ -322,12 +373,73 @@ export function Editor({
               Desmarcar “ensinada”
             </button>
           ) : (
-            <button type="button" className="btn btn-sm btn-primary" disabled={busy} onClick={() => run(() => setTaught(message.id, true))}>
+            <button type="button" className="btn btn-sm" disabled={busy} onClick={() => run(() => setTaught(message.id, true))}>
               Marcar como ensinada
             </button>
           )}
         </div>
         {taughtLabel && <span className="caption">Ensinada em {taughtLabel}.</span>}
+
+        <section className="msg-panel" aria-labelledby="msg-checks">
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 10, alignItems: "baseline" }}>
+            <span id="msg-checks" className="label">
+              Conferência
+            </span>
+            <span className="caption">{ready ? "Pronta" : `${checklist.done} de ${checklist.total} conferidos`}</span>
+          </div>
+          {checklist.auto.map((a) => (
+            <div key={a.key} className={`msg-check ${a.status}`}>
+              <span className="msg-check-mark" aria-hidden="true">
+                {a.status === "ok" ? "✓" : a.status === "warn" ? "!" : "✕"}
+              </span>
+              <span>
+                <span className="visually-hidden">{a.status === "ok" ? "Certo: " : a.status === "warn" ? "Atenção: " : "Pendente: "}</span>
+                {a.label}
+                <span className="msg-check-detail">{a.detail}</span>
+              </span>
+            </div>
+          ))}
+          <span className="caption" style={{ marginTop: 4 }}>
+            O texto sustenta cada ponto? Marque ao conferir.
+          </span>
+          {checklist.manual.map((c) => (
+            <label key={c.key} className="msg-check manual">
+              <input type="checkbox" checked={c.done} onChange={() => toggleCheck(c.key)} />
+              <span>
+                {c.label}
+                {c.detail && <span className="msg-check-detail">{c.detail}</span>}
+              </span>
+            </label>
+          ))}
+          {!checklist.manual.some((c) => c.key.startsWith("ponto:")) && blocks.some((b) => b.kind === "pontos") && (
+            <span className="caption">Escreva os pontos numerados (1., 2., 3.) para conferir um por um.</span>
+          )}
+          <div className="msg-actions" style={{ marginTop: 4 }}>
+            {ready ? (
+              <button
+                type="button"
+                className="btn btn-sm"
+                disabled={busy}
+                onClick={() => run(() => setReady(message.id, false), () => setReadyState(false))}
+              >
+                Voltar para “em preparo”
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="btn btn-sm btn-primary"
+                disabled={busy || !checklist.complete}
+                onClick={markReady}
+                title={checklist.complete ? undefined : "Resolva os itens com ✕ e marque todos os itens da conferência"}
+              >
+                Marcar como pronta
+              </button>
+            )}
+            <Link href={`/celula/${message.id}/imprimir`} className="btn btn-sm">
+              Imprimir ou PDF
+            </Link>
+          </div>
+        </section>
 
         <div className="field">
           <span id="msg-tpl">Modelo</span>

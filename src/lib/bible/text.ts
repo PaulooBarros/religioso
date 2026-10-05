@@ -32,6 +32,17 @@ export async function chapterCounts(): Promise<Record<number, number>> {
   return out;
 }
 
+/** Verses per chapter of every book, to check references written in free text. */
+export async function verseCounts(): Promise<Record<number, number[]>> {
+  const bible = await loadLocal();
+  const out: Record<number, number[]> = {};
+  for (let id = 1; id <= 66; id++) {
+    const b = bookById(id)!;
+    out[id] = bible.books[b.code].map((c) => c.length);
+  }
+  return out;
+}
+
 /** Verses of a chapter (index 0 = verse 1), or null if it doesn't exist. */
 export async function getChapter(book: Book, chapter: number): Promise<string[] | null> {
   if (isSupabaseConfigured()) {
