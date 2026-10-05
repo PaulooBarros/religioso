@@ -19,6 +19,7 @@ export type Message = {
   taught_on: string | null;
   checks: string[];
   ready_at: string | null;
+  series_id: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -34,15 +35,17 @@ export type MessageVersion = {
 };
 
 const SUMMARY_COLUMNS =
-  "id, title, book_id, chapter, verse_start, verse_end, template, duration_min, topic, version, taught_on, ready_at, updated_at";
+  "id, title, book_id, chapter, verse_start, verse_end, template, duration_min, topic, version, taught_on, ready_at, series_id, updated_at";
 const MESSAGE_COLUMNS = `${SUMMARY_COLUMNS}, audience, blocks, checks, created_at`;
 
+/** Standalone messages (not part of a series), newest first. */
 export async function getMessages(profileId: string): Promise<MessageSummary[]> {
   const supabase = await createClient();
   const { data } = await supabase
     .from("messages")
     .select(SUMMARY_COLUMNS)
     .eq("profile_id", profileId)
+    .is("series_id", null) // weeks of a series are listed on the series page
     .order("updated_at", { ascending: false });
   return (data ?? []) as MessageSummary[];
 }

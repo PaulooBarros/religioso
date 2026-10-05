@@ -56,6 +56,8 @@ export function Editor({
   notes,
   versions,
   taughtLabel,
+  series,
+  taughtBefore,
 }: {
   message: EditorMessage;
   passage: string;
@@ -67,6 +69,8 @@ export function Editor({
   notes: PassageNote[];
   versions: { version: number; label: string }[];
   taughtLabel: string | null;
+  series: { id: string; title: string; week: number } | null;
+  taughtBefore: { id: string; label: string }[];
 }) {
   const router = useRouter();
   const [title, setTitle] = useState(message.title);
@@ -213,9 +217,15 @@ export function Editor({
     <div className="msg">
       <div className="msg-main">
         <div className="msg-head">
-          <Link href="/celula" className="caption" style={{ textDecoration: "none" }}>
-            ← Célula
-          </Link>
+          {series ? (
+            <Link href={`/celula/series/${series.id}`} className="caption" style={{ textDecoration: "none" }}>
+              ← {series.title} · semana {series.week}
+            </Link>
+          ) : (
+            <Link href="/celula" className="caption" style={{ textDecoration: "none" }}>
+              ← Célula
+            </Link>
+          )}
           <span className="caption" role="status" style={{ flex: 1, textAlign: "right" }}>
             {statusText} · versão {message.version}
           </span>
@@ -285,6 +295,21 @@ export function Editor({
           <p className="form-error" role="alert">
             {error}
           </p>
+        )}
+
+        {taughtBefore.length > 0 && (
+          <div className="notice" role="note">
+            <span>
+              <b style={{ fontWeight: 600 }}>Esta passagem já foi ensinada ao grupo:</b>{" "}
+              {taughtBefore.map((t, i) => (
+                <span key={t.id}>
+                  {i > 0 && "; "}
+                  <Link href={`/celula/${t.id}`}>{t.label}</Link>
+                </span>
+              ))}
+              .
+            </span>
+          </div>
         )}
 
         {blocks.map((b, i) => (
@@ -548,7 +573,7 @@ export function Editor({
                 const r = await deleteMessage(message.id);
                 if (!r.ok) return setError(r.error);
                 latest.current.pending = false;
-                router.push("/celula");
+                router.push(series ? `/celula/series/${series.id}` : "/celula");
               });
             }}
           >

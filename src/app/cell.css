@@ -329,3 +329,32 @@
     border-color: #000 !important;
   }
 }
+
+/* Series: weeks */
+.week-row {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.week-n {
+  font-family: var(--font-serif), serif;
+  font-size: 20px;
+  color: var(--muted);
+}
+.week-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  text-decoration: none;
+  color: var(--ink);
+}
+.week-title {
+  font-size: 18px;
+}
+.week-main:hover .week-title {
+  color: var(--accent);
+}

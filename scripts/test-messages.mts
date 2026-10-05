@@ -4,6 +4,7 @@ import { BOOKS } from "../src/lib/bible/books.ts";
 import { extractRefs, type VerseCounts } from "../src/lib/bible/extract.ts";
 import { buildChecklist, pointKey, splitPoints } from "../src/lib/message-checks.ts";
 import { blocksFor, retitle, type MessageBlock } from "../src/lib/message-templates.ts";
+import { passagesOverlap, splitWeekLine } from "../src/lib/passage.ts";
 
 let fail = 0;
 const eq = (label: string, a: unknown, b: unknown) => {
@@ -77,6 +78,16 @@ eq(
   retitle(blocks.map((b) => (b.kind === "pontos" ? { ...b, title: "Meus pontos" } : b)), "expositiva", "narrativa").find((b) => b.kind === "pontos")?.title,
   "Meus pontos",
 );
+
+const p = (chapter: number, verse_start: number | null, verse_end: number | null, book_id = 45) => ({ book_id, chapter, verse_start, verse_end });
+eq("overlapping ranges", passagesOverlap(p(8, 31, 39), p(8, 35, null)), true);
+eq("touching ranges share a verse", passagesOverlap(p(8, 1, 11), p(8, 11, 17)), true);
+eq("separate ranges", passagesOverlap(p(8, 1, 11), p(8, 12, 17)), false);
+eq("whole chapter overlaps any verse of it", passagesOverlap(p(8, null, null), p(8, 28, null)), true);
+eq("other chapter", passagesOverlap(p(8, 1, 11), p(9, 1, 11)), false);
+eq("other book", passagesOverlap(p(8, 1, 11), p(8, 1, 11, 46)), false);
+eq("week line with title", splitWeekLine("Rm 8:1-11 | Nenhuma condenação"), { passage: "Rm 8:1-11", title: "Nenhuma condenação" });
+eq("week line without title", splitWeekLine("  Sl 23 "), { passage: "Sl 23", title: "" });
 
 console.log(fail ? `${fail} FAILED` : "all passed");
 process.exit(fail ? 1 : 0);

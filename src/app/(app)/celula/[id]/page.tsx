@@ -9,6 +9,7 @@ import { getChapter, verseCounts } from "@/lib/bible/text";
 import { templateOf } from "@/lib/message-templates";
 import { getMessage, getMessageVersion, getMessageVersions, notesForPassage } from "@/lib/messages";
 import { getChapterNotes } from "@/lib/queries";
+import { getSeriesOf, getTaught, taughtBefore } from "@/lib/series";
 import { currentProfileId } from "@/lib/session";
 
 export const metadata: Metadata = { title: "Mensagem" };
@@ -78,7 +79,9 @@ export default async function MessagePage({ params, searchParams }: PageProps<"/
   }
 
   // ---------- Editor ----------
-  const [counts, chapter, chapterNotes, versions] = await Promise.all([
+  const [series, taught, counts, chapter, chapterNotes, versions] = await Promise.all([
+    message.series_id ? getSeriesOf(message.series_id, message.id) : null,
+    getTaught(profileId),
     verseCounts(),
     getChapter(book, message.chapter),
     getChapterNotes(profileId, message.book_id, message.chapter),
@@ -106,6 +109,11 @@ export default async function MessagePage({ params, searchParams }: PageProps<"/
         notes={notes}
         versions={versions.map((v) => ({ version: v.version, label: dateTime(v.created_at) }))}
         taughtLabel={message.taught_on ? longDay(message.taught_on) : null}
+        series={series}
+        taughtBefore={taughtBefore(taught, message, message.id).map((t) => ({
+          id: t.id,
+          label: `“${t.title}” (${formatRef(t.book_id, t.chapter, t.verse_start, t.verse_end)}), em ${longDay(t.taught_on)}`,
+        }))}
       />
     </main>
   );
