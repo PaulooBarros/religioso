@@ -252,7 +252,15 @@ export function PassageSearch({ placeholder, autoFocusKey = true }: { placeholde
         e.preventDefault();
         const ref_ = parseReference(value);
         if (!ref_) {
-          setError(true);
+          // Not a reference: search the words in the Bible text.
+          if (!/[\p{L}\p{N}]/u.test(value)) {
+            setError(true);
+            return;
+          }
+          const q = value.trim();
+          setValue("");
+          ref.current?.blur();
+          router.push(`/biblia/busca?q=${encodeURIComponent(q)}`);
           return;
         }
         setError(false);
@@ -263,7 +271,7 @@ export function PassageSearch({ placeholder, autoFocusKey = true }: { placeholde
     >
       <Icon name="busca" size={16} />
       <label className="visually-hidden" htmlFor="passage-search">
-        Buscar passagem
+        Buscar passagem ou palavras
       </label>
       <input
         id="passage-search"
@@ -292,7 +300,7 @@ export function PassageSearch({ placeholder, autoFocusKey = true }: { placeholde
 export function TopBar() {
   return (
     <header className="topbar">
-      <PassageSearch placeholder="Ir para uma passagem, ex.: Rm 8:28" />
+      <PassageSearch placeholder="Passagem (Rm 8:28) ou palavras (bom pastor)" />
       <div style={{ flex: 1 }} />
       <ThemeToggle withLabel className="btn btn-sm" />
     </header>

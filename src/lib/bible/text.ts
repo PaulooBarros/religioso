@@ -2,6 +2,7 @@ import "server-only";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { type Book, bookById } from "./books";
+import { searchable, type SearchVerse } from "./search";
 import { validateRefsIn } from "./validate";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 
@@ -76,4 +77,21 @@ export async function getVerseText(bookId: number, chapter: number, verse: numbe
   if (!book) return null;
   const bible = await loadLocal();
   return bible.books[book.code]?.[chapter - 1]?.[verse - 1] ?? null;
+}
+
+let index: Promise<SearchVerse[]> | null = null;
+
+/** Every verse with its folded text, for the word search. Built once per server process. */
+export function searchIndex(): Promise<SearchVerse[]> {
+  index ??= loadLocal().then((bible) => {
+    const out: SearchVerse[] = [];
+    for (let id = 1; id <= 66; id++) {
+      const book = bookById(id)!;
+      bible.books[book.code].forEach((verses, c) =>
+        verses.forEach((text, v) => out.push({ bookId: id, chapter: c + 1, verse: v + 1, text, folded: searchable(text) })),
+      );
+    }
+    return out;
+  });
+  return index;
 }

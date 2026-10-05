@@ -215,3 +215,9 @@ Só a parte sem IA: devocionais escritos pelo dono. A geração de rascunhos com
 - [ ] Task 2: testes E2E com Playwright nos fluxos principais. Precisa de uma conta de teste no Supabase e de baixar o navegador do Playwright (a rede do dono pode bloquear).
 - [ ] Task 3: deploy e README. Decisões do dono: onde publicar (Vercel recomendado) e trocar antes a senha provisória do banco.
 - [ ] Biblioteca pessoal com busca semântica (pgvector): precisa de um serviço de embeddings, com chave própria. A decidir.
+
+### Acréscimos sem IA e sem internet (pedidos pelo dono em 2026-10-05, feitos na ordem)
+
+Lista combinada: (1) busca por palavra na Bíblia; (2) memorização de versículos; (3) estatísticas de estudo; (4) notas melhores; (5) leitor (copiar versículo, teclado, marcar o plano ao ler); (6) revisão (suspender, editar na sessão, limite diário, verdadeiro ou falso); (7) célula (pedidos de oração, agenda); (8) fichas de teólogos e movimentos com comparador; (9) trilha da fé batista; (10) backup.
+
+- [x] 1. Busca por palavra na Bíblia. Aba "Buscar" (`/biblia/busca`): versículos com todas as palavras, sem diferenciar acentos nem maiúsculas; aspas para expressão exata; asterisco para começo de palavra; filtro por testamento e por livro (com a contagem de cada livro); 50 resultados por página; palavras achadas em destaque; cada resultado abre o leitor no versículo. A busca roda no servidor sobre o texto local da Bíblia Livre (sem tabela nova). A barra do topo passou a aceitar palavras: o que não for referência vira busca. Conferido por typecheck, lint e 24 testes (`npm run test:search`); tela não testada no navegador.
