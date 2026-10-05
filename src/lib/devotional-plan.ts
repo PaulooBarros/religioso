@@ -169,3 +169,28 @@ export function pickToday<T extends { id: string; state: DayState; date: string 
   const done = days.find((d) => d.date === today && d.state === "lido");
   return done ? { day: done, skipped: 0, readToday: true } : null;
 }
+
+/**
+ * A day as a text message. Headings use *asterisks* and the verse _underscores_,
+ * which WhatsApp shows as bold and italic.
+ */
+export function shareText(input: {
+  title: string;
+  seriesTitle: string;
+  number: number;
+  /** First verse of the passage and its reference, e.g. "Sl 23:1". */
+  verse?: { text: string; ref: string; credit: string } | null;
+  blocks: DevotionalBlock[];
+  note?: string | null;
+}): string {
+  const written = input.blocks.filter((b) => b.text.trim());
+  const parts = [`*${input.title.trim()}*\n${input.seriesTitle.trim()} · dia ${input.number}`];
+  if (input.verse) parts.push(`_“${input.verse.text.trim()}”_ (${input.verse.ref}, ${input.verse.credit})`);
+  for (const b of written) {
+    // A single block needs no heading; the prayer reads better as an invitation.
+    const heading = written.length === 1 ? "" : `*${b.title === "Oração" ? "Para orar" : b.title}:* `;
+    parts.push(`${heading}${b.text.trim()}`);
+  }
+  if (input.note?.trim()) parts.push(`*Minha anotação:* ${input.note.trim()}`);
+  return parts.join("\n\n");
+}

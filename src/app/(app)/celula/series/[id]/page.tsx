@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AddWeek, SeriesHeader, WeekControls } from "./series-client";
 import { formatRef } from "@/lib/bible/reference";
+import { STATUS_LABEL } from "@/lib/devotional-plan";
+import { getDevotionalSeriesForCell } from "@/lib/devotionals";
 import { templateOf } from "@/lib/message-templates";
 import { getSeries, getTaught, taughtBefore, type WeekStatus } from "@/lib/series";
 import { currentProfileId } from "@/lib/session";
@@ -23,7 +25,7 @@ export default async function SeriesPage({ params }: PageProps<"/celula/series/[
   const { id } = await params;
   const profileId = await currentProfileId();
   if (!profileId) notFound();
-  const [found, taught] = await Promise.all([getSeries(profileId, id), getTaught(profileId)]);
+  const [found, taught, devotionals] = await Promise.all([getSeries(profileId, id), getTaught(profileId), getDevotionalSeriesForCell(profileId, id)]);
   if (!found) notFound();
   const { series, weeks } = found;
   const done = weeks.filter((w) => w.status === "ensinada").length;
@@ -71,6 +73,20 @@ export default async function SeriesPage({ params }: PageProps<"/celula/series/[
         </section>
 
         <AddWeek seriesId={series.id} />
+
+        {devotionals.length > 0 && (
+          <section style={{ display: "flex", flexDirection: "column", gap: 8 }} aria-labelledby="dev-title">
+            <h2 id="dev-title" className="label" style={{ margin: 0 }}>
+              Devocionais que acompanham esta série
+            </h2>
+            {devotionals.map((d) => (
+              <Link key={d.id} href={`/biblia/devocionais/${d.id}`} className="msg-version">
+                <span>{d.title}</span>
+                <span className="muted">{STATUS_LABEL[d.status]}</span>
+              </Link>
+            ))}
+          </section>
+        )}
 
         <section style={{ display: "flex", flexDirection: "column", gap: 8 }} aria-labelledby="taught-title">
           <h2 id="taught-title" className="label" style={{ margin: 0 }}>

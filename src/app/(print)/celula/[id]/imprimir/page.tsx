@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PrintActions } from "./print-actions";
+import { PrintActions } from "@/components/print-actions";
 import { bookById } from "@/lib/bible/books";
 import { formatRef } from "@/lib/bible/reference";
 import { BIBLIA_LIVRE_SOURCE } from "@/lib/bible/source";

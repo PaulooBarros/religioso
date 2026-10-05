@@ -127,6 +127,9 @@ export default async function DevotionalDayPage({ params, searchParams }: PagePr
           )}
           {!editing && (
             <span className="inline-form" style={{ justifyContent: "center" }}>
+              <Link href={`${base}/${day.id}/compartilhar`} className="btn btn-sm">
+                Compartilhar
+              </Link>
               <Link href={`/estudar/novo?ref=${encodeURIComponent(ref)}`} className="btn btn-sm">
                 Criar card
               </Link>

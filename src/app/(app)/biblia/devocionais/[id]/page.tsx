@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AddDay, DayControls, SeriesActions, SeriesTitle } from "./series-client";
+import { AddDay, CellLink, DayControls, SeriesActions, SeriesTitle } from "./series-client";
 import { formatRef } from "@/lib/bible/reference";
 import { DAY_ICON, DAY_LABEL, devotionalTemplate, rhythmLabel, STATUS_LABEL } from "@/lib/devotional-plan";
 import { getDevotionalSeries } from "@/lib/devotionals";
+import { getSeriesList } from "@/lib/series";
 import { currentProfileId } from "@/lib/session";
 import { dayKey } from "@/lib/srs";
 
@@ -17,7 +18,7 @@ export default async function DevotionalSeriesPage({ params }: PageProps<"/bibli
   const { id } = await params;
   const profileId = await currentProfileId();
   if (!profileId) notFound();
-  const found = await getDevotionalSeries(profileId, id);
+  const [found, cellSeries] = await Promise.all([getDevotionalSeries(profileId, id), getSeriesList(profileId)]);
   if (!found) notFound();
   const { series, days } = found;
   const read = days.filter((d) => d.state === "lido").length;
@@ -82,6 +83,8 @@ export default async function DevotionalSeriesPage({ params }: PageProps<"/bibli
         </section>
 
         <AddDay seriesId={series.id} />
+
+        <CellLink id={series.id} current={series.cell_series_id} options={cellSeries.map((s) => ({ id: s.id, title: s.title }))} />
       </div>
     </main>
   );

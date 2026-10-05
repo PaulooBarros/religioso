@@ -10,6 +10,7 @@ import {
   pickToday,
   rhythmLabel,
   scheduleDates,
+  shareText,
   weekdayOf,
 } from "../src/lib/devotional-plan.ts";
 
@@ -68,6 +69,23 @@ eq("no day today: oldest skipped one", pickToday([d("1", "pulado", null), d("2",
 eq("today already read and nothing skipped", pickToday([d("1", "lido", "2026-10-06"), d("2", "lido", T), d("3", "futuro", "2026-10-08")], T), { day: d("2", "lido", T), skipped: 0, readToday: true });
 eq("today read but a skipped day remains: offer it", pickToday([d("1", "pulado", "2026-10-06"), d("2", "lido", T)], T)?.day.id, "1");
 eq("rest day with everything read: nothing", pickToday([d("1", "lido", "2026-10-06"), d("2", "futuro", "2026-10-08")], T), null);
+
+const day = {
+  title: "O pastor que não falta",
+  seriesTitle: "Salmos de confiança",
+  number: 5,
+  blocks: [
+    { id: "a", title: "Reflexão", text: "O verso 4 promete presença no vale." },
+    { id: "b", title: "Aplicação", text: "  " },
+    { id: "c", title: "Oração", text: "Pastoreia-me hoje." },
+  ],
+};
+eq(
+  "message with verse: headings in bold, blank block left out, prayer as invitation",
+  shareText({ ...day, verse: { text: "O SENHOR é o meu pastor.", ref: "Sl 23:1", credit: "Bíblia Livre" } }),
+  "*O pastor que não falta*\nSalmos de confiança · dia 5\n\n_“O SENHOR é o meu pastor.”_ (Sl 23:1, Bíblia Livre)\n\n*Reflexão:* O verso 4 promete presença no vale.\n\n*Para orar:* Pastoreia-me hoje.",
+);
+eq("without verse and with note", shareText({ ...day, blocks: [day.blocks[0]], note: " Ficou comigo. " }), "*O pastor que não falta*\nSalmos de confiança · dia 5\n\nO verso 4 promete presença no vale.\n\n*Minha anotação:* Ficou comigo.");
 
 console.log(fail ? `${fail} FAILED` : "all passed");
 process.exit(fail ? 1 : 0);

@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import {
   addDevotional,
   deleteDevotional,
   deleteDevotionalSeries,
+  linkCellSeries,
   moveDevotional,
   moveDevotionalSeries,
   updateDevotionalSeries,
@@ -276,5 +278,48 @@ export function AddDay({ seriesId }: { seriesId: string }) {
         </p>
       )}
     </form>
+  );
+}
+
+/** Chooses the cell-group series this devotional series accompanies. */
+export function CellLink({ id, current, options }: { id: string; current: string | null; options: { id: string; title: string }[] }) {
+  const { pending, error, run } = useAction();
+  return (
+    <section style={{ display: "flex", flexDirection: "column", gap: 8, borderTop: "1px solid var(--line)", paddingTop: 20 }}>
+      <label className="field" style={{ maxWidth: 420 }}>
+        <span className="label">Série de célula ligada</span>
+        <select
+          className="input"
+          value={current ?? ""}
+          disabled={pending || options.length === 0}
+          onChange={(e) => run(() => linkCellSeries(id, e.target.value || null))}
+        >
+          <option value="">Nenhuma</option>
+          {options.map((o) => (
+            <option key={o.id} value={o.id}>
+              {o.title}
+            </option>
+          ))}
+        </select>
+      </label>
+      <span className="caption">
+        {options.length === 0 ? (
+          <>
+            Não há séries em <Link href="/celula">Célula</Link> para ligar.
+          </>
+        ) : current ? (
+          <>
+            Os devocionais acompanham <Link href={`/celula/series/${current}`}>esta série de célula</Link>, que passa a mostrá-los na página dela.
+          </>
+        ) : (
+          "Ligue quando os devocionais acompanharem o que o grupo estuda na célula."
+        )}
+      </span>
+      {error && (
+        <p className="form-error" role="alert">
+          {error}
+        </p>
+      )}
+    </section>
   );
 }

@@ -23,6 +23,8 @@ export type DevotionalSeries = {
   status: SeriesStatus;
   anchor_position: number | null;
   anchor_date: string | null;
+  /** Cell-group series this devotional series accompanies, if any. */
+  cell_series_id: string | null;
   updated_at: string;
 };
 
@@ -45,7 +47,7 @@ export type Devotional = {
 /** A day placed in the calendar of its series. */
 export type ScheduledDay = Devotional & { number: number; date: string | null; state: DayState; written: boolean };
 
-const SERIES_COLUMNS = "id, title, about, description, template, weekdays, status, anchor_position, anchor_date, updated_at";
+const SERIES_COLUMNS = "id, title, about, description, template, weekdays, status, anchor_position, anchor_date, cell_series_id, updated_at";
 const DAY_COLUMNS = "id, series_id, position, title, book_id, chapter, verse_start, verse_end, blocks, read_at, note";
 
 type DayRow = Omit<Devotional, "blocks"> & { blocks: unknown };
@@ -128,4 +130,16 @@ export async function getTodayDevotionals(profileId: string): Promise<TodayDevot
     if (picked) out.push({ seriesId: s.id, seriesTitle: s.title, total: days.length, ...picked });
   }
   return out;
+}
+
+/** Devotional series that accompany a cell-group series. */
+export async function getDevotionalSeriesForCell(profileId: string, cellSeriesId: string): Promise<{ id: string; title: string; status: SeriesStatus }[]> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("devotional_series")
+    .select("id, title, status")
+    .eq("profile_id", profileId)
+    .eq("cell_series_id", cellSeriesId)
+    .order("title");
+  return (data ?? []) as { id: string; title: string; status: SeriesStatus }[];
 }

@@ -263,3 +263,24 @@ export async function saveDevotionalNote(dayId: string, note: string): Promise<A
   if (error || !data?.length) return { ok: false, error: "Não foi possível salvar a anotação." };
   return { ok: true, data: undefined };
 }
+
+/** Links the devotional series to a cell-group series (or removes the link with null). */
+export async function linkCellSeries(id: string, cellSeriesId: string | null): Promise<ActionResult> {
+  const profileId = await currentProfileId();
+  if (!profileId) return { ok: false, error: "Escolha um perfil." };
+  const supabase = await createClient();
+  if (cellSeriesId) {
+    const { data: cell } = await supabase.from("series").select("id").eq("id", cellSeriesId).eq("profile_id", profileId).maybeSingle();
+    if (!cell) return { ok: false, error: "Série de célula não encontrada." };
+  }
+  const { data, error } = await supabase
+    .from("devotional_series")
+    .update({ cell_series_id: cellSeriesId })
+    .eq("id", id)
+    .eq("profile_id", profileId)
+    .select("id");
+  if (error || !data?.length) return { ok: false, error: "Não foi possível ligar as séries." };
+  revalidatePath(BASE, "layout");
+  revalidatePath("/celula", "layout");
+  return { ok: true, data: undefined };
+}

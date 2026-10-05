@@ -462,3 +462,16 @@
     grid-row: 1;
   }
 }
+.share-preview {
+  margin: 0;
+  max-width: 560px;
+  padding: 14px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--paper);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
