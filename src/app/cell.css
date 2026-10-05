@@ -358,3 +358,29 @@
 .week-main:hover .week-title {
   color: var(--accent);
 }
+
+/* Bank picker (inside the sheet) */
+.picker-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 44vh;
+  overflow: auto;
+}
+.picker-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.picker-item p {
+  margin: 0;
+  font-family: var(--font-serif), serif;
+  font-size: 15px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

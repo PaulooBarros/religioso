@@ -37,6 +37,9 @@ export default async function CellPage() {
             <h1 className="h1">Célula</h1>
           </div>
           <div className="inline-form">
+            <Link href="/celula/banco" className="btn">
+              Banco
+            </Link>
             <Link href="/celula/series/nova" className="btn">
               Nova série
             </Link>

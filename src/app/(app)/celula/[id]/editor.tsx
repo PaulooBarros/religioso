@@ -15,6 +15,8 @@ import {
 } from "@/lib/actions/messages";
 import type { Passage, VerseCounts } from "@/lib/bible/extract";
 import { buildChecklist, liveChecks } from "@/lib/message-checks";
+import { appendSnippet, type Snippet } from "@/lib/snippet-text";
+import { BankPicker } from "./bank-picker";
 import {
   countWords,
   hintFor,
@@ -58,6 +60,7 @@ export function Editor({
   taughtLabel,
   series,
   taughtBefore,
+  snippets,
 }: {
   message: EditorMessage;
   passage: string;
@@ -71,6 +74,7 @@ export function Editor({
   taughtLabel: string | null;
   series: { id: string; title: string; week: number } | null;
   taughtBefore: { id: string; label: string }[];
+  snippets: Snippet[];
 }) {
   const router = useRouter();
   const [title, setTitle] = useState(message.title);
@@ -85,6 +89,8 @@ export function Editor({
   const [editingPassage, setEditingPassage] = useState(false);
   const [passageInput, setPassageInput] = useState(passageShort);
   const [checked, setChecked] = useState<string[]>(message.checks);
+  const [bankFor, setBankFor] = useState<string | null>(null);
+  const bankBlock = blocks.find((b) => b.id === bankFor);
   const [ready, setReadyState] = useState(Boolean(message.ready_at));
 
   const content: MessageContent = { title, template, duration, audience, topic, blocks };
@@ -335,6 +341,11 @@ export function Editor({
                 aria-label="Nome do bloco"
                 onChange={(e) => patchBlock(b.id, { title: e.target.value })}
               />
+              {b.kind !== "leitura" && (
+                <button type="button" className="msg-link" onClick={() => setBankFor(b.id)} title="Inserir do banco ou guardar este texto nele">
+                  banco
+                </button>
+              )}
               <button type="button" className="msg-link" onClick={() => removeBlock(b)}>
                 remover
               </button>
@@ -381,6 +392,18 @@ export function Editor({
           </div>
         )}
       </div>
+
+      {bankBlock && (
+        <BankPicker
+          block={bankBlock}
+          messageId={message.id}
+          topic={topic}
+          snippets={snippets}
+          onInsert={(s) => patchBlock(bankBlock.id, { text: appendSnippet(bankBlock.text, s) })}
+          onStored={() => router.refresh()}
+          onClose={() => setBankFor(null)}
+        />
+      )}
 
       <aside className="msg-aside">
         <div className="msg-actions">

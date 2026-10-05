@@ -5,6 +5,7 @@ import { extractRefs, type VerseCounts } from "../src/lib/bible/extract.ts";
 import { buildChecklist, pointKey, splitPoints } from "../src/lib/message-checks.ts";
 import { blocksFor, retitle, type MessageBlock } from "../src/lib/message-templates.ts";
 import { passagesOverlap, splitWeekLine } from "../src/lib/passage.ts";
+import { appendSnippet, filterSnippets, snippetsFromBlock } from "../src/lib/snippet-text.ts";
 
 let fail = 0;
 const eq = (label: string, a: unknown, b: unknown) => {
@@ -88,6 +89,25 @@ eq("other chapter", passagesOverlap(p(8, 1, 11), p(9, 1, 11)), false);
 eq("other book", passagesOverlap(p(8, 1, 11), p(8, 1, 11, 46)), false);
 eq("week line with title", splitWeekLine("Rm 8:1-11 | Nenhuma condenação"), { passage: "Rm 8:1-11", title: "Nenhuma condenação" });
 eq("week line without title", splitWeekLine("  Sl 23 "), { passage: "Sl 23", title: "" });
+
+const bank = [
+  { kind: "ilustracao" as const, body: "O alpinista preso à corda não depende da força das mãos.", topic: "Segurança em Cristo", bible_ref: "Jo 10:28", source_title: "Experiência própria", source_url: null },
+  { kind: "pergunta" as const, body: "Qual ameaça do v. 35 parece mais real hoje?", topic: "segurança", bible_ref: "Rm 8:35", source_title: null, source_url: null },
+];
+eq("filter by kind", filterSnippets(bank, "pergunta", "").length, 1);
+eq("search ignores accents and case", filterSnippets(bank, null, "SEGURANCA").length, 2);
+eq("every word must match", filterSnippets(bank, null, "corda seguranca").length, 1);
+eq("search reaches reference and source", [filterSnippets(bank, null, "jo 10").length, filterSnippets(bank, null, "propria").length], [1, 1]);
+eq("illustration carries its source", appendSnippet("", bank[0]), "O alpinista preso à corda não depende da força das mãos.\n(Fonte: Experiência própria)");
+eq("question appended on a new line", appendSnippet("Primeira?\n", bank[1]), "Primeira?\nQual ameaça do v. 35 parece mais real hoje?");
+eq("illustration appended as a new paragraph", appendSnippet("Texto.", { kind: "ilustracao", body: "Outra.", source_title: null }), "Texto.\n\nOutra.");
+eq(
+  "questions block: one per line, markers removed, known ones skipped",
+  snippetsFromBlock("perguntas", "1. O que o texto diz?\n- Qual ameaça do v. 35 parece mais real hoje?\n\n• O que o texto diz?", bank),
+  [{ kind: "pergunta", body: "O que o texto diz?" }],
+);
+eq("other block: whole text as one illustration", snippetsFromBlock("abertura", " Uma história.\nSegunda linha. ", bank), [{ kind: "ilustracao", body: "Uma história.\nSegunda linha." }]);
+eq("empty block offers nothing", snippetsFromBlock("abertura", "  ", bank), []);
 
 console.log(fail ? `${fail} FAILED` : "all passed");
 process.exit(fail ? 1 : 0);

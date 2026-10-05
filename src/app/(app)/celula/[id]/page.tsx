@@ -11,6 +11,7 @@ import { getMessage, getMessageVersion, getMessageVersions, notesForPassage } fr
 import { getChapterNotes } from "@/lib/queries";
 import { getSeriesOf, getTaught, taughtBefore } from "@/lib/series";
 import { currentProfileId } from "@/lib/session";
+import { getSnippets } from "@/lib/snippets";
 
 export const metadata: Metadata = { title: "Mensagem" };
 
@@ -79,7 +80,8 @@ export default async function MessagePage({ params, searchParams }: PageProps<"/
   }
 
   // ---------- Editor ----------
-  const [series, taught, counts, chapter, chapterNotes, versions] = await Promise.all([
+  const [snippets, series, taught, counts, chapter, chapterNotes, versions] = await Promise.all([
+    getSnippets(profileId),
     message.series_id ? getSeriesOf(message.series_id, message.id) : null,
     getTaught(profileId),
     verseCounts(),
@@ -110,6 +112,7 @@ export default async function MessagePage({ params, searchParams }: PageProps<"/
         versions={versions.map((v) => ({ version: v.version, label: dateTime(v.created_at) }))}
         taughtLabel={message.taught_on ? longDay(message.taught_on) : null}
         series={series}
+        snippets={snippets}
         taughtBefore={taughtBefore(taught, message, message.id).map((t) => ({
           id: t.id,
           label: `“${t.title}” (${formatRef(t.book_id, t.chapter, t.verse_start, t.verse_end)}), em ${longDay(t.taught_on)}`,
