@@ -40,7 +40,7 @@ const GROUPS: { title: string; items: Item[] }[] = [
       { label: "Comparador", icon: "comparador", stage: 6 },
     ],
   },
-  { title: "Ensinar", items: [{ label: "Célula", icon: "celula", stage: 4 }] },
+  { title: "Ensinar", items: [{ label: "Célula", icon: "celula", href: "/celula" }] },
   { title: "Meu material", items: [{ label: "Notas e biblioteca", icon: "notas", href: "/notas" }] },
   { title: "Perguntar", items: [{ label: "Chat de estudo", icon: "chat", stage: 7 }] },
 ];

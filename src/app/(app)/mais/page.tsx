@@ -11,7 +11,6 @@ const LATER = [
   ["História e confissões", 5],
   ["Teólogos e movimentos", 6],
   ["Comparador", 6],
-  ["Célula", 4],
   ["Chat de estudo", 7],
 ] as const;
 
@@ -45,6 +44,7 @@ export default async function MorePage() {
             ["/trilha", "Trilha de sistemática"],
             ["/catecismos", "Catecismos"],
             ["/simulados", "Simulados"],
+            ["/celula", "Célula"],
             ["/notas", "Notas"],
             ["/fontes", "Fontes e licenças"],
           ].map(([href, label]) => (

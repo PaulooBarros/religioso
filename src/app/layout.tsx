@@ -7,6 +7,7 @@ import "./reader.css";
 import "./study.css";
 import "./session.css";
 import "./trail.css";
+import "./cell.css";
 
 const serif = Playfair_Display({
   variable: "--font-serif",

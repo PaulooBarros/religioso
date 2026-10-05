@@ -178,7 +178,7 @@ Decisão do dono: os subtemas vêm dos lotes de questões (último trecho do sub
 
 - [ ] **Pendente:** o item SAL-010 foi aprovado, mas a visão arminiana ainda não tem fonte primária (Artigos Remonstrantes ou sermões de Wesley).
 
-### Etapa 4 (a começar)
+### Etapa 4 (em andamento)
 
 Antes da Task 2, o dono precisa resolver:
 
@@ -189,7 +189,7 @@ Antes da Task 2, o dono precisa resolver:
 
 Tasks:
 
-- [ ] Task 1: mensagens sem IA. Tabelas de mensagens, versões e modelos de estrutura (expositiva, temática, narrativa) com os blocos abertura, leitura, contexto, pontos, aplicação, perguntas e oração. Editor para escrever à mão, salvar versões e marcar como usada. Não depende da chave.
+- [x] Task 1: mensagens sem IA (2026-10-05). Tabelas `messages` (passagem de um capítulo ou trecho dele, modelo, tempo, perfil do grupo, tema, blocos em JSON, número da versão, data em que foi ensinada) e `message_versions`, com RLS. Os três modelos (expositiva, temática, narrativa) ficam no código (`src/lib/message-templates.ts`): definem os blocos iniciais e a orientação de cada bloco; trocar o modelo muda as orientações e os títulos padrão, não o texto. Telas: `/celula` (em preparo e ensinadas), `/celula/nova` e o editor `/celula/[id]`: título, trocar passagem (conferida contra a base), blocos com subir/descer, renomear, remover e adicionar, bloco Leitura com o texto da Bíblia Livre ("Da sua base"), notas do dono que tocam a passagem, estimativa de tempo de fala (130 palavras por minuto), salvamento automático, "Guardar versão", ver versão antiga em modo leitura e restaurar (o esboço atual é guardado antes), marcar como ensinada e apagar. Passagem que atravessa capítulos ainda não é aceita. Conferido por typecheck, lint e 14 verificações de isolamento no banco; telas não testadas no navegador.
 - [ ] Task 2: rascunho com IA. Entradas: passagem, tempo, perfil do grupo e tema. Parte do texto da base e das notas do dono sobre a passagem; afirmações factuais com link verificado ou marcadas "sem fonte verificada"; texto de versículo sempre da base.
 - [ ] Task 3: lista de conferência antes de finalizar ("o texto sustenta cada ponto?", "as referências existem na base?") e versão para impressão/PDF.
 - [ ] Task 4: séries de 4 a 6 semanas, com ordem, passagem de cada semana e histórico do que já foi ensinado. A IA pode sugerir a divisão de um livro, como rascunho.
