@@ -5,6 +5,8 @@ import { chapterHref, formatRef } from "@/lib/bible/reference";
 import { getVerseText } from "@/lib/bible/text";
 import { getTodayDevotionals } from "@/lib/devotionals";
 import { getLastRead } from "@/lib/queries";
+import { planStatus } from "@/lib/reading-plan";
+import { getReadingPlans } from "@/lib/reading-plans";
 import { getOverview, type ReviewOverview } from "@/lib/review";
 import { currentProfileId } from "@/lib/session";
 import { relativeDay } from "@/lib/dates";
@@ -131,9 +133,11 @@ function ReviewCard({ o }: { o: ReviewOverview }) {
 
 export default async function TodayPage() {
   const profileId = await currentProfileId();
-  const [last, overview, devotionals] = profileId
-    ? await Promise.all([getLastRead(profileId), getOverview(profileId), getTodayDevotionals(profileId)])
-    : [null, null, []];
+  const [last, overview, devotionals, allPlans] = profileId
+    ? await Promise.all([getLastRead(profileId), getOverview(profileId), getTodayDevotionals(profileId), getReadingPlans(profileId)])
+    : [null, null, [], []];
+  // Plans in progress: not archived, already started and not finished.
+  const plans = allPlans.filter((p) => !p.plan.archived_at && p.progress.next !== null && p.progress.expected > 0);
   const lastBook = last ? bookById(last.book_id) : undefined;
   const preview = last?.verse ? await getVerseText(last.book_id, last.chapter, last.verse) : null;
 
@@ -146,6 +150,24 @@ export default async function TodayPage() {
         </div>
 
         {overview && <ReviewCard o={overview} />}
+
+        {plans.map(({ plan, days, progress }) => {
+          const next = days[progress.next! - 1];
+          return (
+            <Link key={plan.id} href={`/biblia/plano/${plan.id}`} className="card-link">
+              <span className="label">
+                Leitura de hoje · {plan.title} · dia {next.number} de {progress.total}
+              </span>
+              <span className="serif" style={{ fontSize: 22, fontWeight: 500 }}>
+                {next.label}
+              </span>
+              <span style={{ fontSize: 13.5, color: "var(--muted)" }}>
+                {progress.todayDone ? "✓ Leitura de hoje feita. Esta é a próxima." : planStatus(progress)}
+              </span>
+              {!progress.todayDone && <span style={{ fontSize: 13.5, color: "var(--accent)", fontWeight: 500, marginTop: 4 }}>Ler →</span>}
+            </Link>
+          );
+        })}
 
         {devotionals.map((d) => (
           <Link key={d.seriesId} href={`/biblia/devocionais/${d.seriesId}/${d.day.id}`} className="card-link">

@@ -475,3 +475,38 @@
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+
+/* Reading plan */
+.plan-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.plan-row-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  font-size: 15px;
+}
+.plan-check {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--on-inverse);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+.plan-check:hover:not(:disabled) {
+  border-color: var(--ink);
+}
+.plan-check.read {
+  border-color: var(--inverse);
+  background: var(--inverse);
+}

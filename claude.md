@@ -208,3 +208,10 @@ Só a parte sem IA: devocionais escritos pelo dono. A geração de rascunhos com
 
 **Etapa 9: feita a parte sem IA.** Faltam a geração de rascunhos com a IA e o lembrete diário.
 - [ ] Depende da chave da Anthropic: gerar os dias como rascunho com fontes verificadas e fila de aprovação.
+
+### Etapa 10 (em andamento, adiantada a pedido do dono)
+
+- [x] Task 1: plano de leitura bíblica (2026-10-05). Tabelas `reading_plans` (livros, número de dias, data de início) e `reading_plan_days` (dias lidos), com RLS; os dias não são gravados, são calculados a partir dos livros, do número de dias e da contagem de versículos da base (`src/lib/reading-plan.ts`). Os capítulos são divididos por tamanho em versículos e nunca são partidos (o Salmo 119 fica sozinho num dia). Aba "Plano de leitura" na Bíblia (`/biblia/plano`): planos prontos (Bíblia em um ano, Novo Testamento em 90 dias, Evangelhos em 30 dias, Salmos em 60 dias) ou livros e dias à escolha, com data de início; página do plano com barra de progresso, situação contra o calendário (em dia, N dias de atraso, adiantado), leitura do dia com atalho para cada capítulo no leitor, marcar e desmarcar qualquer dia, "Reajustar datas" (a próxima leitura passa para hoje sem perder o que foi lido), arquivar e excluir. Cartão "Leitura de hoje" na tela Hoje. Conferido por typecheck, lint, 26 testes (`npm run test:plan`) e 11 verificações no banco; telas não testadas no navegador.
+- [ ] Task 2: testes E2E com Playwright nos fluxos principais. Precisa de uma conta de teste no Supabase e de baixar o navegador do Playwright (a rede do dono pode bloquear).
+- [ ] Task 3: deploy e README. Decisões do dono: onde publicar (Vercel recomendado) e trocar antes a senha provisória do banco.
+- [ ] Biblioteca pessoal com busca semântica (pgvector): precisa de um serviço de embeddings, com chave própria. A decidir.

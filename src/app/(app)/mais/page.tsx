@@ -41,6 +41,7 @@ export default async function MorePage() {
         <nav style={{ display: "flex", flexDirection: "column", borderTop: "1px solid var(--line)" }}>
           {[
             ["/biblia/marcadores", "Marcadores"],
+            ["/biblia/plano", "Plano de leitura"],
             ["/biblia/devocionais", "Devocionais"],
             ["/trilha", "Trilha de sistemática"],
             ["/catecismos", "Catecismos"],
